@@ -1,3 +1,8 @@
+---
+title: python实现计算机网络rip协议 Report
+date: 2017-06-01 15:27:45
+tags: daily report
+---
 一、实验目的
 
 
