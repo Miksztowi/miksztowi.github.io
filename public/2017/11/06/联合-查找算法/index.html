@@ -6,14 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://www.ganbinwen.com">
-  <title>Tag: daily report | Miks</title>
+  <title>联合-查找算法 | Miks</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Miks">
-<meta property="og:url" content="http://www.ganbinwen.com/tags/daily-report/page/8/index.html">
+  <meta name="description" content="介绍这个算法前，先梳理一些相关词组的概念： 并查集： 并查集是一种树型的数据结构，用于处理一些不想交集合的合并以及查询问题. Find(node)函数： 确定元素属于哪一个子集.它可以用来确定两个元素是否属于同一个子集. Union(node_a, node_b)函数： 将两个子集合并成同一个集合. 并查集森林： 并查集森林中每个节点保存的都是其父节点的引用。 下面从基础版本分析，再到两种优化来讲">
+<meta name="keywords" content="算法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="联合-查找算法">
+<meta property="og:url" content="http://www.ganbinwen.com/2017/11/06/联合-查找算法/index.html">
 <meta property="og:site_name" content="Miks">
+<meta property="og:description" content="介绍这个算法前，先梳理一些相关词组的概念： 并查集： 并查集是一种树型的数据结构，用于处理一些不想交集合的合并以及查询问题. Find(node)函数： 确定元素属于哪一个子集.它可以用来确定两个元素是否属于同一个子集. Union(node_a, node_b)函数： 将两个子集合并成同一个集合. 并查集森林： 并查集森林中每个节点保存的都是其父节点的引用。 下面从基础版本分析，再到两种优化来讲">
+<meta property="og:updated_time" content="2017-11-29T04:37:24.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Miks">
+<meta name="twitter:title" content="联合-查找算法">
+<meta name="twitter:description" content="介绍这个算法前，先梳理一些相关词组的概念： 并查集： 并查集是一种树型的数据结构，用于处理一些不想交集合的合并以及查询问题. Find(node)函数： 确定元素属于哪一个子集.它可以用来确定两个元素是否属于同一个子集. Union(node_a, node_b)函数： 将两个子集合并成同一个集合. 并查集森林： 并查集森林中每个节点保存的都是其父节点的引用。 下面从基础版本分析，再到两种优化来讲">
   
     <link rel="alternative" href="/atom.xml" title="Miks" type="application/atom+xml">
   
@@ -42,7 +47,7 @@
 <div class="intrude-less">
 	<header id="header" class="inner">
 		<a href="null" class="profilepic">
-			<img src="avatar.jpg" class="js-avatar">
+			<img src="/images/avatar.jpg" class="js-avatar">
 		</a>
 		<hgroup>
 		  <h1 class="header-author"><a href="null">Miks</a></h1>
@@ -94,7 +99,7 @@
 	<div class="intrude-less">
 		<header id="header" class="inner">
 			<div class="profilepic">
-				<img src="avatar.jpg" class="js-avatar">
+				<img src="/images/avatar.jpg" class="js-avatar">
 			</div>
 			<hgroup>
 			  <h1 class="header-author js-header-author">Miks</h1>
@@ -139,225 +144,201 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-联合-查找算法" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/07/05/2017-07-05/" class="archive-article-date">
-  	<time datetime="2017-07-05T07:27:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-05</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/07/05/2017-07-05/">2017-07-05 Report</a>
+    <h1 class="article-title" itemprop="name">
+      联合-查找算法
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2017/11/06/联合-查找算法/" class="archive-article-date">
+  	<time datetime="2017-11-06T05:26:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-06</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>介绍这个算法前，先梳理一些相关词组的概念：</p>
+<p><strong>并查集</strong>： 并查集是一种树型的数据结构，用于处理一些不想交集合的合并以及查询问题.</p>
+<p><strong>Find(node)函数</strong>： 确定元素属于哪一个子集.它可以用来确定两个元素是否属于同一个子集.</p>
+<p><strong>Union(node_a, node_b)函数</strong>： 将两个子集合并成同一个集合.</p>
+<p><strong>并查集森林</strong>： 并查集森林中每个节点保存的都是其父节点的引用。</p>
+<p><strong>下面从基础版本分析，再到两种优化来讲解这个算法。</strong></p>
+<ul>
+<li>基础版本的联合-查找算法：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">def find(node):</div><div class="line">	if parent[node] == node:</div><div class="line">		return node</div><div class="line">	else:</div><div class="line">		return find(parent[node])</div><div class="line">		</div><div class="line">def union(node_a, node_b):</div><div class="line">	root_a = find(node_a)</div><div class="line">	root_b = find(nond_b)</div><div class="line">	parent[root_a] = roo_b</div></pre></td></tr></table></figure>
+<p>这是并查集森林的最基础的表示方法，这个方法不会比链表法好，这是因为创建的树可能会严重不平衡；然而，可以用两种办法优化。</p>
+<ul>
+<li>按秩合并</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">def union(node_a, node_b):</div><div class="line">    root_a = get_parent(node_a)</div><div class="line">    root_b = get_parent(node_b)</div><div class="line"></div><div class="line">    if rank[root_a] &gt; rank[root_b]:</div><div class="line">        parent[root_b] = root_a</div><div class="line">    elif rank[root_a] &lt; rank[root_b]:</div><div class="line">        parent[root_a] = root_b</div><div class="line">    else:</div><div class="line">    	  parent[root_a] = root_b</div><div class="line">        rank[root_b] += 1</div></pre></td></tr></table></figure>
+<p>这里的秩也可以理解树的深度，对于单元素的树，秩设为0。用变量rank去保存每个节点的深度，在合并的时候将更小深度树合并到较大深度的树上，且rank只有当两个树的深度相同时才会加一。因为影响时间效率的是树的深度，所以采用这种方法在最坏的情况，时间复杂度为O(logn).</p>
+<ul>
+<li>路径压缩</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">def get_parent(node):</div><div class="line">    if parent[node] == node:</div><div class="line">        return node</div><div class="line">    parent[node] = get_parent(parent[node])</div><div class="line">    return parent[node]</div></pre></td></tr></table></figure>
+<p>在执行查找函数的同时，扁平化当前树。关键在于路径上的每个节点可以直接连接到根节点上，为后续的引用节点操作加速。</p>
+<h3 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h3><p><strong>我们用一道题目来梳理一下这个算法。</strong></p>
+<p>Leet Code Weekly Contest 57 里有一道题目：</p>
+<p>Given a list accounts, each element accounts[i] is a list of strings, where the first element accounts[i][0] is a name, and the rest of the elements are emails representing emails of the account, in sorted order.</p>
+<p>Now, we would like to merge these accounts. Two accounts definitely belong to the same person if there is some email that is common to both accounts. Note that even if two accounts have the same name, they may belong to different people as people could have the same name. A person can have any number of accounts initially, but all of their accounts definitely have the same name.</p>
+<p>After merging the accounts, return the accounts in the format they were given: the first element of each account is the name, and the rest of the elements are emails in sorted order. The accounts themselves can be returned in any order.</p>
+<p>题目的<strong>大意</strong>是： 给定一组账号，每个账号里包含用户姓名和一组邮箱，根据邮箱来对账号进行合并。（名字重复也可能表示两个不同的用户，但是邮箱是唯一确定的）。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line">class Solution(object):</div><div class="line">    def accountsMerge(self, accounts):</div><div class="line">        &quot;&quot;&quot;</div><div class="line">        :type accounts: List[List[str]]</div><div class="line">        :rtype: List[List[str]]</div><div class="line">        &quot;&quot;&quot;</div><div class="line"></div><div class="line">        def get_parent(node):</div><div class="line">            if parent[node] == node:</div><div class="line">                return node</div><div class="line">            parent[node] = get_parent(parent[node])</div><div class="line">            return parent[node]</div><div class="line"></div><div class="line">        def union(node_a, node_b):</div><div class="line">            root_a = get_parent(node_a)</div><div class="line">            root_b = get_parent(node_b)</div><div class="line"></div><div class="line">            if rank[root_a] &lt; rank[root_b]:</div><div class="line">                parent[root_a] = root_b</div><div class="line">            else:</div><div class="line">                parent[root_b] = root_a</div><div class="line">                rank[root_a] += 1</div><div class="line"></div><div class="line">        rank = collections.defaultdict(int)</div><div class="line">        parent = &#123;&#125;</div><div class="line">        owner = &#123;&#125;</div><div class="line">        result = collections.defaultdict(list)</div><div class="line">        emails_set = set()</div><div class="line"></div><div class="line">        for i, account in enumerate(accounts):</div><div class="line">            name, emails = account[0], account[1:]</div><div class="line">            for email in emails:</div><div class="line">                emails_set.add(email)</div><div class="line">                owner[email] = name</div><div class="line">                if email not in parent:  # 生成并查集森林</div><div class="line">                    parent[email] = email</div><div class="line"></div><div class="line">            for email in emails[1:]:  </div><div class="line">                union(emails[0], email)</div><div class="line"></div><div class="line">        for email in emails_set:</div><div class="line">            result[get_parent(email)].append(email)</div><div class="line">        return [[owner[email]] + sorted(result[email]) for email in result]</div></pre></td></tr></table></figure>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">daily report</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/07/04/2017-07-04/" class="archive-article-date">
-  	<time datetime="2017-07-04T07:27:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-04</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/07/04/2017-07-04/">2017-07-04 Report</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">daily report</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
       
-        </div></section>
+
       
+
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2001" class="archive-year">2001</a>
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2001/08/01/8/" class="archive-article-date">
-  	<time datetime="2001-08-01T07:27:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2001-08-01</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2001/08/01/8/">8 Report</a>
-    </h1>
-  
+      </div>
+    </span>
+  </div>
+</div>
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">daily report</a>
-        		</li>
-      		
-		</ul>
-	</div>
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://www.ganbinwen.com/2017/11/06/联合-查找算法/" alt="微信分享二维码">
+    </div>
+</div>
 
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2001/07/03/7-03/" class="archive-article-date">
-  	<time datetime="2001-07-03T07:27:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2001-07-03</time>
-</a>
+<nav id="article-nav">
+  
+    <a href="/2017/11/20/Python内置模块bisect介绍/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          Python内置模块bisect介绍
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/11/04/问题清单/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">问题清单 Report</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2001/07/03/7-03/">7-03 Report</a>
-    </h1>
+  <div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="联合-查找算法" data-title="联合-查找算法" data-url="http://www.ganbinwen.com/2017/11/06/联合-查找算法/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"true"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+  
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">daily report</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2001/07/01/7/" class="archive-article-date">
-  	<time datetime="2001-07-01T07:27:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2001-07-01</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2001/07/01/7/">7 Report</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">daily report</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
   
 
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/tags/daily-report/page/7/">&laquo; Prev</a><a class="page-number" href="/tags/daily-report/">1</a><span class="space">&hellip;</span><a class="page-number" href="/tags/daily-report/page/6/">6</a><a class="page-number" href="/tags/daily-report/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/tags/daily-report/page/9/">9</a><a class="extend next" rel="next" href="/tags/daily-report/page/9/">Next &raquo;</a>
-    </nav>
   
 
 
@@ -381,9 +362,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
@@ -443,11 +424,31 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">python</a>
+                <a href="javascript:void(0)" class="js-tag color3">daily report</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">daily report</a>
+                <a href="javascript:void(0)" class="js-tag color2">Python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">读书笔记</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">实习面试</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">清单</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">函数式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
             
             <div class="clearfix"></div>
@@ -498,7 +499,7 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
     
     	<section class="tools-section tools-section-me" q-show="aboutme">
   	  	
-  	  		<div class="aboutme-wrap" id="js-aboutme">97年&lt;br&gt;在校读书&lt;br&gt;&lt;br&gt;喜欢小众&lt;br&gt;乐于分享&lt;br&gt;“就算了解这些，对知识的渴望总是更上层一层楼“</div>
+  	  		<div class="aboutme-wrap" id="js-aboutme">97年&lt;br&gt;在校读书&lt;br&gt;&lt;br&gt;喜欢小众&lt;br&gt;乐于分享&lt;br&gt;I see and I understand.&lt;br&gt;I do and I remember.&lt;br&gt;</div>
   	  	
     	</section>
     

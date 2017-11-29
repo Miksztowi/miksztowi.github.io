@@ -141,6 +141,259 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-检查清单" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/11/04/检查清单/">检查清单 Report</a>
+    </h1>
+  
+
+        
+        <a href="/2017/11/04/检查清单/" class="archive-article-date">
+  	<time datetime="2017-11-04T07:27:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-04</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>写代码前</p>
+<p>写代码的要思考到明确<br>做什么<br>，而不仅仅是<br>怎么做<br>。</p>
+<p>先Google,gitHub看看有没有已经成熟的思路，先找资源。</p>
+<p>把问题拆分到可以直接去思考做法的程度，画树，逐层写方法。</p>
+<p>如果要去学习新的工具，应该直接学习底层封装的API，这样再次学习类似工具时，可以降低学习成本。</p>
+<p>文件操作</p>
+<p>操作文件时候，写路径的时候要用os模块操作，千万要避免文件换了一个位置就会出错的问题。</p>
+<p>数据结构</p>
+<p>注意可变对象和不可变对象（list和dict），防止做参数时被污染。</p>
+<p>数据操作部分，先明确数据结构。能用Tuple解决的不用List，同时要注意Dict读数据是的时候是无序的。</p>
+<p>对数据集有操作，一定要用Set，并集|，交集&amp;，差集-，对称差集^（项在t或s中，但不会同时出现在二者中）</p>
+<p>检查需要</p>
+<p>先检查输入类型，用isinstance去限定所需要的数据类型。</p>
+<p>输入数据是Int，考虑变成float会怎么样。List,string,dict为空时都默认等于false。</p>
+<p>数据库的操作是否已经最少了，如果不是最少的话，尝试用Innerjoin 连接出数据，避免多次查询。</p>
+<p>用assert 来确定数据是可用的(assert A,B = if not A do B)</p>
+<p>节约资源的方法</p>
+<p>reduce，map，filter三个内置函数，返回的都是生成器。节约开销，能用时尽量用。</p>
+<p>数据库操作</p>
+<p>对数据库操作，不要再用mysql这个库，用sqlachemy，兼容2和3，同时可以用Orm来操作数据库。</p>
+<p>对数据库操作的函数，如果可以写缓存，尽量用Redis做缓存，避免Mysql的查询。</p>
+<p>尽量不要用Where这种隐形连接，用Inner Join这种显性连接。</p>
+<p>对数据库有操作，要用log记录下来，以便数据恢复使用。</p>
+<p>错误处理</p>
+<p>死循环，给第一行print，第二行continue。</p>
+<p>如果程序运行的路径，不能保证与.py文件是相同的，最好在里面open的时候使用绝对路径。 </p>
+<p>团队沟通</p>
+<p>换位思考，从对方的思路开始思考，先明白对方问题的原因。</p>
+<p>不仅要有自己的想法，还要对于想法有可行的方案。</p>
+<p>前端问题复杂的时候，后端要帮忙简化问题， 互相帮助！</p>
+<p>HTML操作</p>
+<p>w3lib.html.remove_tags()可以过滤Html标签。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">清单</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/11/04/检查清单/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-2017-08-20" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/20/2017-08-20/">2017-08-20 Report</a>
+    </h1>
+  
+
+        
+        <a href="/2017/08/20/2017-08-20/" class="archive-article-date">
+  	<time datetime="2017-08-20T07:27:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-20</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>补交8月18日Daily Report<br>当天完成的工作内容<br>1.将车型数据库的爬虫脚本，打包成线上可以允许的程序。<br>当天的收获<br>1.问题： 如何让使用者在最短的时间内，做到同开发人员一样熟练的使用程序呢？<br>2.反思： 提供他人使用的程序，功能是核心。但是相比于自己使用的话，需要注意使用的友好程度，使用的上手难度，以及合作开发人员与后期维护人员的工作效率。<br>3.总结:<br>首先，<br>1.面向使用者来说，重要的是简单，易用。能用一行命令行执行的功能，绝不让使用者输入两行。比如数据库的建表，“是否要建表，建一张什么样的表..”这样的问题完成到使用者只需要指定Mysql,Sqlite此类的DBMS即可。 配有程序功能详细的Tutorial，毕竟我在Github上，对于使用越简单的程序，好感度越高！<br>2.面向合作开发人员，写好程序功能的架构图，让对方快速明白目前已经实现的功能，以及功能间的联系与使用技术。<br>明天的计划<br>1.先沟通好新人周报自动化的需求，然后再将可以完成需求的技术进行对比，择优选择。<br>提出疑问或寻求帮助<br>1.赵赵和伟哥有没有开发过一些自己觉得很酷Cool，但是用户的反馈并不好的程序呢？如果有，原因是什么呢？<br>今日翻译<br>“Mr. Jones, of the Manor Farm, had locked the hen-houses for the night, but was too drunk to remember to shut the popholes. With the ring of light from his lantern dancing from side to side, he lurched across the yard, kicked off his boots at the back door, drew himself a last glass of beer from the barrel in the scullerhey, and made his way up to bed, where Mrs. Jones was already snoring.”<br>我的翻译<br>Jones先生，是庄园的主人。这晚他锁上马棚，但是喝的太多了不记得去关上马槽。伴随着，晃来晃去从灯笼里发出的光亮。他蹒跚的穿过了庭院，用他的靴子踢开了后门。他给自己从桶里取了最后一杯酒，然后上了床。之后Jones先生已经开始打呼噜了。<br>正确翻译<br>故事发生在曼纳庄园里。这天晚上，庄园的主人琼斯先生说是已经锁好了鸡棚， 由于他喝得醉意十足，竟把里面的那些小门都忘了关上。他提着马灯踉踉跄跄地穿过院子，马灯光也跟着一直不停地晃来晃去，到了后门，他把靴子一脚一只踢了出去，又从洗碗间的酒桶里舀起最后一杯啤酒，一饮而尽，然后才上床休息。此时，床上的琼斯夫人已是鼾声如雷了。   </p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">daily report</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/08/20/2017-08-20/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-2017-08-18" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/18/2017-08-18/">2017-08-18 Report</a>
+    </h1>
+  
+
+        
+        <a href="/2017/08/18/2017-08-18/" class="archive-article-date">
+  	<time datetime="2017-08-18T07:27:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>补交8月18日Daily Report<br>当天完成的工作内容<br>1.将车型数据库的爬虫脚本，打包成线上可以允许的程序。<br>当天的收获<br>1.问题： 如何让使用者在最短的时间内，做到同开发人员一样熟练的使用程序呢？<br>2.反思： 提供他人使用的程序，功能是核心。但是相比于自己使用的话，需要注意使用的友好程度，使用的上手难度，以及合作开发人员与后期维护人员的工作效率。<br>3.总结:<br>首先，<br>1.面向使用者来说，重要的是简单，易用。能用一行命令行执行的功能，绝不让使用者输入两行。比如数据库的建表，“是否要建表，建一张什么样的表..”这样的问题完成到使用者只需要指定Mysql,Sqlite此类的DBMS即可。 配有程序功能详细的Tutorial，毕竟我在Github上，对于使用越简单的程序，好感度越高！<br>2.面向合作开发人员，写好程序功能的架构图，让对方快速明白目前已经实现的功能，以及功能间的联系与使用技术。<br>明天的计划<br>1.先沟通好新人周报自动化的需求，然后再将可以完成需求的技术进行对比，择优选择。<br>提出疑问或寻求帮助<br>1.赵赵和伟哥有没有开发过一些自己觉得很酷Cool，但是用户的反馈并不好的程序呢？如果有，原因是什么呢？<br>今日翻译<br>“Mr. Jones, of the Manor Farm, had locked the hen-houses for the night, but was too drunk to remember to shut the popholes. With the ring of light from his lantern dancing from side to side, he lurched across the yard, kicked off his boots at the back door, drew himself a last glass of beer from the barrel in the scullerhey, and made his way up to bed, where Mrs. Jones was already snoring.”<br>我的翻译<br>Jones先生，是庄园的主人。这晚他锁上马棚，但是喝的太多了不记得去关上马槽。伴随着，晃来晃去从灯笼里发出的光亮。他蹒跚的穿过了庭院，用他的靴子踢开了后门。他给自己从桶里取了最后一杯酒，然后上了床。之后Jones先生已经开始打呼噜了。<br>正确翻译<br>故事发生在曼纳庄园里。这天晚上，庄园的主人琼斯先生说是已经锁好了鸡棚， 由于他喝得醉意十足，竟把里面的那些小门都忘了关上。他提着马灯踉踉跄跄地穿过院子，马灯光也跟着一直不停地晃来晃去，到了后门，他把靴子一脚一只踢了出去，又从洗碗间的酒桶里舀起最后一杯啤酒，一饮而尽，然后才上床休息。此时，床上的琼斯夫人已是鼾声如雷了。<br>当天完成的工作内容<br>1.update 合并数据的自动化脚本。<br>2.firestone的爬虫增加了特殊字符的处理，又获得了27015条车型数据。<br>当天的收获<br>1.问题： 不记录日志带来的麻烦<br>2.反思： firestone和edmunds的爬虫，在爬取的时候有数据调试，但是没有日志记录。这样在之后对数据进行验证的时候，没有信息可以参考。同时对于爬虫运行的状态无法确定。<br>3.方法： 对于自动化的脚本，要搭配日志使用。 在Settings模块里，配置Logger，爬取数据时将爬取结果写入日志中。在爬取结束后，核对日志，确保数据的完整性。<br>明天的计划<br>1.用日志确认Edmunds和Firestone的爬虫功能是否完善。<br>提出疑问或寻求帮助<br>无。<br>今日翻译<br>Notice that the weight of the position to the left of the units position is 8. This is 8 times 1. Then notice that the weight of the next position is 64, or 8 times 8. If another position existed, it would be 64 times 8, or 51 2. To find the weight of the next higher-order position, multiply the weight of the current position by the number base (or 8, in this example). To calculate the weights of position to the right of the radix point, divide by the number base. In the octal system, the position immediately to the fight of the octal point is 1/8, or .125. The next position is .125/8, or .015625, which can also be written as 1/64.<br>我的翻译<br>注意到个位的左边值是8。这是8的一次方。注意到下一个位置的值是64，或8的8次方。如果另一个位置存在，它将是64的8次方，或者512。为了找到下个高位的值，乘当前位置的基数（在这个例子中是8）为了计算出正确的指数位的值，除以基数。在八进制的中，八进制点的位置直接用1/8找到，或者.125。下一个位置是.125/8，或者.015625，也可以被写成1/64。<br>当天完成的工作内容<br>1.看avatar爬虫部分的源码。<br>当天的收获<br>1.当问题拆分后，如何思考解决方案？<br>总结： 问题要彼此不重合的独立拆开，同样，设想的解决方案也应该彼此不重合，只解决其对应的问题。解决方案只对应其当前问题，可以使逻辑保持清晰，做到更加专注的解决；降低方案的复杂性。<br>明天的计划<br>1.优化一下edmunds和firestone的爬虫，使其支持断点续爬。<br>提出疑问或寻求帮助<br>无。<br>今日翻译<br>The position to the left of the units position is always the number base raised to the first power; in a decimal system, this is l01, or l0. In a binary system, it is 21, or 2; and in an octal system it is 81, or 8. Therefore, an 11 decimal has a different value from an 11 binary. The 1l decimal is composed of 1 ten plus 1 unit and has a value of 11 units; while the binary number 11 is composed of 1 two plus 1 unit, for a value of 3 decimal units. The 11 octal has a value of 9 units.<br>我的翻译<br>在个位左边的位置总是数字的1次幂，在十进制中，101，或10。在二进制中21，或2。在八进制中为81，或8。因此，一个十进制的11不同于二进制的11的值。十进制中的11，由一个十位加1个单位，表示值11.然而二进制中的11，由一个二加1个单位，表示十进制中的3.八进制中11的值为9。<br>正确翻译<br>个位左边的位总是基数的1次幂，在十进制系统中是101，或10；在二进制中是21，或2；而在八进制中是81，或8。因此，十进制的11与二进制的11具有不同的数值。十进制11表示—个10加上一个1，其值为11；二进制11表示—个2加上—个1，其值为3；八进制11的值为9。<br>函数式编程<br>不依赖于外部的数据，而且也不改变外部数据的值，而是返回一个新的值给你<br>1）代码更简单了。<br>2）数据集，操作，返回值都放到了一起。<br>3）你在读代码的时候，没有了循环体，于是就可以少了些临时变量，以及变量倒来倒去逻辑。<br>4）你的代码变成了在描述你要干什么，而不是怎么去干<br>今晚耽误了很久，今天的总结并不好。<br>当天完成的工作内容<br>1.继续合并firestone和edmunds的数据库。<br>当天的收获<br>1.反馈：昨天总结的是有效解决问题中的拆分问题。今天在工作的时候，按照方法，把目标拆分成了十多个小节。这样逐个模块得解决，思路比以前清晰很多。<br>2.问题： 尽管思路清晰了一些，但是晚上重看思维导图的时候发现在拆分问题上，仍然存在问题。问题拆分的混乱，层级关系有些存在错误。<br>3.反思： 对于名称的合并上，有几类都是同一个问题下的子问题，但是在当时划分的时候我把它们划分到不同的类别中。 –&gt;  能够用统一的手段解决，变成了每个小问题都单独解决一次。 –&gt; 为什么当时问题没有归类正确？ ——&gt; 因为只带着目标去思考问题，没有在分析问题时，考虑它的对立/相似等其他情况。 –&gt; 忽略了这些思考，导致即使碰到了对立/相似的问题也会遗忘这类问题已经在某个地方被列出来过了。 ——&gt; 所以将它们放到了一个不是最匹配的类目下。<br>4.方法： 对于问题的拆分，带着目标的同时，也要将其能考虑到的对立/相似问题罗列出来 –&gt; 避免时间间隔久了，再碰到相似问题会重新定义。 –&gt; 罗列出来不必急着写解决方案，等遇到了在考虑，所以就算没有遇到也不会有时间浪费。<br>明天的计划<br>1.完成三张数据表完整的合并。<br>提出疑问或寻求帮助<br>无。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">daily report</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/08/18/2017-08-18/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-2017-08-16" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -289,231 +542,9 @@
 
 
   
-    <article id="post-2017-08-10" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/10/2017-08-10/">2017-08-10 Report</a>
-    </h1>
-  
-
-        
-        <a href="/2017/08/10/2017-08-10/" class="archive-article-date">
-  	<time datetime="2017-08-10T07:27:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>今晚耽误了很久，今天的总结并不好。<br>当天完成的工作内容<br>1.继续合并firestone和edmunds的数据库。<br>当天的收获<br>1.反馈：昨天总结的是有效解决问题中的拆分问题。今天在工作的时候，按照方法，把目标拆分成了十多个小节。这样逐个模块得解决，思路比以前清晰很多。<br>2.问题： 尽管思路清晰了一些，但是晚上重看思维导图的时候发现在拆分问题上，仍然存在问题。问题拆分的混乱，层级关系有些存在错误。<br>3.反思： 对于名称的合并上，有几类都是同一个问题下的子问题，但是在当时划分的时候我把它们划分到不同的类别中。 –&gt;  能够用统一的手段解决，变成了每个小问题都单独解决一次。 –&gt; 为什么当时问题没有归类正确？ ——&gt; 因为只带着目标去思考问题，没有在分析问题时，考虑它的对立/相似等其他情况。 –&gt; 忽略了这些思考，导致即使碰到了对立/相似的问题也会遗忘这类问题已经在某个地方被列出来过了。 ——&gt; 所以将它们放到了一个不是最匹配的类目下。<br>4.方法： 对于问题的拆分，带着目标的同时，也要将其能考虑到的对立/相似问题罗列出来 –&gt; 避免时间间隔久了，再碰到相似问题会重新定义。 –&gt; 罗列出来不必急着写解决方案，等遇到了在考虑，所以就算没有遇到也不会有时间浪费。<br>明天的计划<br>1.完成三张数据表完整的合并。<br>提出疑问或寻求帮助<br>无。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">daily report</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/08/10/2017-08-10/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-2017-08-09" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/09/2017-08-09/">2017-08-09 Report</a>
-    </h1>
-  
-
-        
-        <a href="/2017/08/09/2017-08-09/" class="archive-article-date">
-  	<time datetime="2017-08-09T07:27:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-09</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>当天完成的工作内容<br>1.爬取了firestone上的胎压数据。<br>2.合并了部分胎压数据到 edmunds的车型数据库中。<br>当天的收获<br>1.问题：如何快速有效的解决问题？（今日总结如何拆分问题）<br>2.陈述：这个问题在之前的daily report中也有过总结，但是从实践来看，效果并不好。之前总结的是先拆分–&gt;思考方案–&gt;验证方案–&gt;反馈–&gt;确认结果–&gt;问题解决。<br>3.目标： 我要做到快速有效的解决问题，而不是仅仅是解决问题。<br>4.反思： 之前总结的方案，从流程上来说解决问题确实是这些步骤，但是为什么效果不好呢？ ——&gt; 因为这些流程中每个步骤的细节没有总结 –&gt; 不总结到明确每个步骤做什么，那么总结的可行性会大大降低。 –&gt; 把这个流程中的步骤，都单独总结。 –&gt; 今天总结如何拆分问题。<br>5.总结： 面对问题时，比如今天的任务是合并两个部分兼容的车型数据库。 ——&gt; 先从目标考虑，目标是合并数据库。 ——&gt; 那么现在是否可以直接合并？如果是，那么直接合并了；如果不能合并，要怎么做才可以合并呢？ –&gt; 从目标上，把问题做了一次拆分。现在进入的是不可以直接合并模块 –&gt; 既然不可以合并，那是所有的数据都不可以合并，还是部分不可以合并？ –&gt; 是部分不可以直接合并，那么对于直接可以合并的数据也不要着急合并，继续进入部分数据不可以直接合并的思考 –&gt; 是什么导致了这部分的数据不可以直接合并呢？ ——&gt; 因为二者都有一部分数据是互不包含的，只有部分数据是二者的交集。 –&gt; 那么不包含意味着不能直接合并，那么交集中数据是不是已经可以直接合并了？ ——&gt; 交集中因为两个车型数据库的车型匹配规则不同，所以有部分数据虽然在交集内，但是仍然不能直接合并 –&gt; 规则相同或者不受规则影响的那部分是可以直接合并的，那么受到规则影响的数据是不是全部不可以直接合并？ –&gt; 思考到这一步的时候，需要开始实践才可以继续往下，此时才算把问题拆分到自己能考虑到的全部。<br>5.简述：总结的方法是对如何拆分问题做的实践，这个过程中，每一次的拆分都要先问此时能不能达到目标了，如果可以就开始思考方案和实践方案，如果仍然不能解决那么继续拆分并且之前的过程。<br>明天的计划<br>1.将firestone和edmunds二者可以合并的数据，合并完整。<br>提出疑问或寻求帮助<br>无。<br>今日翻译<br>The exponential powers of the positions are critical for understanding numbers in other numbering systems. The position to the left of the radix (number base) point, called a decimal point only in the decimal system, is always the units position in any number system. For example, the position to the left of the binary point is always 20 or 1; the position to the left of the octal point is 80 or 1. In any case, any number raised to its zero power is always 1, or the units position.<br>我的翻译<br>指数的位置幂可以被理解其他数值系统中的数字所借鉴。基数左边的位置的点被称为十进制点，只在十进制系统中有。个位总是在任何数值系统中。举个例子，二进制左边的位置总是20或者1，八进制左边的位置是80或者1。在任何地方，任意数字上方有0都表示1，或者个位位置。<br>正确翻译<br>位的指数幂在理解其他计数制中的数时是个关键。基数小数点，在十进制中称为十进制小数点，其左边的位在任何数制中都是个位。例如，二进制小数点左边的位是20或1。而八进制小数点左边的位是80或1。在任何情况下，任何数的零次幂总是1，或1个单位。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">daily report</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/08/09/2017-08-09/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-2017-08-08" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/08/2017-08-08/">2017-08-08 Report</a>
-    </h1>
-  
-
-        
-        <a href="/2017/08/08/2017-08-08/" class="archive-article-date">
-  	<time datetime="2017-08-08T07:27:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-08</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>当天完成的工作内容<br>1.解析了firestonecompleteautocare这个网站的爬取规则，完成了车型的spider脚本。计划将其数据全部爬下来后再合并到已有的车型数据中。<br>当天的收获<br>1.问题： 业余时间的规划不清晰，无端的焦虑，效率也很低下。<br>2.反思： 每天总是想看的太多，比如想看python数据相关的包，又想看一些数据结构的教程，每天又有Github新的star，又把当天工作中遇到的代码问题弄懂…. –&gt; 总是觉得这些方方面面都挺重要，但是又不能兼顾。这些想的太多，不仅看不全而且还很焦虑。导致每天晚上每个部分只弄了一点，然后第二天起来又忘了，这样更加焦虑。最近心里越来越烦，越来越焦虑。 –&gt; 我也花了时间，但是效率非常低。 –&gt; 对学习计划，规划不清晰 –&gt; 把目标定的太长远了，没有规划好每天的计划。 –&gt; 应该用天来规划，而不是用周或者是月，因为工作期间的时间太碎片了，如果还按照学校那样一周一个安排，那这一周基本上什么也做不出来。 –&gt; 要把计划迭代的周期缩短，同时把想做的事情按照重要性来排序。<br>3.方法： 先把想做的事情按重要性做个排序。权衡了一番。<br>解决与思考工作上遇到的问题 &gt;&gt;  看scrapy的源码（每天只看一章） &gt;&gt; 看github里的star，技术博客等。 –&gt; 每天晚上就做这些简单清晰的事情，想做的太多反而焦虑。 –&gt; 任何没有反馈的学习是不可靠的 –&gt; fork scrapy，每天在看完的代码里面写注释即可。<br>明天的计划<br>1.把firestonecompleteautocare中的车型数据爬取下来。<br>2.对应firestonecompleteautocare的车型数据，爬取其对应的胎压数据。<br>提出疑问或寻求帮助<br>无。<br>今日翻译<br>Once the digits of a number system are understood, larger numbers are constructed by using positional notation. In grade school, we learned that the position to the left of the units position was the tens position, the position to the left of the tens position was the hundreds position, and so forth. (An example is the decimal number 132: This number has 1 hundred, 3 tens, and 2 units.) What probably was not learned was the exponential value of each position: The units position has a weight of 100 or 1; the tens position has weight of 101, or 10; and the hundreds position has a weight of 102, or 100.<br>我的翻译<br>一旦明白了数字的计数系统，就可以通过位置表示构造出更大的数字。在高中，我们学过个位的左边是十位，十位的左边是百位，以此类推。（举个十进制的132的例子，这个数字有1个百位，3个十位，2个个位）。可能没有学过指数的每个位置：个位的有一个重量10的0次方为1，十位有一个重量10的1一次方为10，百位的有一个重量10的2次方为100。<br>正确翻译<br>一旦我们理解了计数制的数字后，就可用位计数法构造更大的数值。在小学时我们都学过个位的左边一位是十位，十位左边一位是百位，以此类推(例如十进制数132,这个数字有—个百，三个十和两个一)。或许我们没有学过每个位的指数值：个位的权为l00，即1；十位的权为101或10；而百位的权为102或100。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">daily report</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/08/08/2017-08-08/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
     </nav>
   
 
@@ -604,7 +635,7 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">实习面试</a>
+                <a href="javascript:void(0)" class="js-tag color2">Python</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -612,11 +643,19 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">函数式</a>
+                <a href="javascript:void(0)" class="js-tag color5">实习面试</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">清单</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">函数式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
             
             <div class="clearfix"></div>
@@ -667,7 +706,7 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
     
     	<section class="tools-section tools-section-me" q-show="aboutme">
   	  	
-  	  		<div class="aboutme-wrap" id="js-aboutme">97年&lt;br&gt;在校读书&lt;br&gt;&lt;br&gt;喜欢小众&lt;br&gt;乐于分享&lt;br&gt;“就算了解这些，对知识的渴望总是更上一层楼“</div>
+  	  		<div class="aboutme-wrap" id="js-aboutme">97年&lt;br&gt;在校读书&lt;br&gt;&lt;br&gt;喜欢小众&lt;br&gt;乐于分享&lt;br&gt;I see and I understand.&lt;br&gt;I do and I remember.&lt;br&gt;</div>
   	  	
     	</section>
     

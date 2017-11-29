@@ -84,7 +84,7 @@ feed:
   path: atom.xml
   limit: 20
 #sitemap
-sitemap:
+sitemap: 
   path: sitemap.xml
     
 jsonContent:
