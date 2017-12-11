@@ -141,6 +141,228 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-2017-08-03" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/03/2017-08-03/">2017-08-03 Report</a>
+    </h1>
+  
+
+        
+        <a href="/2017/08/03/2017-08-03/" class="archive-article-date">
+  	<time datetime="2017-08-03T07:27:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-03</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>当天完成的工作内容<br>1.update compare api to handle cache problem<br>2.add refresh_relation_tree commands.<br>当天的收获<br>1.问题： 前天爬取edmunds的数据库的时候写过一段Insert 的SQL，但是表里的字段有50多个，我写的SQL逐个复制了五十多个字段，非常的麻烦。<br>2.反思： 如果五十个多个字段，有改动，那么又要重新粘贴，而且参数检查也非常的麻烦 –&gt;<br>怎么让参数简洁，便于改动呢？ –&gt; 用Orm，写一个数据对象，爬虫解析Html标签的时候，直接赋值，赋值结束后直接commit，这样就避免了写一条五十多个参数的SQL语句。<br>3.方法： 我先去看了sqlalchemy这个支持orm操作的库 –&gt; 学习了简单的增删改查的使用 –&gt; 修改原来的代码中数据库的部分 –&gt; 可以直接save了，但是处理数据的部分就在爬虫的同时完成了，这不符合scrapy的设计哲学 –&gt; scrapy 的爬虫部分应该是只负责爬取数据，数据的持久化应该由pipeline去完成，而不是直接在爬虫部分做完。 –&gt; 所以碰到了新的问题，如何把sqlalchemy的操作在Pipeline里完成。<br>今日只解决了sql参数的问题，但是新的问题未解决。 明晚的总结来写新的问题。<br>明天的计划<br>1.edmunds只抓取了New car的data，数据还不够，明天找找used car的数据接口。<br>提出疑问或寻求帮助<br>无。<br>今日翻译<br>Before numbers are converted from one number base to another, the digits of a number system must be understood. Early in our education, we learned that a decimal, or base 10, number was constructed with 10 digits: 0 through 9. The first digit in any numbering system is always a zero. For example, a base 8 (octal) number contains 8 digits: 0 through 7; a base 2 (binary) number contains 2 digits: 0 and 1.<br>我的翻译<br>在一个数字从基于某一数字的另一个数字转换之前，必须要理解数字的系统。在我们教育的早期，我们学习到十进制，或者基于10，数字会被转换成10个数字： 0-9，第一个数字在其他任何数字系统里都是一个0.举个例子，八进制的系统里有8个数字：0-7， 基于二进制的数字里包含2个数字： 0-1<br>正确翻译<br>将数从—种数制向另一种数制转换之前，必须了解数的计数系统。在早期教育中，我们已学习了十进制数，或以10为基的数，它由10个数字组成：0到9。任何计数制的第一个数字总是零，这种规则适用于任何其他数制。例如，以8为基的数(八进制)包含8个数字：0到7，而以2为基的数(二进制)包含2个数字：0和1。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">daily report</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/08/03/2017-08-03/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-2017-08-02" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/02/2017-08-02/">2017-08-02 Report</a>
+    </h1>
+  
+
+        
+        <a href="/2017/08/02/2017-08-02/" class="archive-article-date">
+  	<time datetime="2017-08-02T07:27:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-02</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>当天完成的工作内容<br>1.解决了403和302的问题，爬取了edmunds下new car configurations(目前抓取的接口只有new car)。<br>2.跟前端沟通后修改了compare api。<br>当天的收获<br>1.问题： 由于之前使用的mysql库不支持Python3.x，今天第一次使用了MysqlDB这个库。使用这个库的时候，我觉得既然执行相同的功能，但是每次因为使用的工具不同就需要重新学习一次新的工具，这样的学习效率太低了。<br>2.方法：我认为这种弊端应该存在解决的方法 –&gt; 我找了资料，发现对于RDBMS有统一的DB-API –&gt; 我学习了异常类和常用的属性，比如connect()函数对象中user,password,host,database,dsn。cursor()对象中close(),execute(),fetchall()等等。 –&gt; 把DB-api看完后，对于更换使用RDBMS的库，学习成本非常的低，因为这些接口使用起来是一样的。<br>3.总结：  对于执行相同功能的库，一个一个的去学习话效率很低，应该直接在Python官网上，学习对应的底层API,这样在工具更换时，学习成本很低，能够举一反三。<br>明天的计划<br>1.解决修改后的compare api会在生产环境中碰到的问题。<br>提出疑问或寻求帮助<br>无。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">daily report</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/08/02/2017-08-02/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-2017-08-01" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/01/2017-08-01/">2017-08-01 Report</a>
+    </h1>
+  
+
+        
+        <a href="/2017/08/01/2017-08-01/" class="archive-article-date">
+  	<time datetime="2017-08-01T07:27:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-01</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>当天完成的工作内容<br>1.crawled car informations and configurations from edmunds.<br>当天的收获<br>1.问题： 今天跟学长（小超）在后端返回的数据格式上有争议，他希望我给每个child都加上parent_id的数据，但是我认为parent_id既然可以遍历获取到就没有必要让每个child都重复加上了。<br>2.反思： 为什么学长希望我加上一段数据呢？ ——&gt; 因为前端对于我返回的数据格式处理有点麻烦，希望我简化一下 –&gt; 为什么我不愿意修改呢？ –&gt; 其实不是怕麻烦的原因，我很愿意帮学长加上，不过我认为如果加上数据会导致parent_id的重复次数会等于其子节点的数量。而且parent_id即使不加上也是可以通过遍历得到的。 –&gt; 那我是如何跟学长沟通的呢？ –&gt; 我的沟通很差劲，1.因为这份数据是我提供的，我可能比学长更清楚一点数据如何使用。但是我没有换位思考，没有理解学长 2.虽然我认为没有必要修改，但是我却没有给学长提供一份可行的解决方案，导致问题的解决没有进展。3.前端的问题太复杂的时候，后端要帮忙简化问题，要互相帮助。<br>4.目标： 合作中遇到问题时，能帮对方解决问题。<br>3.总结： 1.换位思考 –&gt; 从对方了解到的信息和他的解决思路考虑，先明白他的想法，再去沟通 –&gt; 学长认为要加parent_id的原因，是因为获取到child_id的时候得不到parent_id。 –&gt; 按照他的想法，确实是得不到Parent_id的，也确实加上Parent_id直接获取会更方便些。 –&gt; 明白了他的需求后，考虑有没有比他提供的解决思路更好的办法 –&gt; 我觉得可以在遍历的child的时候，在循环里加上parent_id=当前Id，因为遍历当前节点的id可以默认为是父亲节点，也可以用得到的parent_id和child_id做多对一或者一对多的映射，这样用child_id就可以直接得到parent_id了。 –&gt; 先跟告诉对方我的解决方案，让对方看看这个方案是不是更合适，如果我想到的可行方案都不能work –&gt; 那么直接按照对方的思路去做，我去在后端加上Parent_id。 –&gt; 如果能work，那么问题得到解决。 –&gt; 最后伟哥给学长提了用栈的思路，在前端解决了这个问题。不需要后端的变动。（当时学长告诉我的问题是得不到parent_id，所以我觉得映射就可以了，而用栈是针对于实际碰到的问题的解决方法）<br>明天的计划<br>1.解决edmuds访问过快会403的问题。<br>提出疑问或寻求帮助<br>无。<br>今日翻译<br>The use of the microprocessor requires a working knowledge of binary, decimal, and hexadecimal numbering systems. This section provides a background for those who are unfamiliar with number systems. Conversions between decimal and binary, decimal and hexadecimal, and binary and hexadecimal are described.<br>我的翻译<br>使用微型处理器需要有二进制，十进制和十六进制的数字系统的工作知识。这个层面提供一个背景给那些不熟悉数字系统的人。描述在十进制和二进制，十进制的十六进制，二进制和十六进制的转换。<br>正确翻译<br>使用微处理器需要掌握二进制、十进制和十六进制数制系统的基本知识，本节为那些不熟悉数制系统的读者提供这方面的背景知识。说明了十进制与二进制之间、十进制与十六进制之间，及二进制与十六进制之间的转换。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">daily report</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/08/01/2017-08-01/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-2017-07-31" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -312,231 +534,9 @@
 
 
   
-    <article id="post-2017-07-26" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/26/2017-07-26/">2017-07-26 Report</a>
-    </h1>
-  
-
-        
-        <a href="/2017/07/26/2017-07-26/" class="archive-article-date">
-  	<time datetime="2017-07-26T07:27:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-26</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>当天完成的工作内容<br>1.扩展了compare api，跑了几份category的数据给伟哥。<br>2.帮同事爬取了OBD的数据。<br>当天的收获<br>1.今天总结的内容是： 如何避免做重复的工作。<br>2.问题： 在工作中有时候会碰到做重复或者之前做过的任务（指的是机械性的任务）<br>先举个重复任务的例子，在测试代码功能的时候，有时候涉及到Docker环境，镜像需要重新编译。每次写完代码，就需要手动一个一个的先删除原有的镜像，然后再编译镜像，再打tag，之后上传镜像。这是完全重复的工作，而且完成功能需要测试很多次，这样机械的任务完全应该被避免。<br>3.反思： 做重复的任务是人人都会碰到的事情，为什么我会把它当做是一个问题呢？ –&gt; 因为我很懒，看到任务是之前做过的，头很大。 –&gt; 那如何去解决重复的任务，但是不要消耗同样的时间呢？ –&gt; 优化方法，使得这一次比上一次完成更快吗？（手速更快的删除镜像？） –&gt; 机械性的任务完成的再快时间还是浪费了 –&gt; 那如何使得机械性任务一次完成，以后每次碰到了，都不需要再去耗费精力？ –&gt; 机械性的写代码，就应该让电脑去完成 –&gt; 写自动化脚本去完成。 –&gt; 那为什么知道了自动化脚本可以完成，我还是屡屡的去做重复的任务呢？ –&gt; 因为第一次碰到这个任务，是不知道之后还会重复做的；然后再次碰到了，因为有解决经验了所以这时候完成起来要比去写个脚本轻松的多。 –&gt; 恶性循环导致问题始终不会被解决 –&gt; 如何终止这个循环？ –&gt; 区分一下任务属性，对于明显会重复的任务，应该第一次就编写自动化脚本。对于不确定会重复的任务，在碰到的第二次就开始写脚本。对于明显不会重复的任务，只需要完成一次即可的，完全没必要去讲究代码健壮性，要追求快速完成。<br>方法：<br>碰到任务，先区分一下任务属性： 如果任务是机械性的，而且接下来工作中明显会再次碰到的（定性为每测试一次就要删除一次镜像的此类任务），第一次就要写好脚本。如果任务不确定接下来会不会再次碰到（定性为使用Avatar的某个api，每次手动给数据），给数据的时候，不要复制粘贴，要用测试脚本去使用这个APi的功能。 –&gt; 此时用删除镜像举例，确定需要写脚本（脚本在业余时间完成） –&gt; 先在网上找停止容器，删除镜像等的命令，docker stop<br> docker rmi <em><br> –&gt; </em>部分是不能写固定，使用脚本的时候传进去 –&gt; 之后用SHELL脚本去自动运行这些命令，完成这样的自动化功能。<br>概括总结内容：<br>问题： 工作时会碰到重复的机械任务。<br>目标： 避免重复的机械任务。<br>反思： 重复做机械任务，没有意义而且浪费精力。 需要写个自动化脚本来代替我完成这样的任务。<br>总结： 先定性任务，把明确要重复做的任务，第一次做时就写好脚本。先把相关命令都写好，然后用SHELL整理成自动化的脚本。<br>（在这周结束前，用shell把avatar的镜像操作写好，到时候把连接贴在daily report上）<br>明天的计划<br>1.优化返回类目关系树的性能，把compare api跟前端把数据格式沟通好，完成这两个功能，提交到GitHub上。<br>提出疑问或寻求帮助<br>无。<br>今日翻译<br>I love choices.<br>I love to walk around in bookstores not because I can buy all the books, but because I could buy one book, and I have so many to choose from.<br>I like buffets.<br>I rarely get to go to them, but when I do,<br>the first thing I do is walk around and see what the choice are.<br>I also like the internet.<br>It seems like cyberspace really doesn’t have any limits.<br>There are so many things to discover— like space.<br>Sometimes, I think we don’t appreciate the freedom that we have.<br>We are free to make many different choice.<br>From the food we eat— to the places we visit— to the people we meet— to the classes we take and on and on and on.<br>But freedom has dangers. If misused, it can be harmful.<br>I could pile a mountain of food on my plate and NOT to eat it.<br>It would be a waste. But that’s a choice I have.<br>The Internet has dangers, too.<br>If parents are not careful and don’t supervise what their kids can see— well kids can lose some of their innocence because of freedom.<br>There’s a reason for legal age limits when it comes to driving, gambling, drinking,somking, and voting.<br>Until we reach that age, we aren’t free to do those things.<br>我的翻译<br>我爱选择<br>我爱在书店里散步，不是因为我可以买所有的书，而是我可以买一本书。我有很多的选择。<br>我爱自助餐。<br>我很少去吃自助餐，不过当我这么做的时候，我第一件要做的事情就是环绕四周看看有什么事可以选择的。<br>我也爱互联网。<br>这大概是因为网络空间没有任何限制吧。<br>这有太多的东西去探索，比如空间。<br>有时候，我认为我们不会感谢我们拥有的自由。<br>我们没有代价去做许多不同的选择。<br>我们吃的食物，我们参观的地方，我们约会的人，我们去上的课，如此反复。<br>但是自由存在危险，如果滥用，它就会伤害你。<br>我可以堆积山一样的食物在我的盘子里，但是不去吃它。<br>这可能会浪费，但这是我拥有的权利。<br>互联网也同样有危险。<br>如果父母不小心或者监督他们的孩子，孩子会因为自由失去他们的天真无邪。这是法定年龄限制当他们去开车，赌博，喝酒，抽烟时的原因。<br>直到我们到了年纪，我们就不在没有代价的去做这些事情了。<br>我爱选择。<br>我喜欢在书店里徜徉，不是因为我能买下所有的书，<br>而是因为我可以买一本书，我有这么多的选择。<br>我还喜欢自助餐。<br>虽然我很少去，但是当我去的时候，<br>我做的第一件事就是四处逛逛，看看有什么选择。<br>我还喜欢互联网。<br>看来网络真的没有任何限制。<br>有这么多的东西等待发——比如空间。<br>有时候，我觉得我们不喜欢我们拥有的自由。<br>我们可以自由地做出许多不同的选择。<br>从我们所吃的食物到我们去的地方，我们见的人，我们所上的课程等等。<br>但自由也有危险。如果滥用，将会带来危害。<br>我可以将山一样的食物堆在我的盘子里，而我则不去吃它。<br>它会是一种浪费。但这是一个选择。<br>互联网也有危险。<br>如果父母对他们的孩子所看到的不留神也不监督，那么孩子们会因为自由而失去一些他们的无辜的。<br>当涉及驾车、赌博、酗酒、吸烟、和投票时法律会有年龄的限制。<br>直到我们到了那个年岁，否则我们去做那些事将不会被赋予自由。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">daily report</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/07/26/2017-07-26/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-2017-07-25" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/25/2017-07-25/">2017-07-25 Report</a>
-    </h1>
-  
-
-        
-        <a href="/2017/07/25/2017-07-25/" class="archive-article-date">
-  	<time datetime="2017-07-25T07:27:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-25</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>当天完成的工作内容<br>1.api/relation_tree<br>当天的收获<br>1.问题: 如何快速理解sql代码及写sql<br>2.目标: 逻辑清晰的逐步完成复杂的sql<br>3.反思：今天要在原有的SQL里再增加一层内连接，但是我一直不理解SQL的业务逻辑。 –&gt; 首先我没有把SQL格式化，SQL非常混乱难以阅读 –&gt; 用在线工具格式化后，SQL逻辑清晰 –&gt; 但是我仍然阅读存在问题，因为我读SQL是从前往后读 –&gt; 伟哥纠正我SQL要从内层向外层读 –&gt; 从内向外读后，逻辑清晰，很快可以明白SQL的意思，但是不理解业务逻辑的含义 –&gt;<br>因为业务逻辑不仅需要明白SQL的意思，还要对照表里，去明白每一次的连接后得到的数据。根据数据的对比去思考业务逻辑。<br>4.方法：遇到SQL代码 –&gt; formmater sql –&gt; 从内至外的逐层阅读代码 –&gt; 每一层阅读完，先核对数据的变化 –&gt; 从变化中，思考业务逻辑。<br>5.用总结的方法重新处理一遍今天遇到的问题：<br>原来的SQL:<br>select left(t2.published_at,7) month, count(<em>) as value from (select d.asin as parent_asin from (SELECT distinct coalesce(parent_asin_id, id) as parent_asin_id from amazon_review_insight.amazon_amazonasin WHERE %s ) c inner join amazon_review_insight.amazon_amazonasin d on c.parent_asin_id = d.id ) t1 inner join amazon_review_insight.amazon_amazonreview t2 on t1.parent_asin = t2.parent_asin where left(t2.published_at,7)&gt;=’2011-01’ group by left(t2.published_at,7)<br>Frommater后：<br>SELECT left(t2.published_at,7) MONTH,<br>                               count(</em>) AS value<br>FROM<br>  (SELECT d.asin AS parent_asin<br>   FROM<br>     (SELECT DISTINCT coalesce(parent_asin_id, id) AS parent_asin_id<br>      FROM amazon_review_insight.amazon_amazonasin<br>      WHERE %s ) c<br>   INNER JOIN amazon_review_insight.amazon_amazonasin d ON c.parent_asin_id = d.id) t1<br>INNER JOIN amazon_review_insight.amazon_amazonreview t2 ON t1.parent_asin = t2.parent_asin<br>WHERE left(t2.published_at,7)&gt;=’2011-01’<br>GROUP BY left(t2.published_at,7)<br>从内到外的阅读：<br>1.根据where的条件，得到parent_asin_id后同D表根据c.parent_asin_id = d.id做连接，select d.asin。此时对比一下得到的数据（parent_asin）和之前的数据（parent_asin_id），明白了这次的逻辑是为了取parent_asin。将得到的表命名t1，再次同amazon_amazonreview根据t1.parent_asin = t2.parent_asin做连接。再根据MONTH&gt;=’2011-01’的条件，对得到的数据按照月份分组后聚合。得到了月份和对应的value值。对比现在的数据（月份和对应的数量）和之前的数据（parent_asin），明白了业务逻辑是取parent_asin对应的月份和数量。<br>明天的计划<br>1.在SQL里面嵌套一层Category的连接。<br>2.帮公司同事完成OBD的数据爬取。<br>提出疑问或寻求帮助<br>无。<br>今日翻译<br>Most CPUs have a control input signal called READY (or something similar). Normally this input is high. When the CPU outputs the address of the I/O device and the correct control signals, enabling the tri-state buffers of the I/O device interface, the I/O device sets READY low. The CPU reads this signal and continues to output the same address and control signals, which cause the buffers to remain enabled. In the hard disk drive example, the drive rotates the disk and positions its read heads until it reads the desired data.<br>我的译文<br>大多数的CPU都有一个叫做READY（或者别的）的输入控制信号。通常这个输入是高，当CPU输出地址和正确的控制信号到I/O设备，I/O设备接口的三态缓冲使用的时候，I/O设备会设置READY为低。CPU读取这个信号然后继续去输出相同的地址和控制信号，这些会让缓冲保持能用。用硬盘驱动举例，驱动转动磁盘然后指向磁头的位置直到它可以读取应该被读取的数据。<br>正确译文<br>大多数CPU都有一个控制输入信号，叫做就绪信号（READY）（或其他意思相近的名称），通常它为高电平。当CPU输出某I/O设备的地址和正确的控制信号，促使I/O设备接口的三态缓冲器有效时，该I/O设备置READY信号为低电平。CPU读取这一信号，并且继续输出同样的地址信号和控制信号，使缓冲器保持有效。在硬盘驱动器的例子中，此时驱动器旋转磁头，并且定位读写头，直到读到想要要的数据为止。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">daily report</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/07/25/2017-07-25/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-2017-07-24" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/24/2017-07-24/">2017-07-24 Report</a>
-    </h1>
-  
-
-        
-        <a href="/2017/07/24/2017-07-24/" class="archive-article-date">
-  	<time datetime="2017-07-24T07:27:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-24</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>当天完成的工作内容<br>1.avatar目前的tag_service的准确率和召回率不高，对其中存在的问题做了分析。根据网上提供的资料表示词形还原会比词干抽取（avatar的做法）效果更好。pattern的表现很差，目前在网上找了一些开源的pattern api打算跟项目中的作对比。<br>当天的收获<br>1.总结的内容是： 如何用最短的时间找到靠谱的api？<br>2.需求： 在工作中，对原有的功能进行优化或者fix bug的时候，希望用最短的时间来完成任务 –&gt; 如果自己去造轮子，目前我的能力连代码中未优化的轮子都造不出来 –&gt; 那么只能去网上寻找资源 –&gt; 网上的资源非常多，google，github，stackoverflow，技术博客 等等 –&gt; 那么如何有效的从这些资源里，快速找到我所需要的呢？ –&gt; 虽然遇到问题，用Google查找是Ok的。但是google出来的，有时候需要看很久的英文资料，而且看完了资料后发现所提供的工具并不合适我的要求 –&gt; 那么现在根据近期记录的搜索方案，整理一下技巧。<br>3.查找方法的总结：<br>先分析一下问题 –&gt; 1.如果现在是要fix bug，那么跳过Google,直接在stackoverflow上面查找。2.现在需要的是优化已有的功能，同样跳过google，直接在Github把功能描述出来，看看是不是已经存在可以满足需求的轮子了 –&gt; 如果上面两个问题都没有找到解决办法，其实不一定是目前没有可用的轮子，而是我对问题或者需求没有理解清楚 –&gt; 重新跟伟哥确认一下需求或者问题 –&gt; 重复上述步骤 –&gt; 如果已经找到了解决方案，那么先把方案跟伟哥确认一下可行性之后开始执行 –&gt; 如果没有解决方案，那么说明目前确实没有成熟的轮子合适需求，这时候开始Google，找解决问题的思路，了解完思路后绝对不要去手写代码，此时一定要把想到的思路去Github和技术博客中找轮子或者教程。 –&gt; 把轮子或者教程看明白后再开始动手写代码。<br>概括上述内容：<br>1.需求： fix Bug或者优化已有功能。<br>2.目标： 用最少的时间去找到合适的轮子/fix bug。<br>3.方法： 先分析问题，不同的问题，第一步尝试有区别。fix bug先stackoverflow，优化功能先去Github找轮子。 对细节上不懂得地方先Google。有了思路后可以去相关的技术博客里找教程（今天在coolshell里找到了一片文本挖掘的教程。） –&gt;  动手前先跟伟哥沟通好，确认方案有可行性再写代码。<br>明天的计划<br>1.用词形还原提取的Tag跟目前avatar的做对比，择优选择。<br>2.熟悉patter api后，用到avatar上。<br>提出疑问或寻求帮助<br>无。<br>今日翻译<br>I/O devices are much slower than CPUs and memory. For this reason, they can have timing problems when interacting with the CPU. To illustrate this, consider what happens when a CPU wants to read data from a disk. It may take the disk drive several milliseconds to position its heads properly to read the desired value. In this time, the CPU could have read in invalid data and fetched, decoded, and executed thousands of instructions.<br>I/O设备比cpu和内存要慢很多。因为这个原因，它们和cpu相互作用的时候会有时间问题。为了阐明这个现象，思考一下当cpu想要从磁盘里读数据的时候会发生什么。它会用几毫秒的时间驱动到磁盘头的位置，去读取所希望的正确数据。这时候，cpu可能会无效的数据可能会被读取、抓取、解码或者执行上千次指令.<br>I/O设备比CPU和存储器慢得多。基于这个原因，当它们与CPU交互时，就可能存在时序上的问题。为了说明这一点，考虑当CPU想要从硬盘中读取数据时会发生的情况，这可能要消耗磁盘驱动器几个毫秒来正确的定位磁头，以便读取想要的数值，而在这段时间里，CPU可能已经读入了不正确的数据，并且读取、译解和执行了成千上万条指令。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">daily report</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/07/24/2017-07-24/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/4/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/6/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/4/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/6/">Next &raquo;</a>
     </nav>
   
 
@@ -631,19 +631,19 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">读书笔记</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">实习面试</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">清单</a>
+                <a href="javascript:void(0)" class="js-tag color4">函数式</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">函数式</a>
+                <a href="javascript:void(0)" class="js-tag color5">读书笔记</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">清单</a>
               </li>
              
               <li class="article-tag-list-item">

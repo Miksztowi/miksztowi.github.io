@@ -4,6 +4,57 @@
 
     
   <url>
+    <loc>http://www.ganbinwen.com/2017/12/11/Python-Coroutine%E4%BB%8B%E7%BB%8D/</loc>
+    <lastmod>2017-12-11T07:00:56.000Z</lastmod>
+    <data>
+        <display>
+        <title>Python Coroutine介绍</title>
+        <pubTime>2017-12-11T06:58:15.000Z</pubTime>
+        
+        <tag>Python</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://www.ganbinwen.com/2017/12/02/Python-generator-%E4%BB%8B%E7%BB%8D/</loc>
+    <lastmod>2017-12-02T09:13:05.000Z</lastmod>
+    <data>
+        <display>
+        <title>Python generator 介绍</title>
+        <pubTime>2017-12-02T09:12:38.000Z</pubTime>
+        
+        <tag>Python</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://www.ganbinwen.com/2017/12/02/Python-Iterators-and-Iterables%E4%BB%8B%E7%BB%8D/</loc>
+    <lastmod>2017-12-02T07:04:16.000Z</lastmod>
+    <data>
+        <display>
+        <title>Python Iterators and Iterables介绍</title>
+        <pubTime>2017-12-02T07:02:24.000Z</pubTime>
+        
+        <tag>Python</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://www.ganbinwen.com/2017/11/29/Python-Function-Decorators-and-Closures%E4%BB%8B%E7%BB%8D/</loc>
     <lastmod>2017-11-29T08:22:50.000Z</lastmod>
     <data>
@@ -227,46 +278,12 @@
 
     
   <url>
-    <loc>http://www.ganbinwen.com/2017/07/07/2017-07-07/</loc>
+    <loc>http://www.ganbinwen.com/2017/08/16/2017-08-16/</loc>
     <lastmod>2017-11-04T09:19:17.000Z</lastmod>
     <data>
         <display>
-        <title>2017-07-07 Report</title>
-        <pubTime>2017-07-07T07:27:45.000Z</pubTime>
-        
-        <tag>daily report</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://www.ganbinwen.com/2017/07/25/2017-07-25/</loc>
-    <lastmod>2017-11-04T09:19:17.000Z</lastmod>
-    <data>
-        <display>
-        <title>2017-07-25 Report</title>
-        <pubTime>2017-07-25T07:27:45.000Z</pubTime>
-        
-        <tag>daily report</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://www.ganbinwen.com/2017/07/26/2017-07-26/</loc>
-    <lastmod>2017-11-04T09:19:17.000Z</lastmod>
-    <data>
-        <display>
-        <title>2017-07-26 Report</title>
-        <pubTime>2017-07-26T07:27:45.000Z</pubTime>
+        <title>2017-08-16 Report</title>
+        <pubTime>2017-08-16T07:27:45.000Z</pubTime>
         
         <tag>daily report</tag>
          
@@ -295,12 +312,12 @@
 
     
   <url>
-    <loc>http://www.ganbinwen.com/2017/08/02/2017-08-02/</loc>
+    <loc>http://www.ganbinwen.com/2017/07/28/2017-07-28/</loc>
     <lastmod>2017-11-04T09:19:17.000Z</lastmod>
     <data>
         <display>
-        <title>2017-08-02 Report</title>
-        <pubTime>2017-08-02T07:27:45.000Z</pubTime>
+        <title>2017-07-28 Report</title>
+        <pubTime>2017-07-28T07:27:45.000Z</pubTime>
         
         <tag>daily report</tag>
          
@@ -329,29 +346,12 @@
 
     
   <url>
-    <loc>http://www.ganbinwen.com/2017/07/28/2017-07-28/</loc>
+    <loc>http://www.ganbinwen.com/2017/08/03/2017-08-03/</loc>
     <lastmod>2017-11-04T09:19:17.000Z</lastmod>
     <data>
         <display>
-        <title>2017-07-28 Report</title>
-        <pubTime>2017-07-28T07:27:45.000Z</pubTime>
-        
-        <tag>daily report</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://www.ganbinwen.com/2017/07/04/2017-07-04/</loc>
-    <lastmod>2017-11-04T09:19:17.000Z</lastmod>
-    <data>
-        <display>
-        <title>2017-07-04 Report</title>
-        <pubTime>2017-07-04T07:27:45.000Z</pubTime>
+        <title>2017-08-03 Report</title>
+        <pubTime>2017-08-03T07:27:45.000Z</pubTime>
         
         <tag>daily report</tag>
          
@@ -380,29 +380,12 @@
 
     
   <url>
-    <loc>http://www.ganbinwen.com/2017/07/12/2017-07-12/</loc>
+    <loc>http://www.ganbinwen.com/2017/07/04/2017-07-04/</loc>
     <lastmod>2017-11-04T09:19:17.000Z</lastmod>
     <data>
         <display>
-        <title>2017-07-12 Report</title>
-        <pubTime>2017-07-12T07:27:45.000Z</pubTime>
-        
-        <tag>daily report</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://www.ganbinwen.com/2017/07/14/2017-07-14/</loc>
-    <lastmod>2017-11-04T09:19:17.000Z</lastmod>
-    <data>
-        <display>
-        <title>2017-07-14 Report</title>
-        <pubTime>2017-07-14T07:27:45.000Z</pubTime>
+        <title>2017-07-04 Report</title>
+        <pubTime>2017-07-04T07:27:45.000Z</pubTime>
         
         <tag>daily report</tag>
          
@@ -431,131 +414,12 @@
 
     
   <url>
-    <loc>http://www.ganbinwen.com/2017/07/13/2017-07-13/</loc>
+    <loc>http://www.ganbinwen.com/2017/07/20/2017-07-20/</loc>
     <lastmod>2017-11-04T09:19:17.000Z</lastmod>
     <data>
         <display>
-        <title>2017-07-13 Report</title>
-        <pubTime>2017-07-13T07:27:45.000Z</pubTime>
-        
-        <tag>daily report</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://www.ganbinwen.com/2017/08/16/2017-08-16/</loc>
-    <lastmod>2017-11-04T09:19:17.000Z</lastmod>
-    <data>
-        <display>
-        <title>2017-08-16 Report</title>
-        <pubTime>2017-08-16T07:27:45.000Z</pubTime>
-        
-        <tag>daily report</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://www.ganbinwen.com/2017/08/10/2017-08-10/</loc>
-    <lastmod>2017-11-04T09:19:17.000Z</lastmod>
-    <data>
-        <display>
-        <title>2017-08-10 Report</title>
-        <pubTime>2017-08-10T07:27:45.000Z</pubTime>
-        
-        <tag>daily report</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://www.ganbinwen.com/2017/08/14/2017-08-14/</loc>
-    <lastmod>2017-11-04T09:19:17.000Z</lastmod>
-    <data>
-        <display>
-        <title>2017-08-14 Report</title>
-        <pubTime>2017-08-14T07:27:45.000Z</pubTime>
-        
-        <tag>daily report</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://www.ganbinwen.com/2017/08/08/2017-08-08/</loc>
-    <lastmod>2017-11-04T09:19:17.000Z</lastmod>
-    <data>
-        <display>
-        <title>2017-08-08 Report</title>
-        <pubTime>2017-08-08T07:27:45.000Z</pubTime>
-        
-        <tag>daily report</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://www.ganbinwen.com/2017/08/18/2017-08-18/</loc>
-    <lastmod>2017-11-04T09:19:17.000Z</lastmod>
-    <data>
-        <display>
-        <title>2017-08-18 Report</title>
-        <pubTime>2017-08-18T07:27:45.000Z</pubTime>
-        
-        <tag>daily report</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://www.ganbinwen.com/2017/08/20/2017-08-20/</loc>
-    <lastmod>2017-11-04T09:19:17.000Z</lastmod>
-    <data>
-        <display>
-        <title>2017-08-20 Report</title>
-        <pubTime>2017-08-20T07:27:45.000Z</pubTime>
-        
-        <tag>daily report</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://www.ganbinwen.com/2017/07/06/2017-07-06/</loc>
-    <lastmod>2017-11-04T09:19:17.000Z</lastmod>
-    <data>
-        <display>
-        <title>2017-07-06 Report</title>
-        <pubTime>2017-07-06T07:27:45.000Z</pubTime>
+        <title>2017-07-20 Report</title>
+        <pubTime>2017-07-20T07:27:45.000Z</pubTime>
         
         <tag>daily report</tag>
          
@@ -584,12 +448,165 @@
 
     
   <url>
+    <loc>http://www.ganbinwen.com/2017/07/12/2017-07-12/</loc>
+    <lastmod>2017-11-04T09:19:17.000Z</lastmod>
+    <data>
+        <display>
+        <title>2017-07-12 Report</title>
+        <pubTime>2017-07-12T07:27:45.000Z</pubTime>
+        
+        <tag>daily report</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://www.ganbinwen.com/2017/08/10/2017-08-10/</loc>
+    <lastmod>2017-11-04T09:19:17.000Z</lastmod>
+    <data>
+        <display>
+        <title>2017-08-10 Report</title>
+        <pubTime>2017-08-10T07:27:45.000Z</pubTime>
+        
+        <tag>daily report</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://www.ganbinwen.com/2017/07/18/2017-07-18/</loc>
     <lastmod>2017-11-04T09:19:17.000Z</lastmod>
     <data>
         <display>
         <title>2017-07-18 Report</title>
         <pubTime>2017-07-18T07:27:45.000Z</pubTime>
+        
+        <tag>daily report</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://www.ganbinwen.com/2017/08/14/2017-08-14/</loc>
+    <lastmod>2017-11-04T09:19:17.000Z</lastmod>
+    <data>
+        <display>
+        <title>2017-08-14 Report</title>
+        <pubTime>2017-08-14T07:27:45.000Z</pubTime>
+        
+        <tag>daily report</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://www.ganbinwen.com/2017/07/14/2017-07-14/</loc>
+    <lastmod>2017-11-04T09:19:17.000Z</lastmod>
+    <data>
+        <display>
+        <title>2017-07-14 Report</title>
+        <pubTime>2017-07-14T07:27:45.000Z</pubTime>
+        
+        <tag>daily report</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://www.ganbinwen.com/2017/08/20/2017-08-20/</loc>
+    <lastmod>2017-11-04T09:19:17.000Z</lastmod>
+    <data>
+        <display>
+        <title>2017-08-20 Report</title>
+        <pubTime>2017-08-20T07:27:45.000Z</pubTime>
+        
+        <tag>daily report</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://www.ganbinwen.com/2017/08/18/2017-08-18/</loc>
+    <lastmod>2017-11-04T09:19:17.000Z</lastmod>
+    <data>
+        <display>
+        <title>2017-08-18 Report</title>
+        <pubTime>2017-08-18T07:27:45.000Z</pubTime>
+        
+        <tag>daily report</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://www.ganbinwen.com/2017/07/13/2017-07-13/</loc>
+    <lastmod>2017-11-04T09:19:17.000Z</lastmod>
+    <data>
+        <display>
+        <title>2017-07-13 Report</title>
+        <pubTime>2017-07-13T07:27:45.000Z</pubTime>
+        
+        <tag>daily report</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://www.ganbinwen.com/2017/07/07/2017-07-07/</loc>
+    <lastmod>2017-11-04T09:19:17.000Z</lastmod>
+    <data>
+        <display>
+        <title>2017-07-07 Report</title>
+        <pubTime>2017-07-07T07:27:45.000Z</pubTime>
+        
+        <tag>daily report</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://www.ganbinwen.com/2017/07/10/2017-07-10/</loc>
+    <lastmod>2017-11-04T09:19:17.000Z</lastmod>
+    <data>
+        <display>
+        <title>2017-07-10 Report</title>
+        <pubTime>2017-07-10T07:27:45.000Z</pubTime>
         
         <tag>daily report</tag>
          
@@ -635,46 +652,12 @@
 
     
   <url>
-    <loc>http://www.ganbinwen.com/2017/07/20/2017-07-20/</loc>
-    <lastmod>2017-11-04T09:19:17.000Z</lastmod>
-    <data>
-        <display>
-        <title>2017-07-20 Report</title>
-        <pubTime>2017-07-20T07:27:45.000Z</pubTime>
-        
-        <tag>daily report</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>http://www.ganbinwen.com/2017/07/21/2017-07-21/</loc>
     <lastmod>2017-11-04T09:19:17.000Z</lastmod>
     <data>
         <display>
         <title>2017-07-21 Report</title>
         <pubTime>2017-07-21T07:27:45.000Z</pubTime>
-        
-        <tag>daily report</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://www.ganbinwen.com/2017/07/10/2017-07-10/</loc>
-    <lastmod>2017-11-04T09:19:17.000Z</lastmod>
-    <data>
-        <display>
-        <title>2017-07-10 Report</title>
-        <pubTime>2017-07-10T07:27:45.000Z</pubTime>
         
         <tag>daily report</tag>
          
@@ -703,6 +686,74 @@
 
     
   <url>
+    <loc>http://www.ganbinwen.com/2017/07/25/2017-07-25/</loc>
+    <lastmod>2017-11-04T09:19:17.000Z</lastmod>
+    <data>
+        <display>
+        <title>2017-07-25 Report</title>
+        <pubTime>2017-07-25T07:27:45.000Z</pubTime>
+        
+        <tag>daily report</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://www.ganbinwen.com/2017/07/26/2017-07-26/</loc>
+    <lastmod>2017-11-04T09:19:17.000Z</lastmod>
+    <data>
+        <display>
+        <title>2017-07-26 Report</title>
+        <pubTime>2017-07-26T07:27:45.000Z</pubTime>
+        
+        <tag>daily report</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://www.ganbinwen.com/2017/08/02/2017-08-02/</loc>
+    <lastmod>2017-11-04T09:19:17.000Z</lastmod>
+    <data>
+        <display>
+        <title>2017-08-02 Report</title>
+        <pubTime>2017-08-02T07:27:45.000Z</pubTime>
+        
+        <tag>daily report</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://www.ganbinwen.com/2017/07/06/2017-07-06/</loc>
+    <lastmod>2017-11-04T09:19:17.000Z</lastmod>
+    <data>
+        <display>
+        <title>2017-07-06 Report</title>
+        <pubTime>2017-07-06T07:27:45.000Z</pubTime>
+        
+        <tag>daily report</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://www.ganbinwen.com/2017/07/05/2017-07-05/</loc>
     <lastmod>2017-11-04T09:19:17.000Z</lastmod>
     <data>
@@ -720,12 +771,12 @@
 
     
   <url>
-    <loc>http://www.ganbinwen.com/2017/08/03/2017-08-03/</loc>
+    <loc>http://www.ganbinwen.com/2017/08/08/2017-08-08/</loc>
     <lastmod>2017-11-04T09:19:17.000Z</lastmod>
     <data>
         <display>
-        <title>2017-08-03 Report</title>
-        <pubTime>2017-08-03T07:27:45.000Z</pubTime>
+        <title>2017-08-08 Report</title>
+        <pubTime>2017-08-08T07:27:45.000Z</pubTime>
         
         <tag>daily report</tag>
          

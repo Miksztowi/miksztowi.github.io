@@ -141,6 +141,228 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-2017-07-26" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/07/26/2017-07-26/">2017-07-26 Report</a>
+    </h1>
+  
+
+        
+        <a href="/2017/07/26/2017-07-26/" class="archive-article-date">
+  	<time datetime="2017-07-26T07:27:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-26</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>当天完成的工作内容<br>1.扩展了compare api，跑了几份category的数据给伟哥。<br>2.帮同事爬取了OBD的数据。<br>当天的收获<br>1.今天总结的内容是： 如何避免做重复的工作。<br>2.问题： 在工作中有时候会碰到做重复或者之前做过的任务（指的是机械性的任务）<br>先举个重复任务的例子，在测试代码功能的时候，有时候涉及到Docker环境，镜像需要重新编译。每次写完代码，就需要手动一个一个的先删除原有的镜像，然后再编译镜像，再打tag，之后上传镜像。这是完全重复的工作，而且完成功能需要测试很多次，这样机械的任务完全应该被避免。<br>3.反思： 做重复的任务是人人都会碰到的事情，为什么我会把它当做是一个问题呢？ –&gt; 因为我很懒，看到任务是之前做过的，头很大。 –&gt; 那如何去解决重复的任务，但是不要消耗同样的时间呢？ –&gt; 优化方法，使得这一次比上一次完成更快吗？（手速更快的删除镜像？） –&gt; 机械性的任务完成的再快时间还是浪费了 –&gt; 那如何使得机械性任务一次完成，以后每次碰到了，都不需要再去耗费精力？ –&gt; 机械性的写代码，就应该让电脑去完成 –&gt; 写自动化脚本去完成。 –&gt; 那为什么知道了自动化脚本可以完成，我还是屡屡的去做重复的任务呢？ –&gt; 因为第一次碰到这个任务，是不知道之后还会重复做的；然后再次碰到了，因为有解决经验了所以这时候完成起来要比去写个脚本轻松的多。 –&gt; 恶性循环导致问题始终不会被解决 –&gt; 如何终止这个循环？ –&gt; 区分一下任务属性，对于明显会重复的任务，应该第一次就编写自动化脚本。对于不确定会重复的任务，在碰到的第二次就开始写脚本。对于明显不会重复的任务，只需要完成一次即可的，完全没必要去讲究代码健壮性，要追求快速完成。<br>方法：<br>碰到任务，先区分一下任务属性： 如果任务是机械性的，而且接下来工作中明显会再次碰到的（定性为每测试一次就要删除一次镜像的此类任务），第一次就要写好脚本。如果任务不确定接下来会不会再次碰到（定性为使用Avatar的某个api，每次手动给数据），给数据的时候，不要复制粘贴，要用测试脚本去使用这个APi的功能。 –&gt; 此时用删除镜像举例，确定需要写脚本（脚本在业余时间完成） –&gt; 先在网上找停止容器，删除镜像等的命令，docker stop<br> docker rmi <em><br> –&gt; </em>部分是不能写固定，使用脚本的时候传进去 –&gt; 之后用SHELL脚本去自动运行这些命令，完成这样的自动化功能。<br>概括总结内容：<br>问题： 工作时会碰到重复的机械任务。<br>目标： 避免重复的机械任务。<br>反思： 重复做机械任务，没有意义而且浪费精力。 需要写个自动化脚本来代替我完成这样的任务。<br>总结： 先定性任务，把明确要重复做的任务，第一次做时就写好脚本。先把相关命令都写好，然后用SHELL整理成自动化的脚本。<br>（在这周结束前，用shell把avatar的镜像操作写好，到时候把连接贴在daily report上）<br>明天的计划<br>1.优化返回类目关系树的性能，把compare api跟前端把数据格式沟通好，完成这两个功能，提交到GitHub上。<br>提出疑问或寻求帮助<br>无。<br>今日翻译<br>I love choices.<br>I love to walk around in bookstores not because I can buy all the books, but because I could buy one book, and I have so many to choose from.<br>I like buffets.<br>I rarely get to go to them, but when I do,<br>the first thing I do is walk around and see what the choice are.<br>I also like the internet.<br>It seems like cyberspace really doesn’t have any limits.<br>There are so many things to discover— like space.<br>Sometimes, I think we don’t appreciate the freedom that we have.<br>We are free to make many different choice.<br>From the food we eat— to the places we visit— to the people we meet— to the classes we take and on and on and on.<br>But freedom has dangers. If misused, it can be harmful.<br>I could pile a mountain of food on my plate and NOT to eat it.<br>It would be a waste. But that’s a choice I have.<br>The Internet has dangers, too.<br>If parents are not careful and don’t supervise what their kids can see— well kids can lose some of their innocence because of freedom.<br>There’s a reason for legal age limits when it comes to driving, gambling, drinking,somking, and voting.<br>Until we reach that age, we aren’t free to do those things.<br>我的翻译<br>我爱选择<br>我爱在书店里散步，不是因为我可以买所有的书，而是我可以买一本书。我有很多的选择。<br>我爱自助餐。<br>我很少去吃自助餐，不过当我这么做的时候，我第一件要做的事情就是环绕四周看看有什么事可以选择的。<br>我也爱互联网。<br>这大概是因为网络空间没有任何限制吧。<br>这有太多的东西去探索，比如空间。<br>有时候，我认为我们不会感谢我们拥有的自由。<br>我们没有代价去做许多不同的选择。<br>我们吃的食物，我们参观的地方，我们约会的人，我们去上的课，如此反复。<br>但是自由存在危险，如果滥用，它就会伤害你。<br>我可以堆积山一样的食物在我的盘子里，但是不去吃它。<br>这可能会浪费，但这是我拥有的权利。<br>互联网也同样有危险。<br>如果父母不小心或者监督他们的孩子，孩子会因为自由失去他们的天真无邪。这是法定年龄限制当他们去开车，赌博，喝酒，抽烟时的原因。<br>直到我们到了年纪，我们就不在没有代价的去做这些事情了。<br>我爱选择。<br>我喜欢在书店里徜徉，不是因为我能买下所有的书，<br>而是因为我可以买一本书，我有这么多的选择。<br>我还喜欢自助餐。<br>虽然我很少去，但是当我去的时候，<br>我做的第一件事就是四处逛逛，看看有什么选择。<br>我还喜欢互联网。<br>看来网络真的没有任何限制。<br>有这么多的东西等待发——比如空间。<br>有时候，我觉得我们不喜欢我们拥有的自由。<br>我们可以自由地做出许多不同的选择。<br>从我们所吃的食物到我们去的地方，我们见的人，我们所上的课程等等。<br>但自由也有危险。如果滥用，将会带来危害。<br>我可以将山一样的食物堆在我的盘子里，而我则不去吃它。<br>它会是一种浪费。但这是一个选择。<br>互联网也有危险。<br>如果父母对他们的孩子所看到的不留神也不监督，那么孩子们会因为自由而失去一些他们的无辜的。<br>当涉及驾车、赌博、酗酒、吸烟、和投票时法律会有年龄的限制。<br>直到我们到了那个年岁，否则我们去做那些事将不会被赋予自由。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">daily report</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/07/26/2017-07-26/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-2017-07-25" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/07/25/2017-07-25/">2017-07-25 Report</a>
+    </h1>
+  
+
+        
+        <a href="/2017/07/25/2017-07-25/" class="archive-article-date">
+  	<time datetime="2017-07-25T07:27:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-25</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>当天完成的工作内容<br>1.api/relation_tree<br>当天的收获<br>1.问题: 如何快速理解sql代码及写sql<br>2.目标: 逻辑清晰的逐步完成复杂的sql<br>3.反思：今天要在原有的SQL里再增加一层内连接，但是我一直不理解SQL的业务逻辑。 –&gt; 首先我没有把SQL格式化，SQL非常混乱难以阅读 –&gt; 用在线工具格式化后，SQL逻辑清晰 –&gt; 但是我仍然阅读存在问题，因为我读SQL是从前往后读 –&gt; 伟哥纠正我SQL要从内层向外层读 –&gt; 从内向外读后，逻辑清晰，很快可以明白SQL的意思，但是不理解业务逻辑的含义 –&gt;<br>因为业务逻辑不仅需要明白SQL的意思，还要对照表里，去明白每一次的连接后得到的数据。根据数据的对比去思考业务逻辑。<br>4.方法：遇到SQL代码 –&gt; formmater sql –&gt; 从内至外的逐层阅读代码 –&gt; 每一层阅读完，先核对数据的变化 –&gt; 从变化中，思考业务逻辑。<br>5.用总结的方法重新处理一遍今天遇到的问题：<br>原来的SQL:<br>select left(t2.published_at,7) month, count(<em>) as value from (select d.asin as parent_asin from (SELECT distinct coalesce(parent_asin_id, id) as parent_asin_id from amazon_review_insight.amazon_amazonasin WHERE %s ) c inner join amazon_review_insight.amazon_amazonasin d on c.parent_asin_id = d.id ) t1 inner join amazon_review_insight.amazon_amazonreview t2 on t1.parent_asin = t2.parent_asin where left(t2.published_at,7)&gt;=’2011-01’ group by left(t2.published_at,7)<br>Frommater后：<br>SELECT left(t2.published_at,7) MONTH,<br>                               count(</em>) AS value<br>FROM<br>  (SELECT d.asin AS parent_asin<br>   FROM<br>     (SELECT DISTINCT coalesce(parent_asin_id, id) AS parent_asin_id<br>      FROM amazon_review_insight.amazon_amazonasin<br>      WHERE %s ) c<br>   INNER JOIN amazon_review_insight.amazon_amazonasin d ON c.parent_asin_id = d.id) t1<br>INNER JOIN amazon_review_insight.amazon_amazonreview t2 ON t1.parent_asin = t2.parent_asin<br>WHERE left(t2.published_at,7)&gt;=’2011-01’<br>GROUP BY left(t2.published_at,7)<br>从内到外的阅读：<br>1.根据where的条件，得到parent_asin_id后同D表根据c.parent_asin_id = d.id做连接，select d.asin。此时对比一下得到的数据（parent_asin）和之前的数据（parent_asin_id），明白了这次的逻辑是为了取parent_asin。将得到的表命名t1，再次同amazon_amazonreview根据t1.parent_asin = t2.parent_asin做连接。再根据MONTH&gt;=’2011-01’的条件，对得到的数据按照月份分组后聚合。得到了月份和对应的value值。对比现在的数据（月份和对应的数量）和之前的数据（parent_asin），明白了业务逻辑是取parent_asin对应的月份和数量。<br>明天的计划<br>1.在SQL里面嵌套一层Category的连接。<br>2.帮公司同事完成OBD的数据爬取。<br>提出疑问或寻求帮助<br>无。<br>今日翻译<br>Most CPUs have a control input signal called READY (or something similar). Normally this input is high. When the CPU outputs the address of the I/O device and the correct control signals, enabling the tri-state buffers of the I/O device interface, the I/O device sets READY low. The CPU reads this signal and continues to output the same address and control signals, which cause the buffers to remain enabled. In the hard disk drive example, the drive rotates the disk and positions its read heads until it reads the desired data.<br>我的译文<br>大多数的CPU都有一个叫做READY（或者别的）的输入控制信号。通常这个输入是高，当CPU输出地址和正确的控制信号到I/O设备，I/O设备接口的三态缓冲使用的时候，I/O设备会设置READY为低。CPU读取这个信号然后继续去输出相同的地址和控制信号，这些会让缓冲保持能用。用硬盘驱动举例，驱动转动磁盘然后指向磁头的位置直到它可以读取应该被读取的数据。<br>正确译文<br>大多数CPU都有一个控制输入信号，叫做就绪信号（READY）（或其他意思相近的名称），通常它为高电平。当CPU输出某I/O设备的地址和正确的控制信号，促使I/O设备接口的三态缓冲器有效时，该I/O设备置READY信号为低电平。CPU读取这一信号，并且继续输出同样的地址信号和控制信号，使缓冲器保持有效。在硬盘驱动器的例子中，此时驱动器旋转磁头，并且定位读写头，直到读到想要要的数据为止。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">daily report</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/07/25/2017-07-25/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-2017-07-24" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/07/24/2017-07-24/">2017-07-24 Report</a>
+    </h1>
+  
+
+        
+        <a href="/2017/07/24/2017-07-24/" class="archive-article-date">
+  	<time datetime="2017-07-24T07:27:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-24</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>当天完成的工作内容<br>1.avatar目前的tag_service的准确率和召回率不高，对其中存在的问题做了分析。根据网上提供的资料表示词形还原会比词干抽取（avatar的做法）效果更好。pattern的表现很差，目前在网上找了一些开源的pattern api打算跟项目中的作对比。<br>当天的收获<br>1.总结的内容是： 如何用最短的时间找到靠谱的api？<br>2.需求： 在工作中，对原有的功能进行优化或者fix bug的时候，希望用最短的时间来完成任务 –&gt; 如果自己去造轮子，目前我的能力连代码中未优化的轮子都造不出来 –&gt; 那么只能去网上寻找资源 –&gt; 网上的资源非常多，google，github，stackoverflow，技术博客 等等 –&gt; 那么如何有效的从这些资源里，快速找到我所需要的呢？ –&gt; 虽然遇到问题，用Google查找是Ok的。但是google出来的，有时候需要看很久的英文资料，而且看完了资料后发现所提供的工具并不合适我的要求 –&gt; 那么现在根据近期记录的搜索方案，整理一下技巧。<br>3.查找方法的总结：<br>先分析一下问题 –&gt; 1.如果现在是要fix bug，那么跳过Google,直接在stackoverflow上面查找。2.现在需要的是优化已有的功能，同样跳过google，直接在Github把功能描述出来，看看是不是已经存在可以满足需求的轮子了 –&gt; 如果上面两个问题都没有找到解决办法，其实不一定是目前没有可用的轮子，而是我对问题或者需求没有理解清楚 –&gt; 重新跟伟哥确认一下需求或者问题 –&gt; 重复上述步骤 –&gt; 如果已经找到了解决方案，那么先把方案跟伟哥确认一下可行性之后开始执行 –&gt; 如果没有解决方案，那么说明目前确实没有成熟的轮子合适需求，这时候开始Google，找解决问题的思路，了解完思路后绝对不要去手写代码，此时一定要把想到的思路去Github和技术博客中找轮子或者教程。 –&gt; 把轮子或者教程看明白后再开始动手写代码。<br>概括上述内容：<br>1.需求： fix Bug或者优化已有功能。<br>2.目标： 用最少的时间去找到合适的轮子/fix bug。<br>3.方法： 先分析问题，不同的问题，第一步尝试有区别。fix bug先stackoverflow，优化功能先去Github找轮子。 对细节上不懂得地方先Google。有了思路后可以去相关的技术博客里找教程（今天在coolshell里找到了一片文本挖掘的教程。） –&gt;  动手前先跟伟哥沟通好，确认方案有可行性再写代码。<br>明天的计划<br>1.用词形还原提取的Tag跟目前avatar的做对比，择优选择。<br>2.熟悉patter api后，用到avatar上。<br>提出疑问或寻求帮助<br>无。<br>今日翻译<br>I/O devices are much slower than CPUs and memory. For this reason, they can have timing problems when interacting with the CPU. To illustrate this, consider what happens when a CPU wants to read data from a disk. It may take the disk drive several milliseconds to position its heads properly to read the desired value. In this time, the CPU could have read in invalid data and fetched, decoded, and executed thousands of instructions.<br>I/O设备比cpu和内存要慢很多。因为这个原因，它们和cpu相互作用的时候会有时间问题。为了阐明这个现象，思考一下当cpu想要从磁盘里读数据的时候会发生什么。它会用几毫秒的时间驱动到磁盘头的位置，去读取所希望的正确数据。这时候，cpu可能会无效的数据可能会被读取、抓取、解码或者执行上千次指令.<br>I/O设备比CPU和存储器慢得多。基于这个原因，当它们与CPU交互时，就可能存在时序上的问题。为了说明这一点，考虑当CPU想要从硬盘中读取数据时会发生的情况，这可能要消耗磁盘驱动器几个毫秒来正确的定位磁头，以便读取想要的数值，而在这段时间里，CPU可能已经读入了不正确的数据，并且读取、译解和执行了成千上万条指令。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">daily report</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/07/24/2017-07-24/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-2017-07-21" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -289,249 +511,9 @@
 
 
   
-    <article id="post-2017-07-19" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/19/2017-07-19/">2017-07-19 Report</a>
-    </h1>
-  
-
-        
-        <a href="/2017/07/19/2017-07-19/" class="archive-article-date">
-  	<time datetime="2017-07-19T07:27:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-19</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>当天完成的工作内容<br>1.筛选了一些反爬虫的API，找了可以实行的ip限制方案。<br>当天的收获<br>1.总结的问题： 英文能力弱，带来了很多的弊端，目前暴露出来的： 1.英文文档读起来费劲，但偏偏大部分优秀资源都没有中文版。2. 削弱了自己获取资源的能力，比如遇到问题想在stackoverflow求助一下，连问题都描述不了。<br>反思一下：</p>
-<p>文档看不懂 –&gt; 单词不理解 ——&gt; 词汇量太少 –&gt; 一年没有背单词了，每次在词典中查完生词也只是标记一下，没有复习过。 –&gt; 没有背单词的习惯。</p>
-<p>不能用英语表达问题 –&gt; 除了半年一次的英语考试，平时没有用英语写作过 –&gt; 平日缺少英文写作和表达的锻炼<br>总结：<br>1.因为对写作没有积极性 –&gt; 所以不自己写作，去翻译英文文档 –&gt; 每天翻译1段超过150个词的文档 –&gt; 但我惰性很大，没有人督促肯定坚持不下来 –&gt; 以后在daily report下写第五个点【今日翻译】，把今天翻译的原文和译文记录（不用帮我校正，只是为了强迫自己坚持下去） </p>
-<p>我只想背我不会的生词 –&gt; 不打算买个词典一页一页开始背 –&gt; 每天在使用有道词典的时候，查阅完单词的同时mark一下 –&gt; 当天背当天查阅的单词 –&gt; 保持每天生词本是清空的 （查多少个，背多少个，数目不固定）<br>以上两个方法与daily report保持同步。</p>
-<p>明天的计划<br>1.把Ip限制的方案落实。<br>提出疑问或寻求帮助<br>无。<br>今日翻译<br>A variant of this design replaces the register with tri-state buffers. The same logic used to load the register is used to enable the tri-state buffers instead. Although this can work for some designs, the output device must read in data while the buffers are enabled. Once they are disabled, the outputs of the buffers are tri-stated and the data is no longer available to the output device.<br>我的译文：<br>这个多样的设计替代了tri-state缓冲的寄存器。同样的逻辑被用来加载寄存器是过去被用来替代tri-state缓冲的。即使这个能够工作于同样的设计，外部设备必须要在缓存能用的时候可以读书数据。一旦它们失效，输出到缓冲会tri-stated而且数据不在对外部设备可用。<br>正确译文：<br>该设计也可以用三态缓冲器代替寄存器。装载寄存器的逻辑同样用于使能三态缓冲器。虽然对于某些设计这是可行的，但是输出设备必须在缓冲器有效时读入数据。一旦缓冲器被禁止，其输出就是三态，该数据也就不再能够供输出设备使用。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">daily report</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/07/19/2017-07-19/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-2017-07-18" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/18/2017-07-18/">2017-07-18 Report</a>
-    </h1>
-  
-
-        
-        <a href="/2017/07/18/2017-07-18/" class="archive-article-date">
-  	<time datetime="2017-07-18T07:27:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-18</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>对于2017<br> 07<br> 17的daily report赵赵的回复。<br>这个总结不合格。</p>
-<p>自己的问题，自己先问6次为什么（自己解答），然后再问别人。<br>你现在还是抓不住重点。</p>
-<p>我描述你的问题是：问问题的时候描述太多<br>反思的原因是：</p>
-<ol>
-<li>抓不住重点</li>
-<li>没有自己考虑周全</li>
-</ol>
-<p>那上面两个问题，分别的原因又是什么？ 自己回答之后，再问原因。<br>我上周已经告诉你了，先找到根本原因，在想action plan！<br>我告诉你N遍的方法，也带着你做过N遍了，你不照着实施，现在还要问我要方法？！</p>
-<p>当天完成的工作内容<br>1.写了xxx api<br>2.在xxxx的函数里增加了xxxx的逻辑<br>当天的收获<br>1.对7月17提出的【如何去问问题】重新总结。<br>问题<br>：问问题时描述太多，太啰嗦。<br>原因<br>：</p>
-<p>提问时抓不住问题的重点 –&gt; 提问之前，没有把问题的原因理解清楚 –&gt; 急于寻找答案，未能静下心思考 –&gt; 思维有惰性，希望答案可以不劳而获 –&gt; 依赖他人，独立解决问题的能力差</p>
-<p>对问题考虑不全面 –&gt;  对问题的解决方案有遗漏 –&gt; 假设问题发生的情况时有遗漏 –&gt; 解决问题的方法不当，即没有用正确的方法在分析问题时保证尽可能完整清晰。</p>
-<p>总结<br>：<br>因为原因2中包含了原因1，所以先对原因2总结action plan。</p>
-<p>遇到问题 –&gt; 立刻把问题写在纸上（不可只在脑中思考） –&gt;  把问题用画二叉树的方式，把可能导致的原因逐层开始画出来 –&gt; 对上一步中画完的二叉树，用逻辑推理一遍，确定问题发生的原因已经出现在某个叶子节点上 –&gt; 如果没有任何叶子节点可以推断为导致问题发生的原因，那么问题的考虑必定有遗漏，继续思考或者此时寻求他人建议，并且将完成的二叉树给回答者看，让回答者尽快明确被卡住的原因。 –&gt; 如果二叉树的叶子节点中已经存在问题发生的原因 –&gt; 针对原因，思考问题的解决方案 –&gt; 利用目前可用的所有工具（google，man，document）去找到对应的答案 –&gt; 直到所有答案都被尝试或者找到了正确解决问题的答案为止，否则记录每一个答案不正确的原因，留作之后寻问他人时提供【目前已知的信息】。 （<br>以上每一步的过程必须有记录，绝不可以只在脑中完成。<br>）</p>
-<p>如果1中的办法未能找到正确的答案 –&gt; 重复1并且每次结束后查阅记录信息 –&gt; 如果连续6次的记录信息都一样 –&gt; 表明一直被卡在了同一个地方 –&gt; 此时才可以寻问他人 –&gt; 如果重复1后每次的记录过程不一样，那么表明每次都有新的进展 –&gt; 应该继续静下心重复1直到问题解决或者6次的记录信息都相同，再寻问他人。</p>
-<p>明天的计划<br>1.熟悉xxxx中xxxxx部分的架构，xxxxx，增加反爬虫机制。<br>提出疑问或寻求帮助<br>无。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">daily report</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/07/18/2017-07-18/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-2017-07-17" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/17/2017-07-17/">2017-07-17 Report</a>
-    </h1>
-  
-
-        
-        <a href="/2017/07/17/2017-07-17/" class="archive-article-date">
-  	<time datetime="2017-07-17T07:27:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-17</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>当天完成的工作内容<br>1.fix了xxxxx中的重复任务和数据占用大量空间的问题。<br>当天的收获<br>1.今天总结的内容是在入职xxxxx前，赵赵就多次提醒我注意的问题–如何去问问题。<br>截止今日仍表现出来的问题：问问题时，<br>描述的太冗余了<br>，导致伟哥经常听完我的问题，第一句话就是：你在说什么。<br>反思：1.描述的冗余是因为我总是想把所有的细节都描述清楚，担心会遗漏某个细节，但事实反应出来的是描述的太多会让回答者找不到问题的重心，反而不利于沟通。2.问问题前没有将问题考虑详细，或者尽可能的先尝试独立解决后再去提问。有时候问了一个问题，伟哥立马反问我一句这个问题的原因是什么，我却答不上来。<br>总结：<br>1.提问前先尝试<br>独立解决<br>这个问题，如果是技术上的那么应该google/或者将相关文档阅读一遍后再去提问，如果是方向选择上的那么应该及时向伟哥寻求建议。<br>2.在提问时，<br>明确问题<br>，将自己<br>目前做的尝试<br>，已经<br>收集到信息<br>以及被<br>卡住的原因<br>告诉回答者。将问题变得<br>简单<br>，尽可能的将问题描述的简单易懂。<br>明天的计划<br>1.把xxxx中数据持久化部分的逻辑弄懂。<br>提出疑问或寻求帮助<br>对于我今天总结出来的提问方式（针对于我目前暴露出来的问题），我参考了赵赵之前发给我的资料。但总结不对之处或者有遗漏的地方，希望赵赵与伟哥不吝赐教。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">daily report</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/07/17/2017-07-17/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/5/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/7/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/5/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/7/">Next &raquo;</a>
     </nav>
   
 
@@ -626,19 +608,19 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">读书笔记</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">实习面试</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">清单</a>
+                <a href="javascript:void(0)" class="js-tag color4">函数式</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">函数式</a>
+                <a href="javascript:void(0)" class="js-tag color5">读书笔记</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">清单</a>
               </li>
              
               <li class="article-tag-list-item">
