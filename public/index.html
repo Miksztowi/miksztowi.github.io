@@ -141,6 +141,114 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Python-concurrency-with-futures" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/12/13/Python-concurrency-with-futures/">Python concurrency with futures</a>
+    </h1>
+  
+
+        
+        <a href="/2017/12/13/Python-concurrency-with-futures/" class="archive-article-date">
+  	<time datetime="2017-12-13T03:42:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-13</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Preface"><a href="#Preface" class="headerlink" title="Preface"></a>Preface</h2><p>当你想要高效地处理网络I/O时，你就需要理解「并发」的概念。本章计划列举Fluent Python书中的两个Web下载实例来帮助你理解这个概念。</p>
+<h2 id="Sequential"><a href="#Sequential" class="headerlink" title="Sequential"></a>Sequential</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div></pre></td><td class="code"><pre><div class="line">import os</div><div class="line">import time</div><div class="line">import sys</div><div class="line"></div><div class="line">import requests  # It&apos;s not the standard library, so separate it from top with a blank line.</div><div class="line"></div><div class="line">POP20_CC = (&apos;CN IN US ID BR PK NG BD RU JP&apos;</div><div class="line">            &apos;MX PH VN ET EG DE IR TR CD FR&apos;).split()</div><div class="line"></div><div class="line">BASE_URL = &apos;http://flupy.org/data/flags&apos;</div><div class="line"></div><div class="line">DEST_DIR = &apos;downloads/&apos;</div><div class="line"></div><div class="line"></div><div class="line">def save_flags(img, filename):</div><div class="line">    path = os.path.join(DEST_DIR, filename)</div><div class="line">    with open(path, &apos;wb&apos;) as fp:</div><div class="line">        fp.write(img)</div><div class="line"></div><div class="line"></div><div class="line">def get_flag(cc):</div><div class="line">    url = &apos;&#123;&#125;/&#123;cc&#125;/&#123;cc&#125;.gif&apos;.format(BASE_URL, cc=cc.lower())</div><div class="line">    resp = requests.get(url)</div><div class="line">    return resp.content</div><div class="line"></div><div class="line"></div><div class="line">def show(text):</div><div class="line">    print(text, end=&apos; &apos;)</div><div class="line">    sys.stdout.flush()  # flush stdout buffter.</div><div class="line"></div><div class="line"></div><div class="line">def download_many(cc_list):</div><div class="line">    for cc in sorted(cc_list):</div><div class="line">        image = get_flag(cc)</div><div class="line">        show(cc)</div><div class="line">        save_flags(image, cc.lower() + &apos;.gif&apos;)</div><div class="line"></div><div class="line">    return len(cc_list)</div><div class="line"></div><div class="line"></div><div class="line">def main(download_many):</div><div class="line">    t0 = time.time()</div><div class="line">    count = download_many(POP20_CC)</div><div class="line">    elapsed = time.time() - t0</div><div class="line">    msg = &apos;\n&#123;&#125; flags download in &#123;:.2f&#125;s&apos;</div><div class="line">    print(msg.format(count, elapsed))</div><div class="line"></div><div class="line"></div><div class="line">if __name__ == &apos;__main__&apos;:</div><div class="line">    main(download_many)</div><div class="line"></div><div class="line">BD BR CD CN DE EG ET FR ID IN IR JPMX NG PH PK RU TR US VN </div><div class="line">19 flags download in 21.66s</div></pre></td></tr></table></figure>
+<h2 id="Concurrent-futures"><a href="#Concurrent-futures" class="headerlink" title="Concurrent.futures"></a>Concurrent.futures</h2><p>主要的Concurrent.futures的包是ThreadPoolExecutor和ProcessPoolExecutor，它们实现的接口允许你使用多个线程或者进程，但是不用去关心底层的细节。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">from concurrent import futures</div><div class="line"></div><div class="line">from Fluent_Python_demo.Concurrency_demo.sequential_script_demo import save_flags, get_flag, show, main</div><div class="line"></div><div class="line">MAX_WORKERS = 20</div><div class="line"></div><div class="line">def download_one(cc):</div><div class="line">    image = get_flag(cc)</div><div class="line">    show(cc)</div><div class="line">    save_flags(image, cc.lower() + &apos;.gif&apos;)</div><div class="line">    return cc</div><div class="line"></div><div class="line">def download_many(cc_list):</div><div class="line">    workers = min(MAX_WORKERS, len(cc_list))</div><div class="line">    with futures.ThreadPoolExecutor(workers) as executor:</div><div class="line">        res = executor.map(download_one, sorted(cc_list))</div><div class="line"></div><div class="line">    return len(list(res)) # 如果任意一个线程的发生了异常，由于隐式调用了next()方法得到返回值，所以异常会在这里被抛出。</div><div class="line"></div><div class="line">if __name__ == &apos;__main__&apos;:</div><div class="line">    main(download_many)</div><div class="line">    </div><div class="line">TR RU IN JPMX BR VN DE EG FR NG ID CN PK PH CD IR ET US BD </div><div class="line">19 flags download in 1.69s</div></pre></td></tr></table></figure>
+<ol>
+<li>在上下文管理器中，executor的<strong>exit</strong>方法会调用executor.shutdown(wait=True),这个方法会阻塞直到所有的线程结束。</li>
+<li>注意download_one()这个函数与上面的代码做个对比，我们可以发现将sequential的代码重构为concurrent时，可以直接将for循环里面的操作拆分成一个单独的函数，来支持后续的并发处理。</li>
+</ol>
+<p>看完了上面的代码，我们可能会产生一个困惑：future到底是啥？它背后的逻辑是怎么样的？</p>
+<ul>
+<li>future是本章以及后面介绍的asyncio的内部逻辑，但是作为用户是无法看到内部操作的。</li>
+<li>它是Future class的实例，表示已经结束或者还未结束的计算的延时。</li>
+<li>Futures是挂起操作，所以它们可以被放进队列中。它们的状态是可以被查询的，并且当挂起操作结束后，它们的结果是可以被保存或者调用的。</li>
+<li>虽然它看起来很有意义，但是在使用时，应该让并发的框架来完成实例，而不是我们来控制。一个Future就代表一个最终会执行的操作，而唯一能确定某个操作会被执行的方法是这个操作已经被安排到任务中了。因此，Future实例是安排执行操作的Concurrent.futures.Future类创建的。</li>
+<li>只有并发的框架会在future结束后改变它的状态，但是我们不能控制future何时发生，所以我们写的代码不支持改变future的状态。Future的.done()方法是非阻塞的，并且它会返回一个boolean类型的值来表明当前的future是否结束了。.add_done_callback()，需要我们来设定一个callable参数，当future结束后会将其当作参数传给callbale，并且调用它。.result()方法会返回callable的结果，或者抛出一些设定的异常。但是.result()这个方法在future没有结束前，在concurrency.futures.Future中，调用f.result()的话，将会阻塞线程，直到结果返回。如果我们设定了timeout参数话，结果没有在timeout内返回就会抛出TimeoutError异常。这个方法在asyncio中是非阻塞的，同时也不支持timeout设置，结果是通过yield from来返回的，这点与concurrency.futures.Future是不同的。</li>
+</ul>
+<p>接下来我们用concurrency.futures.as_completed()修改上面写过的代码。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">def download_many(cc_list):</div><div class="line">    cc_list = cc_list[:5]</div><div class="line">    with futures.ThreadPoolExecutor(max_workers=3) as executor:</div><div class="line">        to_do = []</div><div class="line">        for cc in sorted(cc_list):</div><div class="line">            future = executor.submit(download_one, cc)</div><div class="line">            to_do.append(future)</div><div class="line">            msg = &apos;Scheduled for &#123;&#125;: &#123;&#125;&apos;</div><div class="line">            print(msg.format(cc, future))</div><div class="line"></div><div class="line">        results = []</div><div class="line">        for future in futures.as_completed(to_do):</div><div class="line">            res = future.result()</div><div class="line">            msg = &apos;&#123;&#125; result: &#123;!r&#125;&apos;</div><div class="line">            print(msg.format(future, res))</div><div class="line">            results.append(res)</div><div class="line"></div><div class="line">    return len(results)</div><div class="line"></div><div class="line">Scheduled for BR: &lt;Future at 0x1020f2080 state=running&gt;</div><div class="line">Scheduled for CN: &lt;Future at 0x1020f27f0 state=running&gt;</div><div class="line">Scheduled for ID: &lt;Future at 0x1020f27b8 state=running&gt;</div><div class="line">Scheduled for IN: &lt;Future at 0x1020fe320 state=pending&gt;</div><div class="line">Scheduled for US: &lt;Future at 0x1020fe3c8 state=pending&gt;</div><div class="line">BR &lt;Future at 0x1020f2080 state=finished returned str&gt; result: &apos;BR&apos;</div><div class="line">ID &lt;Future at 0x1020f27b8 state=finished returned str&gt; result: &apos;ID&apos;</div><div class="line">IN &lt;Future at 0x1020fe320 state=finished returned str&gt; result: &apos;IN&apos;</div><div class="line">US &lt;Future at 0x1020fe3c8 state=finished returned str&gt; result: &apos;US&apos;</div><div class="line">CN &lt;Future at 0x1020f27f0 state=finished returned str&gt; result: &apos;CN&apos;</div><div class="line"></div><div class="line">5 flags download in 3.39s</div></pre></td></tr></table></figure>
+<p>executor.submit(download_one, cc)安排download _one被执行，它会返回future。<br>注意看只有三个任务是runnning状态，另外的都是pending，这是因为只有三个worker导致的。</p>
+<h5 id="Experimenting-with-Executor-map"><a href="#Experimenting-with-Executor-map" class="headerlink" title="Experimenting with Executor.map"></a>Experimenting with Executor.map</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line">from time import sleep, strftime</div><div class="line">from concurrent import futures</div><div class="line"></div><div class="line"></div><div class="line">def display(*args):</div><div class="line">    print(strftime(&apos;[%H:%M:%S]&apos;), end=&apos; &apos;)</div><div class="line">    print(*args)</div><div class="line"></div><div class="line"></div><div class="line">def loiter(n):</div><div class="line">    msg = &apos;&#123;&#125;loiter(&#123;&#125;): doing nothing for &#123;&#125;s...&apos;</div><div class="line">    display(msg.format(&apos;\t&apos; * n, n, n))</div><div class="line">    sleep(n)</div><div class="line">    msg = &apos;&#123;&#125;loiter(&#123;&#125;): done&apos;</div><div class="line">    display(msg.format(&apos;\t&apos; * n, n))</div><div class="line">    return n * 10</div><div class="line"></div><div class="line"></div><div class="line">def main():</div><div class="line">    display(&apos;Script starting.&apos;)</div><div class="line">    executor = futures.ThreadPoolExecutor(max_workers=3)</div><div class="line">    results = executor.map(loiter, range(5))</div><div class="line">    display(&apos;results:&apos;, results)</div><div class="line">    display(&apos;Wating for individual results:&apos;)</div><div class="line">    for i, result in enumerate(results):</div><div class="line">        display(&apos;result &#123;&#125;: &#123;&#125;&apos;.format(i, result))</div><div class="line">if __name__ == &apos;__main__&apos;:</div><div class="line">    main()</div><div class="line">[10:08:03] Script starting.</div><div class="line">[10:08:03] loiter(0): doing nothing for 0s...</div><div class="line">[10:08:03] loiter(0): done</div><div class="line">[10:08:03] 	loiter(1): doing nothing for 1s...</div><div class="line">[10:08:03] 		loiter(2): doing nothing for 2s...</div><div class="line">[10:08:03] results: &lt;generator object Executor.map.&lt;locals&gt;.result_iterator at 0x10d6ef468&gt;</div><div class="line">[10:08:03] Wating for individual results:</div><div class="line">[10:08:03] result 0: 0</div><div class="line">[10:08:03] 			loiter(3): doing nothing for 3s...</div><div class="line">[10:08:04] 	loiter(1): done</div><div class="line">[10:08:04] 				loiter(4): doing nothing for 4s...</div><div class="line">[10:08:04] result 1: 10</div><div class="line">[10:08:05] 		loiter(2): done</div><div class="line">[10:08:05] result 2: 20</div><div class="line">[10:08:06] 			loiter(3): done</div><div class="line">[10:08:06] result 3: 30</div><div class="line">[10:08:08] 				loiter(4): done</div><div class="line">[10:08:08] result 4: 40</div><div class="line">注意看打印时间。__iter__方法会阻塞代码，直到future返回结果。</div></pre></td></tr></table></figure>
+<p>推荐你在你的电脑上运行一下这段代码，你很可能会发现尽管代码相同，但是打印顺序是不同的。由于YMMV(You Mileage May Vary):在多线程运行时，你永远不会准确的知道同一时刻内发生的事情。换台机器可能同一时刻内发生的情况就有所不同。</p>
+<p>这段代码的阻塞情况与上面是不同的，它返回的结果是跟调用顺序完全相同的。比如你设定第一个任务需要等待10秒，其余任务执行时间为1秒，那么.map()会先阻塞10秒后再执行其余任务。所以如果你的任务需要按照顺序来执行，那么使用.map()是ok的，但是如果你的任务对调用顺序无所谓的话，Executor.submit,futures.as_completed()会更适合。</p>
+<h2 id="Downloads-with-progress-display-and-error-handing"><a href="#Downloads-with-progress-display-and-error-handing" class="headerlink" title="Downloads with progress display and error handing"></a>Downloads with progress display and error handing</h2><p>我们先介绍python中一个有趣的库<strong>tqdm</strong>，利用这个库我们可以打印出运行的进度条，和接下来需要的时间。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">import time</div><div class="line">from tqdm import tqdm</div><div class="line">    for i in tqdm(range(100)):</div><div class="line">        time.sleep(0.1)</div><div class="line">100%|██████████| 100/100 [00:10&lt;00:00,  9.70it/s]</div></pre></td></tr></table></figure>
+<p>先看sequentially download</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">def get_flag(base_url, cc):</div><div class="line">    url = &apos;&#123;&#125;/&#123;cc&#125;/&#123;cc&#125;.gif&apos;.format(base_url, cc=cc.lower())</div><div class="line">    resp = requests.get(url)</div><div class="line">    if resp.status_code != 200:</div><div class="line">        resp.raise_for_status()</div><div class="line">    return resp.content</div><div class="line"></div><div class="line"></div><div class="line">def download_one(cc, base_url, verbose=False):</div><div class="line">    try:</div><div class="line">        image = get_flag(base_url, cc)</div><div class="line">    except requests.exceptions.HTTPError as exc:</div><div class="line">        res = exc.response</div><div class="line">        if res.status_code == 404:</div><div class="line">            status = HTTPStatus.NOT_FOUND</div><div class="line">            msg = &apos;not found&apos;</div><div class="line">        else:</div><div class="line">            raise</div><div class="line"></div><div class="line">    else:</div><div class="line">        save_flags(image, cc.lower() + &apos;.gif&apos;)</div><div class="line">        status = HTTPStatus.OK</div><div class="line">        msg = &apos;OK&apos;</div><div class="line"></div><div class="line">    if verbose:</div><div class="line">        print(cc, msg)</div><div class="line"></div><div class="line">    return Result(status, cc)</div><div class="line"></div><div class="line"></div><div class="line">def download_many(cc_list, base_url, verbose, max_req):</div><div class="line">    counter = Counter()</div><div class="line">    cc_iter = sorted(cc_list)</div><div class="line">    if not verbose:</div><div class="line">        cc_iter = tqdm(cc_iter)</div><div class="line">    for cc in cc_iter:</div><div class="line">        try:</div><div class="line">            res = download_one(cc, base_url, verbose)</div><div class="line">        except requests.exceptions.HTTPError as exc:</div><div class="line">            error_msg = &apos;HTTP error &#123;res.status_code&#125; - &#123;res.reason&#125;&apos;</div><div class="line">            error_msg = error_msg.format(res=exc.response)</div><div class="line">        except requests.exceptions.ConnectionError as exc:</div><div class="line">            error_msg = &apos;Connection error&apos;</div><div class="line">        else:</div><div class="line">            error_msg = &apos;&apos;</div><div class="line">            status = res.status</div><div class="line"></div><div class="line">    if error_msg:</div><div class="line">        status = HTTPStatus.error</div><div class="line"></div><div class="line">    counter[status] += 1</div><div class="line">    if verbose and error_msg:</div><div class="line">        print(&apos;*** Error for &#123;&#125;: &#123;&#125;&apos;.format(cc, error_msg))</div><div class="line"></div><div class="line">    return counter</div></pre></td></tr></table></figure>
+<p>我们用futures.as_completed来做thread error handling。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line">def download_many(cc_list, base_url, verbose, concur_req):</div><div class="line">    counter = collections.Counter()</div><div class="line">    with futures.ThreadPoolExecutor(max_workers=concur_req) as executor:</div><div class="line">        to_do_map = &#123;&#125;</div><div class="line">        for cc in sorted(cc_list):</div><div class="line">            future = executor.submit(</div><div class="line">                download_one,</div><div class="line">                cc, base_url, verbose</div><div class="line">            )</div><div class="line">            to_do_map[future] = cc</div><div class="line"></div><div class="line">        done_iter = futures.as_completed(to_do_map)</div><div class="line"></div><div class="line">        if not verbose:</div><div class="line">            done_iter = tqdm.tqdm(done_iter, total=len(cc_list))</div><div class="line"></div><div class="line">        for future in done_iter:</div><div class="line">            try:</div><div class="line">                res = future.result()</div><div class="line">            except requests.exceptions.HTTPError as exc:</div><div class="line">                error_msg = &apos;HTTP error &#123;res.status_code&#125; - &#123;res.reason&#125;&apos;</div><div class="line">                error_msg = error_msg.format(res=exc.response)</div><div class="line">            except requests.exceptions.ConnectionError as exc:</div><div class="line">                error_msg = &apos;Connection error&apos;</div><div class="line">            else:</div><div class="line">                error_msg = &apos;&apos;</div><div class="line">                status = res.status</div><div class="line"></div><div class="line">            if error_msg:</div><div class="line">                status = HTTPStatus.error</div><div class="line"></div><div class="line">            counter[status] += 1</div><div class="line"></div><div class="line">            if verbose and error_msg:</div><div class="line">                cc = to_do_map[future]</div><div class="line">                print(&apos;*** Error for &#123;&#125;: &#123;&#125;&apos;.format(cc, error_msg))</div><div class="line"></div><div class="line">    return counter</div></pre></td></tr></table></figure>
+<h2 id="Blocking-I-O-and-the-GIL"><a href="#Blocking-I-O-and-the-GIL" class="headerlink" title="Blocking I/O and the GIL"></a>Blocking I/O and the GIL</h2><p>尽管上面concurrent版本相比sequential来说运行速度快了近13倍，但严格来说，concurrent也并非是<strong>并行的</strong>。这是因为CPython解释器中的GIL模式导致的。</p>
+<p><strong>为什么要有GIL呢？</strong>因为CPython内部是线程不安全的，所以用Global Interpreter Lock来保证运行时只有一个线程在运行python的字节码，同时GIL也让python进程<strong>通常</strong>无法同时使用CPU的多核。</p>
+<p>当我们写Python代码时，我们是无法控制GIL的，但是内置的函数或者由C扩展的函数可以在运行多任务时释放GIL，事实上Python里由C语言写的库是可以管理GIL的，启动它自己的系统线程并且控制所有可用的CPU核。不过这大大增加了库的复杂程度，所以大部分作者并不尝试这么做。</p>
+<p>然而，所有的标准库在等待从OS返回阻塞的I/O结果时，<strong>都可以释放GIL<br>！</strong>这就意味着I/O限制的Python程序是可以在Python层面利用多线程的。当一个Python线程等待网络回应时，阻塞的I/O函数会释放GIL，这样另一个线程就可以运行了。<em>Tips: time.sleep()函数也会释放GIL.</em> </p>
+<p>ProcessPoolExecutor和ThreadPoolExecutor的接口大致相同。需要注意的是后者可以设定规模较大的Worker数量，而前者默认是由os.cpu_count()来设定的。</p>
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>感谢阅读。</p>
+<p>本文代码地址：<a href="https://github.com/Miksztowi/CorePython/tree/master/Fluent_Python_demo/Concurrency_demo" target="_blank" rel="external">https://github.com/Miksztowi/CorePython/tree/master/Fluent_Python_demo/Concurrency_demo</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/12/13/Python-concurrency-with-futures/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Python-Coroutine介绍" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -598,99 +706,6 @@
 
 
   
-    <article id="post-Python内置模块bisect介绍" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/11/20/Python内置模块bisect介绍/">Python内置模块bisect介绍</a>
-    </h1>
-  
-
-        
-        <a href="/2017/11/20/Python内置模块bisect介绍/" class="archive-article-date">
-  	<time datetime="2017-11-20T06:33:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-20</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>在Leetcode Weekly Contest 59上有一道题，需要在插入时保持序列顺序，从而我去了解了Python内置的<strong>bisect</strong>模块.    </p>
-<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>对于bisect，官网的解释是：</p>
-<p>This module provides support for maintaining a list in sorted order without having to sort the list after each insertion. For long lists of items with expensive comparison operations, this can be an improvement over the more common approach. The module is called bisect because it uses a basic bisection algorithm to do its work. The source code may be most useful as a working example of the algorithm (the boundary conditions are already right!).</p>
-<p>大意是说：模块提供了对列表顺序的维护，无需每次插入后对列表排序。使用了基础的二分算法，对操作大数量的列表，可以显著的减少比较操作的次数。</p>
-<h2 id="模块内提供的函数"><a href="#模块内提供的函数" class="headerlink" title="模块内提供的函数"></a>模块内提供的函数</h2><h4 id="查找："><a href="#查找：" class="headerlink" title="查找："></a>查找：</h4><p><code>bisect.bisect_left(a, x, lo=0, hi=len(a))</code></p>
-<p>a是需要操作的对象，x是需要查找的目标，lo和hi会切割数组，使<code>all(val &lt; x for val in a[lo:i])</code> 在左侧， <code>all(val &gt;= x for val in a[i:hi])</code> 在右侧。返回值为可插入的第一个位置(有相同的item).</p>
-<p><code>bisect.bisect_right(a, x, lo=0, hi=len(a))</code></p>
-<p><code>bisect.bisect(a, x, lo=0, hi=len(a))</code></p>
-<p>这两个函数相同，且与bisect.bisect_left操作类似。区别在于，返回值为可插入的最后一个位置。即<code>all(val &lt;= x for val in a[lo:i])</code> 在左侧 <code>all(val &gt; x for val in a[i:hi])</code> 在右侧。</p>
-<h4 id="插入："><a href="#插入：" class="headerlink" title="插入："></a>插入：</h4><p><code>bisect.insort_left(a, x, lo=0, hi=len(a))</code></p>
-<p>函数相当于a.insert(bisect.bisect_left(a, x, lo=0, hi=len(a)), x). 其中list.insert()的时间复杂度为O(n),查找的时间复杂度为O(logn).</p>
-<p><code>bisect.insort_right(a, x, lo=0, hi=len(a))</code></p>
-<p><code>bisect.insort(a, x, lo=0, hi=len(a))</code></p>
-<h2 id="事例讲解"><a href="#事例讲解" class="headerlink" title="事例讲解"></a>事例讲解</h2><p>用一个排序后的lists查找案例来练习一下吧。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line">def index(a, x):</div><div class="line">    &apos;Locate the leftmost value exactly equal to x&apos;</div><div class="line">    i = bisect.bisect_left(a, x)</div><div class="line">    if i != len(a) and a[i] == x:</div><div class="line">        return i</div><div class="line">    raise ValueError</div><div class="line"></div><div class="line"></div><div class="line">def find_lt(a, x):</div><div class="line">    &apos;Find rightmost value less than x&apos;</div><div class="line">    i = bisect.bisect_left(a, x)</div><div class="line">    if i:</div><div class="line">        return a[i - 1]</div><div class="line">    raise ValueError</div><div class="line"></div><div class="line"></div><div class="line">def find_le(a, x):</div><div class="line">    &apos;Find rightmost value less than or equal to x&apos;</div><div class="line">    i = bisect.bisect_right(a, x)</div><div class="line">    if i:</div><div class="line">        return a[i - 1]</div><div class="line">    raise ValueError</div><div class="line"></div><div class="line"></div><div class="line">def find_gt(a, x):</div><div class="line">    &apos;Find leftmost value greater than x&apos;</div><div class="line">    i = bisect.bisect_right(a, x)</div><div class="line">    if i != len(a):</div><div class="line">        return a[i]</div><div class="line">    raise ValueError</div><div class="line"></div><div class="line"></div><div class="line">def find_ge(a, x):</div><div class="line">    &apos;Find leftmost item greater than or equal to x&apos;</div><div class="line">    i = bisect.bisect_left(a, x)</div><div class="line">    if i != len(a):</div><div class="line">        return a[i]</div><div class="line">    raise ValueError</div></pre></td></tr></table></figure>
-<h2 id="进入正题"><a href="#进入正题" class="headerlink" title="进入正题"></a>进入正题</h2><p>最后leetcode的题目是：</p>
-<p>Implement a MyCalendar class to store your events.<br>A new event can be added if adding the event will not cause a double booking.<br>Your class will have the method, book(int start, int end).<br>Formally, this represents a booking on the half open interval [start, end),<br>the range of real numbers x such that start &lt;= x &lt; end.<br>A double booking happens when two events have some non-empty intersection<br>(ie., there is some time that is common to both events.)<br>For each call to the method MyCalendar.book,<br>return true if the event can be added to the calendar successfully without causing a double booking. Otherwise,<br>return false and do not add the event to the calendar.<br>Your class will be called like this: MyCalendar cal = new MyCalendar(); MyCalendar.book(start, end)</p>
-<p>代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">import bisect</div><div class="line"></div><div class="line"></div><div class="line">class MyCalendar(object):</div><div class="line">    def __init__(self):</div><div class="line">        self.calendar = []</div><div class="line">        self._start_sorted = []</div><div class="line"></div><div class="line">    def book(self, start, end):</div><div class="line">        &quot;&quot;&quot;</div><div class="line">        :type start: int</div><div class="line">        :type end: int</div><div class="line">        :rtype: bool</div><div class="line">        &quot;&quot;&quot;</div><div class="line">        if not self.calendar:</div><div class="line">            self.calendar += (start, end),</div><div class="line">            self._start_sorted += start,</div><div class="line">            return True</div><div class="line">        floor_index = bisect.bisect_left(self._start_sorted, start)</div><div class="line">        if floor_index and self.calendar[floor_index - 1][1] &gt; start:</div><div class="line">                return False</div><div class="line"></div><div class="line">        ceiling_index = bisect.bisect_right(self._start_sorted, start)</div><div class="line">        if self.calendar[ceiling_index - 1][0] == start and self.calendar[ceiling_index - 1][0] &lt; end:</div><div class="line">                return False</div><div class="line">        elif ceiling_index != len(self.calendar) and self.calendar[ceiling_index][0] &lt; end:</div><div class="line">                return False</div><div class="line"></div><div class="line">        self.calendar.insert(floor_index, (start, end))</div><div class="line">        self._start_sorted.insert(floor_index, start)</div><div class="line">        return True</div></pre></td></tr></table></figure>
-<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>详细的代码和用例：<br><a href="https://github.com/Miksztowi/CorePython/blob/master/bisect_demo.py" target="_blank" rel="external">https://github.com/Miksztowi/CorePython/blob/master/bisect_demo.py</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/11/20/Python内置模块bisect介绍/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -792,15 +807,15 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">函数式</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">读书笔记</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">清单</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">函数式</a>
               </li>
              
               <li class="article-tag-list-item">
