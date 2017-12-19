@@ -141,6 +141,80 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-2017-07-07" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/07/07/2017-07-07/">2017-07-07 Report</a>
+    </h1>
+  
+
+        
+        <a href="/2017/07/07/2017-07-07/" class="archive-article-date">
+  	<time datetime="2017-07-07T07:27:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-07</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>当天完成的工作内容<br>写了两个API，xxxxxxxxxxx<br>当天的收获<br>用一个例子来总结一下关于遇到问题时的方法论。<br>遇到的问题：某段数据被重复的打印出来<br>1.我当时的思路和推导过程：<br>看到数据被重复打印—&gt;我在函数内部写了一条Print语句—&gt;程序将Print语句重复执行了—&gt;我将其判定错误的原因是死循环—&gt;我开始在函数的内部debug寻找导致死循环的代码—&gt;不断的修改变量—&gt;观察debug结果—&gt;始终没有在内部找到原因—&gt;问题得不到解决。<br>2.伟哥的思路和推导过程：<br>伟哥看到我一直对数据debug—&gt;伟哥问我凭什么判定是内部死循环了—&gt;伟哥的意思是1.凭什么认为是死循环2.就算是死循环凭什么发生在内部而不是外部逻辑出错—&gt;对这两个假设进行验证—&gt;假设1，在我当时的思路中已经在用在内部增加Print语句将其验证成立—&gt;假设2，如果问题发生在了内部，那么Avatar中使用这部分代码的其他模块应该也会出错—&gt;其他模块功能正常—&gt;假设2不成立，则表明目前问题不是出现在内部—&gt;那么假设死循环发生在外部的逻辑调用上—&gt;在外部debug调试—&gt;发现问题出在将函数调用的语句写在了while循环内—&gt;循环的退出条件存在问题，导致了死循环的调用—&gt;假设成立，目前定位到问题是外部逻辑上发生了死循环—&gt;重写while循环的退出条件—&gt;运行程序，打印结果正常—&gt;问题解决。<br>3.重新推导这个过程：<br>看到数据重复打印—&gt;先思考如果是死循环的话会发生什么现象—&gt;两点现象1.输出的语句被重复打印2.程序除非手动终止，否则会一直运行—&gt;开始验证问题是否会发生这两点现象—&gt;在程序内部写一条print语句—&gt;程序运行后将print语句重复执行，并且在一直循环没有退出—&gt;符合发生死循环的现象—&gt;假设目前的问题是死循环成立—&gt;假设1，死循环发生在函数内部。假设2，死循环发生在函数外部—&gt;验证假设1，观察Avatar中同样调用这部分代码的模块—&gt;观察功能运行是否正常—&gt;功能正常，则代表函数内部没有问题—&gt;假设1不成立。—&gt;验证假设2，死循环发生在函数外部—&gt;对外部逻辑进行debug—&gt;发现将函数在没有控制好退出条件的while循环中进行了调用—&gt;假设2成立，死循环发生在了函数外部—&gt;重写while循环的退出条件—&gt;再次运行模块—&gt;打印结果正常，模块功能正常实现—&gt;问题得到解决。<br>遇到问题思考出可执行的Action plan的方法：<br>遇到问题—&gt;先假设出问题的发生情况—&gt;缩小问题的范围—&gt;开始对假设逐个进行逻辑验证和思考可执行的测试方法—&gt;得出可执行的action plan—&gt;对假设进行实践验证—&gt;假设如果不成立，再次对其余假设进行思考总结出可执行的action plan后实际验证—&gt;假设成立，代表问题发生与假设相同—&gt;按照之前思考出来的action plan进行实际操作与修复—&gt;修复结束后—&gt;在相同的环境下，再次运行程序—&gt;观察程序结果，确保程序功能正常—&gt;问题得到解决。<br>记住 “解决问题应该追求高效的方法，而不是凭借混出来的’经验’”<br>明天的计划<br>周末看Avatar的xxx和xxx部分的源码，理解Avatar后端的逻辑。<br>提出疑问或寻求帮助<br>无。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">daily report</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/07/07/2017-07-07/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-2017-07-06" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -452,91 +526,6 @@
 
 
   
-    <article id="post-python暑期实习面试" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/06/16/python暑期实习面试/">python暑期实习面试 Report</a>
-    </h1>
-  
-
-        
-        <a href="/2017/06/16/python暑期实习面试/" class="archive-article-date">
-  	<time datetime="2017-06-16T07:27:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-16</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>ps:本文是up记录第一次面试的经历，有对笔试题和面试题的解答与代码，更多的还是Up的个人感想。</p>
-<p>笔试部分<br>约好10：20开始答题，结束时间为11：00。<br>（实际11：30左右才答完QAQ）<br>10：20</p>
-<p>刚开始拿到这道题，看了一下是亚马逊的商品爬虫，up心想这种爬虫GitHub上应该有很多，于是立马上Github，想找一个借鉴一下。可惜Github上找到的都已经年代久远了，最重要的是连提取格式都已经变了。而此时已经过去了20分钟左右了。</p>
-<p>10：40</p>
-<p>创建scrapy的项目，创建完成后，按照要求写好item的类型，写了一个Mysql的pipeline。因为之前浪费了太久的时间，此时心里还是非常焦急的，脑中仍是一片空白。打开Firefox后，用Firebug定位了商品信息的元素，再将每个元素的提取用selenium先模拟一遍。不过提取的过程中，由于一直静不下心，所以接连出错，总是提取不到正确的数据。</p>
-<p>11：00</p>
-<p>此时已经到了约定的时间了。元素也只提取了商品名称和评分，不过还是硬着头皮把代码发了过去（代码在后面）。</p>
-<p>11：30</p>
-<p>面试官一直没有消息，一边等待一边继续完成。<br>ps<br>：<br>此时才静下心思考了这题。发现连题目要求都弄错了！ 题目中只要求展示数据，并没有要求用数据库存储。而且完全没有必要使用scrapy项目，于是开始重新写</p>
-<p>最后用selenium+FireFox完成了翻页和Ajax的问题。</p>
-<p>以下是代码部分：</p>
-<p><a href="https://github.com/Miksztowi/CorePython/blob/master/amazon.py" target="_blank" rel="external">https://github.com/Miksztowi/CorePython/blob/master/amazon.py</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">实习面试</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/06/16/python暑期实习面试/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/8/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/10/">Next &raquo;</a>
@@ -642,11 +631,11 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">清单</a>
+                <a href="javascript:void(0)" class="js-tag color4">函数式</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">函数式</a>
+                <a href="javascript:void(0)" class="js-tag color3">清单</a>
               </li>
              
               <li class="article-tag-list-item">

@@ -141,6 +141,97 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-问题清单" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/11/04/问题清单/">问题清单 Report</a>
+    </h1>
+  
+
+        
+        <a href="/2017/11/04/问题清单/" class="archive-article-date">
+  	<time datetime="2017-11-04T07:27:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-04</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>整理一下Git分支的知识</p>
+<p>from sqlalchemy import Column, Integer, String</p>
+<p>class User(Base):<br>…<br>tablename<br> = ‘users’<br>…<br>…     id = Column(Integer, primary_key=True)<br>…     name = Column(String)<br>…     fullname = Column(String)<br>…     password = Column(String)<br>…<br>…     def<br>repr<br>(self):<br>…        return “<br>“ % (<br>…                             self.name, self.fullname, self.password)</p>
+<p>json.dumps()把python结构变成json， json.loads()反之 </p>
+<p>TypeError: vars() argument must have<br>dict<br> attribute vars可以得到<br>dict<br>的属性值</p>
+<p>list.extend(iterable)<br>Extend the list by appending all the items from the iterable. Equivalent to a[len(a):] = iterable.</p>
+<p>from collections import deque ,<br>use deque<br>like a queue</p>
+<p>如何使用sqlalchemy搭配scrapy 减少参数配置呢？？？</p>
+<p>Counter 实例一个鲜为人知的特性是它们可以很容易的跟数学运算操作相结合。</p>
+<p>how to realize keys option?</p>
+<p>为什么同一个路径下搜索不到文件，pycharm中的terminal有问题，</p>
+<p>绝对路径相对于文件还是运行位置的理解，看os源码理解。设计一套方法预先解决运行路径变更的问题。</p>
+<p>为什么%s可以 但是{}会出问题？？</p>
+<p>最后一个问题比较微妙，那就是一个函数需要测试某个可选参数是否被使用者传递进来。 这时候需要小心的是你不能用某个默认值比如None、 0或者False值来测试用户提供的值(因为这些值都是合法的值，是可能被用户传递进来的)。 因此，你需要其他的解决方案了。</p>
+<p>为了解决这个问题，你可以创建一个独一无二的私有对象实例，就像上面的_no_value变量那样。 在函数里面，你可以通过检查被传递参数值跟这个实例是否一样来判断。 这里的思路是用户不可能去传递这个_no_value实例作为输入。 因此，这里通过检查这个值就能确定某个参数是否被传递进来了。<br>这里对 object() 的使用看上去有点不太常见。object 是python中所有类的基类。 你可以创建 object 类的实例，但是这些实例没什么实际用处，因为它并没有任何有用的方法， 也没有任何实例数据(因为它没有任何的实例字典，你甚至都不能设置任何属性值)。 你唯一能做的就是测试同一性。这个刚好符合我的要求，因为我在函数中就只是需要一个同一性的测试而已。</p>
+<p>数据集我已经拥有？！！！！</p>
+<p>我觉得LeakPasswd这个Project背后用的是类似华西安全网的APi.</p>
+<p>google analytics</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">清单</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/11/04/问题清单/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-2017-08-20" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -437,80 +528,6 @@
 
 
   
-    <article id="post-2017-08-10" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/10/2017-08-10/">2017-08-10 Report</a>
-    </h1>
-  
-
-        
-        <a href="/2017/08/10/2017-08-10/" class="archive-article-date">
-  	<time datetime="2017-08-10T07:27:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>今晚耽误了很久，今天的总结并不好。<br>当天完成的工作内容<br>1.继续合并firestone和edmunds的数据库。<br>当天的收获<br>1.反馈：昨天总结的是有效解决问题中的拆分问题。今天在工作的时候，按照方法，把目标拆分成了十多个小节。这样逐个模块得解决，思路比以前清晰很多。<br>2.问题： 尽管思路清晰了一些，但是晚上重看思维导图的时候发现在拆分问题上，仍然存在问题。问题拆分的混乱，层级关系有些存在错误。<br>3.反思： 对于名称的合并上，有几类都是同一个问题下的子问题，但是在当时划分的时候我把它们划分到不同的类别中。 –&gt;  能够用统一的手段解决，变成了每个小问题都单独解决一次。 –&gt; 为什么当时问题没有归类正确？ ——&gt; 因为只带着目标去思考问题，没有在分析问题时，考虑它的对立/相似等其他情况。 –&gt; 忽略了这些思考，导致即使碰到了对立/相似的问题也会遗忘这类问题已经在某个地方被列出来过了。 ——&gt; 所以将它们放到了一个不是最匹配的类目下。<br>4.方法： 对于问题的拆分，带着目标的同时，也要将其能考虑到的对立/相似问题罗列出来 –&gt; 避免时间间隔久了，再碰到相似问题会重新定义。 –&gt; 罗列出来不必急着写解决方案，等遇到了在考虑，所以就算没有遇到也不会有时间浪费。<br>明天的计划<br>1.完成三张数据表完整的合并。<br>提出疑问或寻求帮助<br>无。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">daily report</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/08/10/2017-08-10/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
@@ -616,11 +633,11 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">清单</a>
+                <a href="javascript:void(0)" class="js-tag color4">函数式</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">函数式</a>
+                <a href="javascript:void(0)" class="js-tag color3">清单</a>
               </li>
              
               <li class="article-tag-list-item">

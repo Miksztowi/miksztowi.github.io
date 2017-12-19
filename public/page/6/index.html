@@ -141,6 +141,103 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-2017-07-31" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/07/31/2017-07-31/">2017-07-31 Report</a>
+    </h1>
+  
+
+        
+        <a href="/2017/07/31/2017-07-31/" class="archive-article-date">
+  	<time datetime="2017-07-31T07:27:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-31</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>当天完成的工作内容<br>1.找了一些车型数据库，但是数据与目前所需的不匹配。<br>2.规划了对于edmunds的爬虫策略。<br>当天的收获<br>1.问题： 周五总结的方法，细节上没有阐述清楚，难以执行。<br>2.反思： 方法应该要思考到每一步明确做什么，而不仅仅是怎么做。<br>3.方法： 我拟了一份开发功能时需要注意的细节清单，在开发过程中遇到问题，及时添加进去。反复迭代这份清单。<br>4.细节清单：<br>写代码前</p>
+<p>写代码的要思考到明确<br>做什么<br>，而不仅仅是<br>怎么做<br>。</p>
+<p>先Google,gitHub看看有没有已经成熟的思路，先找资源。</p>
+<p>把问题拆分到可以直接去思考做法的程度，画树，逐层写方法。</p>
+<p>文件操作</p>
+<p>操作文件时候，写路径的时候要用os模块操作，千万要避免文件换了一个位置就会出错的问题。</p>
+<p>数据结构</p>
+<p>注意可变对象和不可变对象（list和dict），防止做参数时被污染。</p>
+<p>数据操作部分，先明确数据结构。能用Tuple解决的不用List，同时要注意Dict读数据是的时候是无序的。</p>
+<p>对数据集有操作，一定要用Set，合集，交集，差集，补集。</p>
+<p>检查需要</p>
+<p>先检查输入类型，用isinstance去限定所需要的数据类型。</p>
+<p>输入数据是Int，考虑变成float会怎么样。List,string,dict为空时都默认等于false。</p>
+<p>数据库的操作是否已经最少了，如果不是最少的话，尝试用Innerjoin 连接出数据，避免多次查询。</p>
+<p>节约资源的方法</p>
+<p>reduce，map，filter三个内置函数，返回的都是生成器。节约开销，能用时尽量用。</p>
+<p>数据库操作</p>
+<p>对数据库操作，不要再用mysql这个库，用sqlachemy，兼容2和3，同时可以用Orm来操作数据库。</p>
+<p>对数据库操作的函数，如果可以写缓存，尽量用Redis做缓存，避免Mysql的查询。</p>
+<p>尽量不要用Where这种隐形连接，用Inner Join这种显性连接。</p>
+<p>对数据库有操作，要用log记录下来，以便数据恢复使用。</p>
+<p>错误处理</p>
+<p>死循环，给第一行print，第二行continue。</p>
+<p>5.上周计划完成的自动化脚本，我写了一个可以快捷复制的工具。便于工作中复制一些重复的参数。<br><a href="https://github.com/Miksztowi/CorePython/blob/master/auto_copy.py" target="_blank" rel="external">https://github.com/Miksztowi/CorePython/blob/master/auto_copy.py</a><br>这个只能在Mac py3.x的环境下work,我计划这周Update跨平台以及兼容2.x，add快捷键的功能<br>明天的计划<br>1.如果在edmunds和JATO申请的APi没有通过，就开始爬取edmunds的数据。<br>2.如果通过了，那么根据Api直接获取我们所需的数据。<br>提出疑问或寻求帮助<br>无。<br>今日翻译<br>These I/O interfaces are also not suited to large data transfers. In the systems in this chapter, each byte of data transferred between an I/O device and memory must pass through the CPU. This is inefficient for many common operations, such as loading a program from disk into memory. Direct memory access, DMA, is a method used to bypass the CPU in these transfers, thus performing them much more quickly.<br>我的翻译<br>这些I/O接口也不太适合大型数据传输。在这个部分的系统中，每个在I/O设备和内存间传输的数据字节都必须要通过CPU。这个对很多普通的操作是无效的，比如从内中磁条中加载程序。直接内存连接，DMA是一种方法用来错开这些传输的CPU,因此程序必须运行快一点。<br>正确翻译<br>这些I/O接口也不适合大量的数据传输。在本章的系统中，I/O设备和存储器之间传输的每一个字节都必须通过CPU，这对于许多常见的操作（例如从磁盘向主机存装载一个程序）来说效率低下。直接存储器访问就是在数据传输中绕过CPU的一种方法，因此执行起来速度很快。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">daily report</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/07/31/2017-07-31/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-2017-07-28" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -437,80 +534,6 @@
 
 
   
-    <article id="post-2017-07-21" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/21/2017-07-21/">2017-07-21 Report</a>
-    </h1>
-  
-
-        
-        <a href="/2017/07/21/2017-07-21/" class="archive-article-date">
-  	<time datetime="2017-07-21T07:27:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-21</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>当天完成的工作内容<br>1.x。<br>当天的收获（简要概括在后面）<br>1.今天总结的主题是：我在回答别人问题时1.急于回答而不是思考2.回答的答案不是最简洁的语言。<br>问题阐述： 今天赵赵问了我几个问题：1.这周的工作完成了哪些内容？2.ip check耗时多久？3.完成ip check中浪费了多久的时间？4.你有没有想过下次遇到这样的问题，如何去节约时间？<br>我的回答:1.完成了一些Bug的修复，具体的忘记了。记得是给ip做rate的限制，定制白名单，修复网上提供的api…..巴拉巴拉一大堆。2.ip check用了两天半的时间，其中因为修复一些问题和选择合适的api用了时间3.我昨天晚上思考了一下，我大概浪费了半天的时间。（具体怎么浪费的我没描述出来）。4.我下次遇到这样的问题，我又把遇到的问题描述了一遍 然后继续巴拉巴拉一大堆…..（后面赵赵不愿再听了，伟哥也在旁边提醒我问题先思考一下再说）<br>上面是今天回答问题的过程，接下来反思这个过程，并且重新回答一次。<br>反思： 为什么回答每一个问题，答案不仅冗余而且还不准确 –&gt; 说话没有把握重点，想描述细节，但是细节与问题无关 –&gt; 为什么没有用简单的语言说出重点 –&gt; 因为问题我还没有思考完，我就开始回答了 –&gt; 为什么问题不考虑完就要回答？ –&gt; 有一点思路我就想要回答，但是完整的思考过程还没有结束（回答第三个问题的时候，我一想到我昨晚有思考怎么解决，我就开始回答了，可是答完这一句，还没有回忆起来计划怎么去解决的。回答的时候就断档了） –&gt; 为什么有一点思路就想要回答，却不能听完整个问题，并且回答前把答案整理好再说出来？ –&gt; 思维太分散，问题是A,我在思考A的时候想要开始回答，可是回答A的时候又想到了B,我就开始想说B,说B的时候又想到了C,就这样一直循环下去，脑子里面思考的早已经不是A了，A的部分只思考了一点，没有完整思考，所以只回答了一点点。 –&gt; 为什么思维分散？ –&gt; 因为我不强迫自己只思考A,我想到什么我就说什么，思维不严谨 –&gt; 所以应该强迫思考完A再开始回答。只思考与A有关的，不要先考虑别的问题。对于与A无关的一律断舍离。<br>目标是什么：<br>要做到完整的听完问题后，把问题思考明白，然后再开始回答。不再发生跳逻辑，不再回答与问题无关的内容。<br>方法：<br>完整的听完问题 –&gt; 在脑中把问题重复几遍 ——&gt; 如果对问题有不理解的地方，先问清楚 –&gt; 确保问题已经听明白了 –&gt; 思考问题的答案 –&gt; 如果思考突然跳转到别的地方，立刻重复问自己问题是什么，确保思考的过程只与问题有关。但可以把跳转到的想法先放心里，但是不要去思考。 –&gt; 问题思考完后，不要先关心答案对不对，先把答案告诉自己，看看能不能与问题对上号 –&gt; 如果答案与问题完全相关，再回答 –&gt; 如果思考偏了，跟对方请求一下再考虑一会。 –&gt; 回答的时候，在心中默念问题 –&gt; 只回答与问题有关的内容，无关的话不要说出来。 –&gt; 等对方确认你的回答没有问题后，这次回答的过程算作结束，否则跟对方明确沟通中的问题出现在哪，继续重复上面过程。<br>实践总结的方法重新回答赵赵的问题：<br>1.这周的工作完成了哪些内容？ 回答: 修复了Avatar中，爬虫会将同一个任务多次重复的Bug。在爬虫模块中增加了清理占用空间的方法，清理已经被使用过的100多G数据。在后端做了Ip check功能。<br>2.ip check耗时多久？ 回答： 从周三下午开始到周五上午交付，耗时两个工作日。其中在完成这个功能时，别的部门同事委托我去爬取OBD数据，花费了数个小时。所以实际耗时一天半。<br>3.完成ip check中浪费了多久的时间？ 回答：我觉得有浪费近半天的时间，这半天的时间我去阅读了几个Api的源码想要优化实现ip check，但是实现Ip check只要看看范例，不需要阅读源码。<br>4.你有没有想过下次遇到这样的问题，如何去节约时间？ 回答：先把功能实现，优化应该在功能实现后去做而不是功能实现前。<br>简要概括：<br>问题：回答别人的提问时，回答冗余，并且逻辑混乱<br>方法：听完后问题，不明白的地方先沟通清楚，再开始思考，只思考与问题有关的内容，并且逻辑要是有明确因果关系，不能跳逻辑。问什么，答什么，不说问题无关内容。<br>目标：完整的听完别人问题后，能做到思考完再开始回答。回答时，只回答与问题相关内容。<br>明天的计划<br>1.最近了解了GFW的原理，打算用github上的项目，自己去实现翻墙。<br>提出疑问或寻求帮助<br>无。<br>今日翻译<br>Bald men are perceived to be more dominant, more athletic and better leaders, researchers have claimed.<br>A new study from information management lecturer Albert Mannes at the University of Pennsylvania’s Wharton School of Business suggests that while men with male-pattern baldness tend to view themselves as having poor self-esteem, those who take the pre-emptivestep of shaving a thinning head of hair improved their image.<br>我的译文<br>研究人员声称秃顶的男人被认为的更有统治力，更加健壮并且是更好的领导。<br>来自宾夕法尼亚的沃顿商学院的商人Albert Mannes有新的研究，表明当男性秃头的时候倾向于在意他们脆弱的自尊心，顶着光秃秃的头的能提高他们的想象力。<br>正确译文<br>研究人员称，人们普遍认为秃头男更具主导力、更健壮、领导能力更强。<br>美国宾夕法尼亚大学沃顿商学院的信息管理系讲师阿尔伯特 曼尼斯开展的一项新研究指出，尽管谢顶男子往往会因为脱发而感到自卑，但那些在头发掉光前就先行一步剃光头的男人形象则会有所改观。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">daily report</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/07/21/2017-07-21/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/5/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/7/">Next &raquo;</a>
@@ -616,11 +639,11 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">清单</a>
+                <a href="javascript:void(0)" class="js-tag color4">函数式</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">函数式</a>
+                <a href="javascript:void(0)" class="js-tag color3">清单</a>
               </li>
              
               <li class="article-tag-list-item">

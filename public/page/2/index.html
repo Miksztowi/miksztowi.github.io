@@ -141,6 +141,104 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Python-Function-Decorators-and-Closures介绍" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/11/29/Python-Function-Decorators-and-Closures介绍/">Python Function Decorators and Closures介绍</a>
+    </h1>
+  
+
+        
+        <a href="/2017/11/29/Python-Function-Decorators-and-Closures介绍/" class="archive-article-date">
+  	<time datetime="2017-11-29T08:17:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-29</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Preface"><a href="#Preface" class="headerlink" title="Preface"></a>Preface</h2><p>本文尽量用最简单，清晰的文字来介绍python的闭包与装饰器。希望你可以静下心来跟我一同思考这个tricky mechanism. <strong>注意</strong>本文只讲解了函数装饰器，如果你想了解类装饰器，请不要继续阅读。</p>
+<h2 id="How-Python-evaluates-decorator-syntax"><a href="#How-Python-evaluates-decorator-syntax" class="headerlink" title="How Python evaluates decorator syntax?"></a>How Python evaluates decorator syntax?</h2><p>Python对装饰器的使用了语法糖，如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">@decorate</div><div class="line">def target():</div><div class="line">    print(&apos;Running target()&apos;)</div><div class="line"></div><div class="line">def target():</div><div class="line">    print(&apos;Running target()&apos;)</div><div class="line">target = decorate(target)</div></pre></td></tr></table></figure>
+<p>二者的结果是相等的，但被装饰器注册后可以不必再引用原始的target对象，所以返回对象是由decorate(target)来决定的。</p>
+<h2 id="When-Python-executes-decorators"><a href="#When-Python-executes-decorators" class="headerlink" title="When Python executes decorators?"></a>When Python executes decorators?</h2><p>首先明确import time和run time这两个概念，前者是模块被导入的时刻，后者是指模块内程序运行的时刻。<br>装饰器是在import time被执行的，我们来看一个例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">registry = []</div><div class="line">def register(func):</div><div class="line">    print(&apos;running register(%s)&apos; % func)</div><div class="line">    registry.append(func)</div><div class="line">    return func</div><div class="line"></div><div class="line">@register</div><div class="line">def f1():</div><div class="line">    print(&apos;Running f1()&apos;)</div><div class="line"></div><div class="line">@register</div><div class="line">def f2():</div><div class="line">    print(&apos;Running f2()&apos;)</div><div class="line"></div><div class="line">def main():</div><div class="line">    print(&apos;running main&apos;)</div><div class="line">    print(&apos;registry -&gt;&apos;, registry)</div><div class="line">    f1()</div><div class="line">    f2()</div><div class="line">if __name__ == &apos;__main__&apos;:</div><div class="line">    main()</div><div class="line">------------------------------------------------------------------------    </div><div class="line">running register(&lt;function f1 at 0x100c70158&gt;)</div><div class="line">running register(&lt;function f2 at 0x100c701e0&gt;)</div><div class="line">running main</div><div class="line">registry -&gt; [&lt;function f1 at 0x100c70158&gt;, &lt;function f2 at 0x100c701e0&gt;]</div><div class="line">Running f1()</div><div class="line">Running f2()</div></pre></td></tr></table></figure>
+<p>通过打印我们可以看到，在main()调用之前，装饰器已经完成了注册。</p>
+<h2 id="How-Python-decides-whether-a-variable-is-local"><a href="#How-Python-decides-whether-a-variable-is-local" class="headerlink" title="How Python decides whether a variable is local?"></a>How Python decides whether a variable is local?</h2><p><strong>Variable scope rules</strong>这个概念非常重要，介绍这个概念前，我们先看两个非常有代表性的例子。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div></pre></td><td class="code"><pre><div class="line">def f1(a):</div><div class="line">    print(a)</div><div class="line">    print(b)</div><div class="line"></div><div class="line">f1(3)</div><div class="line">3</div><div class="line">NameError: name &apos;b&apos; is not defined</div><div class="line">b = 6</div><div class="line">f1(3)</div><div class="line">3</div><div class="line">6</div><div class="line"></div><div class="line">接下来的例子可能会让你很困惑，不过没关系，我会在后面解释清楚。</div><div class="line">def f2(a):</div><div class="line">    print(a)</div><div class="line">    print(b)</div><div class="line">    b = 9</div><div class="line">f2(3)</div><div class="line">3</div><div class="line">UnboundLocalError: local variable &apos;b&apos; referenced before assignment</div><div class="line">希望你可以先思考一下为什么没有打印出6。</div><div class="line">事实上Python在编译函数体时，因为有赋值操作，所以将b定义为local变量，而不是global变量，</div><div class="line">print()时发现b还未被赋值，所以抛出了错误。</div><div class="line">我们再通过字节码来确认一下是不是这样。</div><div class="line"></div><div class="line">print(dis.dis(f1))</div><div class="line">  5           0 LOAD_GLOBAL              0 (print)</div><div class="line">              3 LOAD_FAST                0 (a)</div><div class="line">              6 CALL_FUNCTION            1 (1 positional, 0 keyword pair)</div><div class="line">              9 POP_TOP</div><div class="line"></div><div class="line">  6          10 LOAD_GLOBAL              0 (print)</div><div class="line">             13 LOAD_GLOBAL              1 (b)</div><div class="line">             16 CALL_FUNCTION            1 (1 positional, 0 keyword pair)</div><div class="line">             19 POP_TOP</div><div class="line">             20 LOAD_CONST               0 (None)</div><div class="line">             23 RETURN_VALUE</div><div class="line"></div><div class="line">print(dis.dis(f2))</div><div class="line">  9           0 LOAD_GLOBAL              0 (print)</div><div class="line">              3 LOAD_FAST                0 (a)</div><div class="line">              6 CALL_FUNCTION            1 (1 positional, 0 keyword pair)</div><div class="line">              9 POP_TOP</div><div class="line"></div><div class="line"> 10          10 LOAD_GLOBAL              0 (print)</div><div class="line">             13 LOAD_FAST                1 (b)</div><div class="line">             16 CALL_FUNCTION            1 (1 positional, 0 keyword pair)</div><div class="line">             19 POP_TOP</div><div class="line"></div><div class="line"> 11          20 LOAD_CONST               1 (9)</div><div class="line">             23 STORE_FAST               1 (b)</div><div class="line">             26 LOAD_CONST               0 (None)</div><div class="line">对比一下。我们可以看到在f2里是LOAD_FAST，这也证明了我们的观点：b被当作了local变量。</div></pre></td></tr></table></figure>
+<p>如果你明白了作用域的规则，那么恭喜你，我们可以开始学习闭包的概念了；如果没有明白，我希望你能回头再理解一下，因为明白作用域的规则是非常重要的。</p>
+<h2 id="Why-closures-exist-and-how-they-work"><a href="#Why-closures-exist-and-how-they-work" class="headerlink" title="Why closures exist and how they work?"></a>Why closures exist and how they work?</h2><p><strong>闭包</strong>，老样子，我们还是先思考一个例子。<br>假设你现在需要一个函数去计算，某股票未来三天的均价，每天都会插入一个新的价格，同时我们也要保存之前的价格以便后续的计算。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">它的实现结果看起来应该是这样的</div><div class="line">avg(10)</div><div class="line">10.0</div><div class="line">avg(11)</div><div class="line">10.5</div><div class="line">avg(12)</div><div class="line">11.0</div><div class="line"></div><div class="line">如果你已经思考过怎么实现这个函数了，那么继续往下看吧。</div><div class="line"></div><div class="line">def make_averager():</div><div class="line">    series = []</div><div class="line"></div><div class="line">    def averager(new_value):</div><div class="line">        series.append(new_value)</div><div class="line">        total = sum(series)</div><div class="line">        return total / len(series)</div><div class="line"></div><div class="line">    return averager</div><div class="line"></div><div class="line">avg = make_averager()</div><div class="line">print(avg(10))</div><div class="line">print(avg(11))</div><div class="line">print(avg(12))</div></pre></td></tr></table></figure>
+<p>我们通过series这个变量来记录每一天的价格，并用它来计算均值。但是要注意series是<br>make_averager的本地变量，我们在创建avg = make _averager()已经初始化了series，<br>并且在后续的调用时make _averager的local作用域已经结束了。那么是python如何series的呢？</p>
+<p>python里有个概念是<strong>free variable</strong>，而avarager里的series就是<strong>free variable</strong>.我们可以打印出来看看是不是这样。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">    print(avg.__code__.co_varnames)</div><div class="line">    print(avg.__code__.co_freevars)</div><div class="line">    print(avg.__closure__[0].cell_contents)</div><div class="line">(&apos;new_value&apos;, &apos;total&apos;)</div><div class="line">(&apos;series&apos;,)</div><div class="line">[10, 11, 12]</div></pre></td></tr></table></figure>
+<p>可以看到，确实存在<strong>free variable</strong>这个属性，并且值是series.</p>
+<p><strong>总结一下</strong><br>闭包保存了函数在绑定时local作用域的对象，并将其保存为自由变量。所以尽管被绑定的函数local作用域不再可用，但是自由变量是仍然可以使用的。</p>
+<h2 id="What-problem-is-solved-by-nonlocal"><a href="#What-problem-is-solved-by-nonlocal" class="headerlink" title="What problem is solved by nonlocal?"></a>What problem is solved by nonlocal?</h2><p>爱思考的你，想必已经发现了，之前我们实现的averager其实并不高效，因为我们要耗费空间去保存每一天的价格，并且每次都要调用sum()去计算总价。ok，既然我们已经发现了问题所在，那么一起来优化一下averager吧。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">def make_averager():</div><div class="line">    count = 0</div><div class="line">    total = 0</div><div class="line">    def averager(new_value):</div><div class="line">        total += new_value</div><div class="line">        count += 1</div><div class="line">        return total / count</div><div class="line">    return averager</div><div class="line"></div><div class="line">if __name__ == &apos;__main__&apos;:</div><div class="line">    avg = make_averager()</div><div class="line">    avg(10)    </div><div class="line">&gt;&gt;&gt; UnboundLocalError: local variable &apos;total&apos; referenced before assignment</div><div class="line"></div><div class="line">因为 total += new_value 相当于 total = total + new_value, 执行了赋值操作，</div><div class="line">根据上面介绍的作用域规则，我们很快能想到，因为赋值操作导致了total变成了local变量</div><div class="line">而不再是自由变量了。而前一个版本的实现，由于我们没有对series进行赋值操作，所以series</div><div class="line">一直是avg的自由变量。</div></pre></td></tr></table></figure>
+<p>所有的不可变类型变量，对其操作都会将其作为local变量进行重新绑定。因此变量不能保存在闭包里，后续如果对其操作，就会导致错误的发生。而python3.x中增加了nonlocal操作，可以很好的解决这个问题。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">def make_averager():</div><div class="line">    count = 0</div><div class="line">    total = 0</div><div class="line">    def averager(new_value):</div><div class="line">        nonlocal total, count</div><div class="line">        total += new_value</div><div class="line">        count += 1</div><div class="line">        return total / count</div><div class="line">    return averager</div><div class="line">avg = make_averager()</div><div class="line">print(avg(10))</div><div class="line">print(avg(11))</div><div class="line">print(avg(12))</div><div class="line"></div><div class="line">10.0</div><div class="line">10.5</div><div class="line">11.0</div></pre></td></tr></table></figure>
+<h2 id="Implementing-a-simple-decorator"><a href="#Implementing-a-simple-decorator" class="headerlink" title="Implementing a simple decorator"></a>Implementing a simple decorator</h2><p>通过上面概念的学习，我们可以开始实现一个简单的函数装饰器了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div></pre></td><td class="code"><pre><div class="line">import time</div><div class="line"></div><div class="line">def clock(func):</div><div class="line">    series = []</div><div class="line">    def clocked(*args):</div><div class="line">        t0 = time.perf_counter()</div><div class="line">        series.append(func)</div><div class="line">        _result = func(*args)</div><div class="line">        elapsed = time.perf_counter() - t0</div><div class="line">        name = func.__name__</div><div class="line">        arg_str = &apos;,&apos;.join(repr(arg) for arg in args)</div><div class="line">        print(&apos;[%0.8fs] %s (%s) -&gt; %r &apos; % (elapsed, name, arg_str, _result))</div><div class="line">        return _result</div><div class="line">    return clocked</div><div class="line"></div><div class="line">@clock</div><div class="line">def snooze(seconds):</div><div class="line">    time.sleep(seconds)</div><div class="line"></div><div class="line">print(&apos;*&apos; * 40, &apos;Calling snooze(0.123)&apos;)</div><div class="line">snooze(.123)</div><div class="line"></div><div class="line">&gt;&gt;&gt;**************************************** Calling snooze(0.123)</div><div class="line">&gt;&gt;&gt;[0.12566963s] snooze (0.123) -&gt; None</div><div class="line"></div><div class="line">print(snooze.__name__)</div><div class="line">clocked</div><div class="line"></div><div class="line">如果你想要消除对__name__和__doc__的影响，可以使用@functools.wraps()</div><div class="line"></div><div class="line">def clock(func):</div><div class="line">    series = []</div><div class="line">    @functools.wraps(func)</div><div class="line">    def clocked(*args):</div><div class="line">        t0 = time.perf_counter()</div><div class="line">        series.append(func)</div><div class="line">        _result = func(*args)</div><div class="line">        elapsed = time.perf_counter() - t0</div><div class="line">        name = func.__name__</div><div class="line">        arg_str = &apos;,&apos;.join(repr(arg) for arg in args)</div><div class="line">        print(&apos;[%0.8fs] %s (%s) -&gt; %r &apos; % (elapsed, name, arg_str, _result))</div><div class="line">        return _result</div><div class="line"></div><div class="line">    return clocked</div><div class="line">像上面这样的使用，就能消除装饰器的影响了。</div></pre></td></tr></table></figure>
+<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p>感谢阅读，希望你能从这篇文章中有所收获。<br>如果想要进一步的阅读，可以去探索内置的lru_cache和singledispatch装饰器的内部实现。</p>
+<p>本文的代码链接：<a href="https://github.com/Miksztowi/CorePython/tree/master/Fluent_Python_demo/Function_decorators" target="_blank" rel="external">https://github.com/Miksztowi/CorePython/tree/master/Fluent_Python_demo/Function_decorators</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/11/29/Python-Function-Decorators-and-Closures介绍/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Python内置模块bisect介绍" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -440,97 +538,6 @@
 
 
   
-    <article id="post-问题清单" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/11/04/问题清单/">问题清单 Report</a>
-    </h1>
-  
-
-        
-        <a href="/2017/11/04/问题清单/" class="archive-article-date">
-  	<time datetime="2017-11-04T07:27:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-04</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>整理一下Git分支的知识</p>
-<p>from sqlalchemy import Column, Integer, String</p>
-<p>class User(Base):<br>…<br>tablename<br> = ‘users’<br>…<br>…     id = Column(Integer, primary_key=True)<br>…     name = Column(String)<br>…     fullname = Column(String)<br>…     password = Column(String)<br>…<br>…     def<br>repr<br>(self):<br>…        return “<br>“ % (<br>…                             self.name, self.fullname, self.password)</p>
-<p>json.dumps()把python结构变成json， json.loads()反之 </p>
-<p>TypeError: vars() argument must have<br>dict<br> attribute vars可以得到<br>dict<br>的属性值</p>
-<p>list.extend(iterable)<br>Extend the list by appending all the items from the iterable. Equivalent to a[len(a):] = iterable.</p>
-<p>from collections import deque ,<br>use deque<br>like a queue</p>
-<p>如何使用sqlalchemy搭配scrapy 减少参数配置呢？？？</p>
-<p>Counter 实例一个鲜为人知的特性是它们可以很容易的跟数学运算操作相结合。</p>
-<p>how to realize keys option?</p>
-<p>为什么同一个路径下搜索不到文件，pycharm中的terminal有问题，</p>
-<p>绝对路径相对于文件还是运行位置的理解，看os源码理解。设计一套方法预先解决运行路径变更的问题。</p>
-<p>为什么%s可以 但是{}会出问题？？</p>
-<p>最后一个问题比较微妙，那就是一个函数需要测试某个可选参数是否被使用者传递进来。 这时候需要小心的是你不能用某个默认值比如None、 0或者False值来测试用户提供的值(因为这些值都是合法的值，是可能被用户传递进来的)。 因此，你需要其他的解决方案了。</p>
-<p>为了解决这个问题，你可以创建一个独一无二的私有对象实例，就像上面的_no_value变量那样。 在函数里面，你可以通过检查被传递参数值跟这个实例是否一样来判断。 这里的思路是用户不可能去传递这个_no_value实例作为输入。 因此，这里通过检查这个值就能确定某个参数是否被传递进来了。<br>这里对 object() 的使用看上去有点不太常见。object 是python中所有类的基类。 你可以创建 object 类的实例，但是这些实例没什么实际用处，因为它并没有任何有用的方法， 也没有任何实例数据(因为它没有任何的实例字典，你甚至都不能设置任何属性值)。 你唯一能做的就是测试同一性。这个刚好符合我的要求，因为我在函数中就只是需要一个同一性的测试而已。</p>
-<p>数据集我已经拥有？！！！！</p>
-<p>我觉得LeakPasswd这个Project背后用的是类似华西安全网的APi.</p>
-<p>google analytics</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">清单</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/11/04/问题清单/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
     <article id="post-函数式编程" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -710,11 +717,11 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">清单</a>
+                <a href="javascript:void(0)" class="js-tag color4">函数式</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">函数式</a>
+                <a href="javascript:void(0)" class="js-tag color3">清单</a>
               </li>
              
               <li class="article-tag-list-item">
