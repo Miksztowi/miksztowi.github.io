@@ -4,9 +4,9 @@
   <subtitle>Don‘t be a loser. Be a superloser.</subtitle>
   <link href="/atom.xml" rel="self"/>
   
-  <link href="http://miks.top/"/>
-  <updated>2018-01-24T16:05:14.000Z</updated>
-  <id>http://miks.top/</id>
+  <link href="http://www.ganbinwen.com/"/>
+  <updated>2017-12-19T15:08:41.000Z</updated>
+  <id>http://www.ganbinwen.com/</id>
   
   <author>
     <name>Miks</name>
@@ -16,69 +16,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>系统级I/O及Linux-I/O模式解释</title>
-    <link href="http://miks.top/2018/01/25/%E7%B3%BB%E7%BB%9F%E7%BA%A7I-O%E5%8F%8ALinux-I-O%E6%A8%A1%E5%BC%8F%E8%A7%A3%E9%87%8A/"/>
-    <id>http://miks.top/2018/01/25/系统级I-O及Linux-I-O模式解释/</id>
-    <published>2018-01-24T16:03:41.000Z</published>
-    <updated>2018-01-24T16:05:14.000Z</updated>
-    
-    <content type="html"><![CDATA[<p><code>*注：本文是对众多资料的学习和总结，可能存在理解错误。请带着怀疑的眼光，同时如果有错误希望能指出，谢谢您。*</code></p>
-<h2 id="UNIX-I-O"><a href="#UNIX-I-O" class="headerlink" title="UNIX I/O"></a>UNIX I/O</h2><p>Linux中，所有的输入和输出都被当作对相应的文件的读和写来执行。这种将设备映射为文件的方式，允许Linux内核引出一个简单、低级的应用接口，称为Unix I/O：</p>
-<ul>
-<li><strong>打开文件</strong>：当应用程序通过要求内核打开相应的文件，来宣告它想要访问一个I／O设备时，内核会返回一个非负整数，叫做<strong>描述符</strong>(后面用fd代替)，它在后续对此文件的所有操作中标识这个文件。</li>
-<li>Linux shell创建每个进程开始时都有三个打开的文件，标准输入（fd为0），标准输出（fd为1），标准错误（fd为2）。</li>
-<li><strong>改变当前的文件位置</strong>：对于每个打开的文件，内核保持一个文件位置k,初始为0，这个文件位置是从文件开头起始的字节偏移量，应用程序能够通过执行<strong>seek</strong>操作，显式地设置文件的当前位置k。</li>
-<li><strong>读写文件</strong>：一个读操作就是从文件复制n &gt; 0个字节到内存，从当前文件位置k开始，然后将k增加到k + n。给定一个大小为m字节的文件，当k &gt;= m时执行读操作会触发一个称为end-of-file(EOF)的条件。类似的，写操作就是从内存复制n&gt;0个字节到一个文件，从当前文件位置k开始，然后更新k。</li>
-<li><strong>关闭文件</strong>: 当应用完成了对文件的访问之后，它就通知内核，关闭这个文件。作为响应，内核释放文件打开时创建的数据结构，并将这个描述符恢复到可用的描述符池。</li>
-</ul>
-<h2 id="共享文件"><a href="#共享文件" class="headerlink" title="共享文件"></a>共享文件</h2><p>可以用许多不同的方式来共享Linux文件，但是内核用三个相关的数据结构来表示打开的文件。</p>
-<ul>
-<li><strong>描述符表</strong>：每个进程都有它独立的描述符表，它的表项是由进程打开的文件描述符来索引的。每个打开的描述符表项指向文件表中的一个表项。</li>
-<li><strong>文件表</strong>：打开文件的集合是由一张文件表来表示的，所有的进程共享这张表。每个文件表的表项组成（针对我们的目的）包括当前的文件位置、引用计数，以及一个指向v-node表中对应表项的指针。内核会在引用计数为零时，删除对应表项。</li>
-<li><strong>v-node表</strong>：同文件表一样，所有的进程共享这张v-node表。每个表项包含stat结构中的大多数信息（文件的元数据，比如大小，创建时间）。</li>
-</ul>
-<h2 id="标准-I-O"><a href="#标准-I-O" class="headerlink" title="标准 I/O"></a>标准 I/O</h2><p>C语言定义了一组高级输入输出函数，称为标准I/O库，为程序员提供了Unix I/O的较高级别的替代。这个库提供了打开和关闭文件的函数(fopen和fclose)、读和写字节的函数（fread和fwrite）、读和写字符串的函数(fgets和fputs)，以及复杂的格式化的I/O函数（scanf和printf）。标准的I/O库将一个打开的文件模型化为一个流。对程序员而言，一个流就是一个指向FILE类型的结构的指针。</p>
-<p>类型为FILE的流是对文件描述符和<strong>流缓冲区</strong>的抽象。流缓冲区的目的是：使开销较高的Linux I/O系统调用的数量尽可能的小。例如，假设我们有一个程序，它反复调用标准I/O的getc函数，每次调用返回文件的下个字符。当第一次调用getc时，库通过调用一次read函数来填满流缓冲区，然后将缓冲区中的第一个字节返回给应用程序。只要缓冲区还有未读的字节，接下来对getc的调用就能直接从流缓冲区得到服务。</p>
-<p>虽然以上是通过C语言的标准I/O函数来讲解的，但是从概念上理解，与别的编程语言也是相通的。</p>
-<h2 id="I-O的模式"><a href="#I-O的模式" class="headerlink" title="I/O的模式"></a>I/O的模式</h2><p>理解了I/O的基本概念后，接下来我们来谈论关于I/O不同模式的概念，优缺点以及它们彼此间的相同与不同点。</p>
-<ol>
-<li>阻塞I/O(Blocking I/O)：<img src="https://segmentfault.com/img/bVm1c3" alt="">默认情况下，所有Linux中套接字都是阻塞的。怎么理解？先理解这么个流程，一个输入操作通常包括两个不同阶段：（1）等待数据准备好；<br>（2）从内核向进程复制数据。当用户进程调用了recvfrom操作时，kernel就开始准备数据了。这是需要等待的，也就是说数据被拷贝到操作系统内的<strong>流缓冲区</strong>是需要一个过程的，而此时在用户进程的角度，就是被阻塞了。等到数据被准备好时，将数据从kernel中拷贝到用户内存，然后kernel返回结果，用户进程此时解除阻塞状态。</li>
-<li>非阻塞I/O(Non-blocking I/O)：<img src="https://segmentfault.com/img/bVm1c4" alt="">：当用户发起非阻塞I/O操作时，如果数据还没有从kernel拷贝到用户内存中，那么kernel会立即返回一个error的信号，而用户进程得到这个信号后，就理解了此时数据还在等待中，之后会立即重新发送一个recvfrom的请求，直到数据被拷贝到用户内存中并且得到一个正确的返回。</li>
-<li><p>I/O多路复用(I/O multiplexing)：<img src="https://segmentfault.com/img/bVm1c5" alt="">I/O多路复用也是并发的一种手段，基本思想就是使用select函数，要求内核挂起进程，只有在一个或者多个I/O时间发生后，才将控制返回给应用程序，比如：当集合{0，5}中任意描述符准备好读时返回。要注意使用select/epoll的web server不一定比使用multi-threading + blocking IO的web server性能更好，可能延迟还更大。select/epoll的优势并不是对于单个连接能处理得更快，而是在于能处理更多的连接。）<br>在IO multiplexing Model中，实际中，对于每一个socket，一般都设置成为non-blocking，但是，如上图所示，整个用户的process其实是一直被block的。只不过process是被select这个函数block，而不是被socket IO给block。</p>
-</li>
-<li><p>异步I/O(asynchronous I/O)：<img src="https://segmentfault.com/img/bVm1c8" alt=""> 用户进程发起read操作之后，立刻就可以开始去做其它的事。而另一方面，从kernel的角度，当它受到一个asynchronous read之后，首先它会立刻返回，所以不会对用户进程产生任何block。然后，kernel会等待数据准备完成，然后将数据拷贝到用户内存，当这一切都完成之后，kernel会给用户进程发送一个signal，告诉它read操作完成了。</p>
-</li>
-</ol>
-<h2 id="阻塞和非阻塞的区别"><a href="#阻塞和非阻塞的区别" class="headerlink" title="阻塞和非阻塞的区别"></a>阻塞和非阻塞的区别</h2><p>调用阻塞I/O会一直阻塞住对应的进程直到操作完成，而非阻塞I/O在kernel还准备数据的情况下会立刻返回。</p>
-<h2 id="同步I-O和异步I-O的区别"><a href="#同步I-O和异步I-O的区别" class="headerlink" title="同步I/O和异步I/O的区别"></a>同步I/O和异步I/O的区别</h2><p>同步I/O:导致请求进程阻塞，直到I/O操作完成。</p>
-<p>异步I/O:不导致请求进程阻塞。<br><img src="https://pic4.zhimg.com/80/7d3eb389b7724878bd7e12ebc6dbcdb5_hd.jpg" alt=""><br>可能有人看完上图后，会很疑惑为啥非阻塞I/O也属于同步I/O了呢，它不是请求后直接返回了吗，尽管数据未准备好时它得到的error返回，那么也没有被阻塞啊。这里就是概念没有理解透彻导致的思想啦，其实不仅是kernel数据等待会阻塞进程，把kernel中的数据拷贝到用户内存中，也同样是阻塞用户进程的，你可以再仔细看一下上面I/O模式的介绍图，它是在两个过程结束后才返回OK的。所以非阻塞I/O也定义为同步I/O.</p>
-<p>而异步I／O则不一样，当进程发起I／O操作之后，就直接返回再也不理睬了，直到kernel发送一个信号，告诉进程说I/O完成。在这整个过程中，进程完全没有被阻塞。而这个过程就如同Python中的async/await一样。</p>
-<h2 id="各个I-O模式的对比"><a href="#各个I-O模式的对比" class="headerlink" title="各个I/O模式的对比"></a>各个I/O模式的对比</h2><p><img src="https://segmentfault.com/img/bVm1c9" alt=""><br>通过上面图片，可以发现非阻塞I/O和异步I/O的区别还是很明显的。在非阻塞I/O中，虽然进程大部分时间都不会被阻塞，但是它仍然要求进程去主动的check，并且当数据准备完成以后，也需要进程主动的再次调用recvfrom来将数据拷贝到用户内存。而异步I/O则完全不同。它就像是用户进程将整个I/O操作交给了他人（kernel）完成，然后他人做完后发信号通知。在此期间，用户进程不需要去检查IO操作的状态，也不需要主动的去拷贝数据。</p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>《深入理解计算机系统》第三版，第十章。</p>
-<p><a href="https://segmentfault.com/a/1190000003063859" target="_blank" rel="external">Linux I/O模式</a></p>
-<p><a href="https://www.zhihu.com/question/19732473" target="_blank" rel="external">怎样理解阻塞非阻塞与同步异步的区别</a></p>
-<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>本文没有用任何代码，希望先用文字将这些概念梳理清楚。对于I/O复用，以及系统级别的并发，会在后面用实际的代码来提供完整的参考与理解。</p>
-<p>如有纰漏之处，希望大家不吝赐教。Have fun :)</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;code&gt;*注：本文是对众多资料的学习和总结，可能存在理解错误。请带着怀疑的眼光，同时如果有错误希望能指出，谢谢您。*&lt;/code&gt;&lt;/p&gt;
-&lt;h2 id=&quot;UNIX-I-O&quot;&gt;&lt;a href=&quot;#UNIX-I-O&quot; class=&quot;headerlink&quot; title=&quot;U
-    
-    </summary>
-    
-    
-      <category term="计算机系统、并发" scheme="http://miks.top/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E3%80%81%E5%B9%B6%E5%8F%91/"/>
-    
-  </entry>
-  
-  <entry>
     <title>Python asyncio模块介绍</title>
-    <link href="http://miks.top/2017/12/19/Python-asyncio%E6%A8%A1%E5%9D%97%E4%BB%8B%E7%BB%8D/"/>
-    <id>http://miks.top/2017/12/19/Python-asyncio模块介绍/</id>
+    <link href="http://www.ganbinwen.com/2017/12/19/Python-asyncio%E6%A8%A1%E5%9D%97%E4%BB%8B%E7%BB%8D/"/>
+    <id>http://www.ganbinwen.com/2017/12/19/Python-asyncio模块介绍/</id>
     <published>2017-12-19T15:00:51.000Z</published>
-    <updated>2018-01-24T15:59:00.000Z</updated>
+    <updated>2017-12-19T15:08:41.000Z</updated>
     
     <content type="html"><![CDATA[<h2 id="Preface"><a href="#Preface" class="headerlink" title="Preface"></a>Preface</h2><p>本文介绍asyncio模块，这个模块使用事件轮询来驱动的coroutine对并发任务进行操作。</p>
 <p>注意：本文的思路来自于Fluent Python，这也是我对书中asyncio章节的总结。</p>
@@ -105,7 +47,7 @@
 <li>supervisor必须在main函数中通过loop.run<em> until</em> complete()调用。</li>
 <li>在threads项目时，由于一个线程可能会在任一时刻被杀死，从而导致数据／系统状态变的不清晰。所以必须记得加锁去保护程序中重要的操作，避免在多个操作步骤中突然被终止的弊端；在coroutine中，避免意外的终止带来的弊端，所有的操作都被保护了。由于一个coroutine只有在被yield语句挂起时终止，所以我们可以在处理CancelledError异常时清理掉「不干净」的操作。</li>
 </ol>
-<h2 id="How-the-asyncio-Future-class-differs-from-concurrent-futures-Future"><a href="#How-the-asyncio-Future-class-differs-from-concurrent-futures-Future" class="headerlink" title="How the asyncio.Future class differs from concurrent.futures.Future"></a>How the asyncio.Future class differs from concurrent.futures.Future</h2><p>如果你还不清楚future的概念，你可以参考我写的另一篇文章<a href="http://www.ganbinwen.com/2017/12/13/Python-concurrency-with-futures/" target="_blank" rel="external">Python concurrency with futures</a>，里面有相关介绍，或者可以自行参考官方文档/wiki。</p>
+<h2 id="How-the-asyncio-Future-class-differs-from-concurrent-futures-Future"><a href="#How-the-asyncio-Future-class-differs-from-concurrent-futures-Future" class="headerlink" title="How the asyncio.Future class differs from concurrent.futures.Future"></a>How the asyncio.Future class differs from concurrent.futures.Future</h2><p>如果你还不清楚future的概念，你可以参考我写的另一篇文章<a href="http://www.ganbinwen.com/2017/12/13/Python-concurrency-with-futures/">Python concurrency with futures</a>，里面有相关介绍，或者可以自行参考官方文档/wiki。</p>
 <p>请务必确认已经清楚了future的概念后再阅读下面内容 :)</p>
 <p>asyncio中的future：</p>
 <ul>
@@ -184,16 +126,16 @@
     </summary>
     
     
-      <category term="Python" scheme="http://miks.top/tags/Python/"/>
+      <category term="Python" scheme="http://www.ganbinwen.com/tags/Python/"/>
     
   </entry>
   
   <entry>
     <title>Python concurrency with futures</title>
-    <link href="http://miks.top/2017/12/13/Python-concurrency-with-futures/"/>
-    <id>http://miks.top/2017/12/13/Python-concurrency-with-futures/</id>
+    <link href="http://www.ganbinwen.com/2017/12/13/Python-concurrency-with-futures/"/>
+    <id>http://www.ganbinwen.com/2017/12/13/Python-concurrency-with-futures/</id>
     <published>2017-12-13T03:42:48.000Z</published>
-    <updated>2018-01-11T04:32:20.000Z</updated>
+    <updated>2017-12-13T04:04:57.000Z</updated>
     
     <content type="html"><![CDATA[<h2 id="Preface"><a href="#Preface" class="headerlink" title="Preface"></a>Preface</h2><p>当你想要高效地处理网络I/O时，你就需要理解「并发」的概念。本章计划列举Fluent Python书中的两个Web下载实例来帮助你理解这个概念。</p>
 <h2 id="Sequential"><a href="#Sequential" class="headerlink" title="Sequential"></a>Sequential</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div></pre></td><td class="code"><pre><div class="line">import os</div><div class="line">import time</div><div class="line">import sys</div><div class="line"></div><div class="line">import requests  # It&apos;s not the standard library, so separate it from top with a blank line.</div><div class="line"></div><div class="line">POP20_CC = (&apos;CN IN US ID BR PK NG BD RU JP&apos;</div><div class="line">            &apos;MX PH VN ET EG DE IR TR CD FR&apos;).split()</div><div class="line"></div><div class="line">BASE_URL = &apos;http://flupy.org/data/flags&apos;</div><div class="line"></div><div class="line">DEST_DIR = &apos;downloads/&apos;</div><div class="line"></div><div class="line"></div><div class="line">def save_flags(img, filename):</div><div class="line">    path = os.path.join(DEST_DIR, filename)</div><div class="line">    with open(path, &apos;wb&apos;) as fp:</div><div class="line">        fp.write(img)</div><div class="line"></div><div class="line"></div><div class="line">def get_flag(cc):</div><div class="line">    url = &apos;&#123;&#125;/&#123;cc&#125;/&#123;cc&#125;.gif&apos;.format(BASE_URL, cc=cc.lower())</div><div class="line">    resp = requests.get(url)</div><div class="line">    return resp.content</div><div class="line"></div><div class="line"></div><div class="line">def show(text):</div><div class="line">    print(text, end=&apos; &apos;)</div><div class="line">    sys.stdout.flush()  # flush stdout buffter.</div><div class="line"></div><div class="line"></div><div class="line">def download_many(cc_list):</div><div class="line">    for cc in sorted(cc_list):</div><div class="line">        image = get_flag(cc)</div><div class="line">        show(cc)</div><div class="line">        save_flags(image, cc.lower() + &apos;.gif&apos;)</div><div class="line"></div><div class="line">    return len(cc_list)</div><div class="line"></div><div class="line"></div><div class="line">def main(download_many):</div><div class="line">    t0 = time.time()</div><div class="line">    count = download_many(POP20_CC)</div><div class="line">    elapsed = time.time() - t0</div><div class="line">    msg = &apos;\n&#123;&#125; flags download in &#123;:.2f&#125;s&apos;</div><div class="line">    print(msg.format(count, elapsed))</div><div class="line"></div><div class="line"></div><div class="line">if __name__ == &apos;__main__&apos;:</div><div class="line">    main(download_many)</div><div class="line"></div><div class="line">BD BR CD CN DE EG ET FR ID IN IR JPMX NG PH PK RU TR US VN </div><div class="line">19 flags download in 21.66s</div></pre></td></tr></table></figure>
@@ -239,16 +181,16 @@
     </summary>
     
     
-      <category term="Python" scheme="http://miks.top/tags/Python/"/>
+      <category term="Python" scheme="http://www.ganbinwen.com/tags/Python/"/>
     
   </entry>
   
   <entry>
     <title>Python Coroutine介绍</title>
-    <link href="http://miks.top/2017/12/11/Python-Coroutine%E4%BB%8B%E7%BB%8D/"/>
-    <id>http://miks.top/2017/12/11/Python-Coroutine介绍/</id>
+    <link href="http://www.ganbinwen.com/2017/12/11/Python-Coroutine%E4%BB%8B%E7%BB%8D/"/>
+    <id>http://www.ganbinwen.com/2017/12/11/Python-Coroutine介绍/</id>
     <published>2017-12-11T06:58:15.000Z</published>
-    <updated>2018-01-11T04:32:20.000Z</updated>
+    <updated>2017-12-11T07:00:56.000Z</updated>
     
     <content type="html"><![CDATA[<h2 id="Concept"><a href="#Concept" class="headerlink" title="Concept"></a>Concept</h2><p>通过对generator的了解，我们知道caller通过next()方法调用函数里的yield item来生成一个值。</p>
 <p>在coroutine里</p>
@@ -336,18 +278,18 @@
     </summary>
     
     
-      <category term="Python" scheme="http://miks.top/tags/Python/"/>
+      <category term="Python" scheme="http://www.ganbinwen.com/tags/Python/"/>
     
   </entry>
   
   <entry>
     <title>Python generator 介绍</title>
-    <link href="http://miks.top/2017/12/02/Python-generator-%E4%BB%8B%E7%BB%8D/"/>
-    <id>http://miks.top/2017/12/02/Python-generator-介绍/</id>
+    <link href="http://www.ganbinwen.com/2017/12/02/Python-generator-%E4%BB%8B%E7%BB%8D/"/>
+    <id>http://www.ganbinwen.com/2017/12/02/Python-generator-介绍/</id>
     <published>2017-12-02T09:12:38.000Z</published>
-    <updated>2018-01-11T04:32:20.000Z</updated>
+    <updated>2017-12-02T09:13:05.000Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="Preface"><a href="#Preface" class="headerlink" title="Preface"></a>Preface</h2><p>Generator是Python里相当有趣的trick.不过在阅读本文前，希望你对iterable和iterator的概念已经有了认识。如果没有的话建议先阅读本人的另一篇文章：<a href="http://www.ganbinwen.com/2017/12/02/Python-Iterators-and-Iterables%E4%BB%8B%E7%BB%8D/" target="_blank" rel="external">http://www.ganbinwen.com/2017/12/02/Python-Iterators-and-Iterables%E4%BB%8B%E7%BB%8D/</a></p>
+    <content type="html"><![CDATA[<h2 id="Preface"><a href="#Preface" class="headerlink" title="Preface"></a>Preface</h2><p>Generator是Python里相当有趣的trick.不过在阅读本文前，希望你对iterable和iterator的概念已经有了认识。如果没有的话建议先阅读本人的另一篇文章：<a href="http://www.ganbinwen.com/2017/12/02/Python-Iterators-and-Iterables%E4%BB%8B%E7%BB%8D/">http://www.ganbinwen.com/2017/12/02/Python-Iterators-and-Iterables%E4%BB%8B%E7%BB%8D/</a></p>
 <h2 id="How-a-generator-function-works-in-detail-with-line-by-line-descriptions"><a href="#How-a-generator-function-works-in-detail-with-line-by-line-descriptions" class="headerlink" title="How a generator function works in detail, with line by line descriptions."></a>How a generator function works in detail, with line by line descriptions.</h2><p>介绍相关概念前，我们先看一个Pythonic的Iterator实现。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">class Sentence(object):</div><div class="line">    def __init__(self, text):</div><div class="line">        self.text = text</div><div class="line">        self.words = RE_WORD.findall(self.text)</div><div class="line"></div><div class="line">    def __iter__(self):</div><div class="line">        for word in self.words:</div><div class="line">            yield word</div><div class="line"></div><div class="line">    def __repr__(self):</div><div class="line">        return &apos;Sentence(%s)&apos; % reprlib.repr(self.text)  # reprlib.repr limits the generated string to 30 characters.</div><div class="line"></div><div class="line">if __name__ == &apos;__main__&apos;:</div><div class="line">    s = Sentence(&apos;&quot;The time has come,&quot; the Walrus said,&apos;)</div><div class="line">    print(s)</div><div class="line">    for word in s:</div><div class="line">        print(word)</div><div class="line">    print(list(s))</div><div class="line">Sentence(&apos;&quot;The time ha... Walrus said,&apos;)</div><div class="line">The</div><div class="line">time</div><div class="line">has</div><div class="line">come</div><div class="line">the</div><div class="line">Walrus</div><div class="line">said</div><div class="line">[&apos;The&apos;, &apos;time&apos;, &apos;has&apos;, &apos;come&apos;, &apos;the&apos;, &apos;Walrus&apos;, &apos;said&apos;]</div><div class="line"></div><div class="line">对比之前实现的例子，可以看到已经简洁很多了！！ </div><div class="line">tip: 最简洁的是 return iter(self.words)</div></pre></td></tr></table></figure>
 <p>在Python中，如果函数里有yield关键字，那么代表这个函数就是一个生成器函数，生成器函数会返回一个generator。也就是说生成器函数是一个生成器工厂。</p>
@@ -378,16 +320,16 @@
     </summary>
     
     
-      <category term="Python" scheme="http://miks.top/tags/Python/"/>
+      <category term="Python" scheme="http://www.ganbinwen.com/tags/Python/"/>
     
   </entry>
   
   <entry>
     <title>Python Iterators and Iterables介绍</title>
-    <link href="http://miks.top/2017/12/02/Python-Iterators-and-Iterables%E4%BB%8B%E7%BB%8D/"/>
-    <id>http://miks.top/2017/12/02/Python-Iterators-and-Iterables介绍/</id>
+    <link href="http://www.ganbinwen.com/2017/12/02/Python-Iterators-and-Iterables%E4%BB%8B%E7%BB%8D/"/>
+    <id>http://www.ganbinwen.com/2017/12/02/Python-Iterators-and-Iterables介绍/</id>
     <published>2017-12-02T07:02:24.000Z</published>
-    <updated>2018-01-11T04:32:20.000Z</updated>
+    <updated>2017-12-02T07:04:16.000Z</updated>
     
     <content type="html"><![CDATA[<h2 id="Concept"><a href="#Concept" class="headerlink" title="Concept"></a>Concept</h2><p>Iteration是对数据进行函数式的操作。假设当你需要从内存无法装下的数据集中读取数据时，你可能需要对数据集进行<strong>惰性</strong>读取，意味着每次操作只读取一条数据—–而这就是Iterator模式。</p>
 <h2 id="Iterables"><a href="#Iterables" class="headerlink" title="Iterables"></a>Iterables</h2><p><code>iterable</code>  任何对象通过内置iter()方法都可以得到一个iterator。对象如果实现了<strong> iter</strong>方法并且返回一个iterator，那么称对象是iterable.</p>
@@ -439,16 +381,16 @@
     </summary>
     
     
-      <category term="Python" scheme="http://miks.top/tags/Python/"/>
+      <category term="Python" scheme="http://www.ganbinwen.com/tags/Python/"/>
     
   </entry>
   
   <entry>
     <title>Python Function Decorators and Closures介绍</title>
-    <link href="http://miks.top/2017/11/29/Python-Function-Decorators-and-Closures%E4%BB%8B%E7%BB%8D/"/>
-    <id>http://miks.top/2017/11/29/Python-Function-Decorators-and-Closures介绍/</id>
+    <link href="http://www.ganbinwen.com/2017/11/29/Python-Function-Decorators-and-Closures%E4%BB%8B%E7%BB%8D/"/>
+    <id>http://www.ganbinwen.com/2017/11/29/Python-Function-Decorators-and-Closures介绍/</id>
     <published>2017-11-29T08:17:13.000Z</published>
-    <updated>2018-01-11T04:32:20.000Z</updated>
+    <updated>2017-11-29T08:22:50.000Z</updated>
     
     <content type="html"><![CDATA[<h2 id="Preface"><a href="#Preface" class="headerlink" title="Preface"></a>Preface</h2><p>本文尽量用最简单，清晰的文字来介绍python的闭包与装饰器。希望你可以静下心来跟我一同思考这个tricky mechanism. <strong>注意</strong>本文只讲解了函数装饰器，如果你想了解类装饰器，请不要继续阅读。</p>
 <h2 id="How-Python-evaluates-decorator-syntax"><a href="#How-Python-evaluates-decorator-syntax" class="headerlink" title="How Python evaluates decorator syntax?"></a>How Python evaluates decorator syntax?</h2><p>Python对装饰器的使用了语法糖，如：</p>
@@ -484,16 +426,16 @@
     </summary>
     
     
-      <category term="Python" scheme="http://miks.top/tags/Python/"/>
+      <category term="Python" scheme="http://www.ganbinwen.com/tags/Python/"/>
     
   </entry>
   
   <entry>
     <title>Python内置模块bisect介绍</title>
-    <link href="http://miks.top/2017/11/20/Python%E5%86%85%E7%BD%AE%E6%A8%A1%E5%9D%97bisect%E4%BB%8B%E7%BB%8D/"/>
-    <id>http://miks.top/2017/11/20/Python内置模块bisect介绍/</id>
+    <link href="http://www.ganbinwen.com/2017/11/20/Python%E5%86%85%E7%BD%AE%E6%A8%A1%E5%9D%97bisect%E4%BB%8B%E7%BB%8D/"/>
+    <id>http://www.ganbinwen.com/2017/11/20/Python内置模块bisect介绍/</id>
     <published>2017-11-20T06:33:07.000Z</published>
-    <updated>2018-01-11T04:32:20.000Z</updated>
+    <updated>2017-11-20T06:34:29.000Z</updated>
     
     <content type="html"><![CDATA[<p>在Leetcode Weekly Contest 59上有一道题，需要在插入时保持序列顺序，从而我去了解了Python内置的<strong>bisect</strong>模块.    </p>
 <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>对于bisect，官网的解释是：</p>
@@ -525,16 +467,16 @@
     </summary>
     
     
-      <category term="Python" scheme="http://miks.top/tags/Python/"/>
+      <category term="Python" scheme="http://www.ganbinwen.com/tags/Python/"/>
     
   </entry>
   
   <entry>
     <title>联合-查找算法</title>
-    <link href="http://miks.top/2017/11/06/%E8%81%94%E5%90%88-%E6%9F%A5%E6%89%BE%E7%AE%97%E6%B3%95/"/>
-    <id>http://miks.top/2017/11/06/联合-查找算法/</id>
+    <link href="http://www.ganbinwen.com/2017/11/06/%E8%81%94%E5%90%88-%E6%9F%A5%E6%89%BE%E7%AE%97%E6%B3%95/"/>
+    <id>http://www.ganbinwen.com/2017/11/06/联合-查找算法/</id>
     <published>2017-11-06T05:26:47.000Z</published>
-    <updated>2018-01-11T04:32:20.000Z</updated>
+    <updated>2017-11-29T04:37:24.000Z</updated>
     
     <content type="html"><![CDATA[<p>介绍这个算法前，先梳理一些相关词组的概念：</p>
 <p><strong>并查集</strong>： 并查集是一种树型的数据结构，用于处理一些不想交集合的合并以及查询问题.</p>
@@ -575,16 +517,16 @@
     </summary>
     
     
-      <category term="算法" scheme="http://miks.top/tags/%E7%AE%97%E6%B3%95/"/>
+      <category term="算法" scheme="http://www.ganbinwen.com/tags/%E7%AE%97%E6%B3%95/"/>
     
   </entry>
   
   <entry>
     <title>检查清单 Report</title>
-    <link href="http://miks.top/2017/11/04/%E6%A3%80%E6%9F%A5%E6%B8%85%E5%8D%95/"/>
-    <id>http://miks.top/2017/11/04/检查清单/</id>
+    <link href="http://www.ganbinwen.com/2017/11/04/%E6%A3%80%E6%9F%A5%E6%B8%85%E5%8D%95/"/>
+    <id>http://www.ganbinwen.com/2017/11/04/检查清单/</id>
     <published>2017-11-04T07:27:45.000Z</published>
-    <updated>2018-01-11T04:32:20.000Z</updated>
+    <updated>2017-11-04T09:31:45.000Z</updated>
     
     <content type="html"><![CDATA[<p>写代码前</p>
 <p>写代码的要思考到明确<br>做什么<br>，而不仅仅是<br>怎么做<br>。</p>
@@ -631,16 +573,16 @@
     </summary>
     
     
-      <category term="清单" scheme="http://miks.top/tags/%E6%B8%85%E5%8D%95/"/>
+      <category term="清单" scheme="http://www.ganbinwen.com/tags/%E6%B8%85%E5%8D%95/"/>
     
   </entry>
   
   <entry>
     <title>函数式编程 Report</title>
-    <link href="http://miks.top/2017/11/04/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/"/>
-    <id>http://miks.top/2017/11/04/函数式编程/</id>
+    <link href="http://www.ganbinwen.com/2017/11/04/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/"/>
+    <id>http://www.ganbinwen.com/2017/11/04/函数式编程/</id>
     <published>2017-11-04T07:27:45.000Z</published>
-    <updated>2018-01-11T04:32:20.000Z</updated>
+    <updated>2017-11-04T09:32:09.000Z</updated>
     
     <content type="html"><![CDATA[<p>函数式编程<br>不依赖于外部的数据，而且也不改变外部数据的值，而是返回一个新的值给你<br>1）代码更简单了。<br>2）数据集，操作，返回值都放到了一起。<br>3）你在读代码的时候，没有了循环体，于是就可以少了些临时变量，以及变量倒来倒去逻辑。<br>4）你的代码变成了在描述你要干什么，而不是怎么去干</p>
 ]]></content>
@@ -652,16 +594,16 @@
     </summary>
     
     
-      <category term="函数式" scheme="http://miks.top/tags/%E5%87%BD%E6%95%B0%E5%BC%8F/"/>
+      <category term="函数式" scheme="http://www.ganbinwen.com/tags/%E5%87%BD%E6%95%B0%E5%BC%8F/"/>
     
   </entry>
   
   <entry>
     <title>问题清单 Report</title>
-    <link href="http://miks.top/2017/11/04/%E9%97%AE%E9%A2%98%E6%B8%85%E5%8D%95/"/>
-    <id>http://miks.top/2017/11/04/问题清单/</id>
+    <link href="http://www.ganbinwen.com/2017/11/04/%E9%97%AE%E9%A2%98%E6%B8%85%E5%8D%95/"/>
+    <id>http://www.ganbinwen.com/2017/11/04/问题清单/</id>
     <published>2017-11-04T07:27:45.000Z</published>
-    <updated>2018-01-11T04:32:20.000Z</updated>
+    <updated>2017-11-04T09:31:59.000Z</updated>
     
     <content type="html"><![CDATA[<p>整理一下Git分支的知识</p>
 <p>from sqlalchemy import Column, Integer, String</p>
@@ -692,16 +634,16 @@
     </summary>
     
     
-      <category term="清单" scheme="http://miks.top/tags/%E6%B8%85%E5%8D%95/"/>
+      <category term="清单" scheme="http://www.ganbinwen.com/tags/%E6%B8%85%E5%8D%95/"/>
     
   </entry>
   
   <entry>
     <title>2017-08-20 Report</title>
-    <link href="http://miks.top/2017/08/20/2017-08-20/"/>
-    <id>http://miks.top/2017/08/20/2017-08-20/</id>
+    <link href="http://www.ganbinwen.com/2017/08/20/2017-08-20/"/>
+    <id>http://www.ganbinwen.com/2017/08/20/2017-08-20/</id>
     <published>2017-08-20T07:27:45.000Z</published>
-    <updated>2018-01-11T04:32:20.000Z</updated>
+    <updated>2017-11-04T09:19:17.000Z</updated>
     
     <content type="html"><![CDATA[<p>补交8月18日Daily Report<br>当天完成的工作内容<br>1.将车型数据库的爬虫脚本，打包成线上可以允许的程序。<br>当天的收获<br>1.问题： 如何让使用者在最短的时间内，做到同开发人员一样熟练的使用程序呢？<br>2.反思： 提供他人使用的程序，功能是核心。但是相比于自己使用的话，需要注意使用的友好程度，使用的上手难度，以及合作开发人员与后期维护人员的工作效率。<br>3.总结:<br>首先，<br>1.面向使用者来说，重要的是简单，易用。能用一行命令行执行的功能，绝不让使用者输入两行。比如数据库的建表，“是否要建表，建一张什么样的表..”这样的问题完成到使用者只需要指定Mysql,Sqlite此类的DBMS即可。 配有程序功能详细的Tutorial，毕竟我在Github上，对于使用越简单的程序，好感度越高！<br>2.面向合作开发人员，写好程序功能的架构图，让对方快速明白目前已经实现的功能，以及功能间的联系与使用技术。<br>明天的计划<br>1.先沟通好新人周报自动化的需求，然后再将可以完成需求的技术进行对比，择优选择。<br>提出疑问或寻求帮助<br>1.赵赵和伟哥有没有开发过一些自己觉得很酷Cool，但是用户的反馈并不好的程序呢？如果有，原因是什么呢？<br>今日翻译<br>“Mr. Jones, of the Manor Farm, had locked the hen-houses for the night, but was too drunk to remember to shut the popholes. With the ring of light from his lantern dancing from side to side, he lurched across the yard, kicked off his boots at the back door, drew himself a last glass of beer from the barrel in the scullerhey, and made his way up to bed, where Mrs. Jones was already snoring.”<br>我的翻译<br>Jones先生，是庄园的主人。这晚他锁上马棚，但是喝的太多了不记得去关上马槽。伴随着，晃来晃去从灯笼里发出的光亮。他蹒跚的穿过了庭院，用他的靴子踢开了后门。他给自己从桶里取了最后一杯酒，然后上了床。之后Jones先生已经开始打呼噜了。<br>正确翻译<br>故事发生在曼纳庄园里。这天晚上，庄园的主人琼斯先生说是已经锁好了鸡棚， 由于他喝得醉意十足，竟把里面的那些小门都忘了关上。他提着马灯踉踉跄跄地穿过院子，马灯光也跟着一直不停地晃来晃去，到了后门，他把靴子一脚一只踢了出去，又从洗碗间的酒桶里舀起最后一杯啤酒，一饮而尽，然后才上床休息。此时，床上的琼斯夫人已是鼾声如雷了。   </p>
 ]]></content>
@@ -713,16 +655,16 @@
     </summary>
     
     
-      <category term="daily report" scheme="http://miks.top/tags/daily-report/"/>
+      <category term="daily report" scheme="http://www.ganbinwen.com/tags/daily-report/"/>
     
   </entry>
   
   <entry>
     <title>2017-08-18 Report</title>
-    <link href="http://miks.top/2017/08/18/2017-08-18/"/>
-    <id>http://miks.top/2017/08/18/2017-08-18/</id>
+    <link href="http://www.ganbinwen.com/2017/08/18/2017-08-18/"/>
+    <id>http://www.ganbinwen.com/2017/08/18/2017-08-18/</id>
     <published>2017-08-18T07:27:45.000Z</published>
-    <updated>2018-01-11T04:32:20.000Z</updated>
+    <updated>2017-11-04T09:19:17.000Z</updated>
     
     <content type="html"><![CDATA[<p>补交8月18日Daily Report<br>当天完成的工作内容<br>1.将车型数据库的爬虫脚本，打包成线上可以允许的程序。<br>当天的收获<br>1.问题： 如何让使用者在最短的时间内，做到同开发人员一样熟练的使用程序呢？<br>2.反思： 提供他人使用的程序，功能是核心。但是相比于自己使用的话，需要注意使用的友好程度，使用的上手难度，以及合作开发人员与后期维护人员的工作效率。<br>3.总结:<br>首先，<br>1.面向使用者来说，重要的是简单，易用。能用一行命令行执行的功能，绝不让使用者输入两行。比如数据库的建表，“是否要建表，建一张什么样的表..”这样的问题完成到使用者只需要指定Mysql,Sqlite此类的DBMS即可。 配有程序功能详细的Tutorial，毕竟我在Github上，对于使用越简单的程序，好感度越高！<br>2.面向合作开发人员，写好程序功能的架构图，让对方快速明白目前已经实现的功能，以及功能间的联系与使用技术。<br>明天的计划<br>1.先沟通好新人周报自动化的需求，然后再将可以完成需求的技术进行对比，择优选择。<br>提出疑问或寻求帮助<br>1.赵赵和伟哥有没有开发过一些自己觉得很酷Cool，但是用户的反馈并不好的程序呢？如果有，原因是什么呢？<br>今日翻译<br>“Mr. Jones, of the Manor Farm, had locked the hen-houses for the night, but was too drunk to remember to shut the popholes. With the ring of light from his lantern dancing from side to side, he lurched across the yard, kicked off his boots at the back door, drew himself a last glass of beer from the barrel in the scullerhey, and made his way up to bed, where Mrs. Jones was already snoring.”<br>我的翻译<br>Jones先生，是庄园的主人。这晚他锁上马棚，但是喝的太多了不记得去关上马槽。伴随着，晃来晃去从灯笼里发出的光亮。他蹒跚的穿过了庭院，用他的靴子踢开了后门。他给自己从桶里取了最后一杯酒，然后上了床。之后Jones先生已经开始打呼噜了。<br>正确翻译<br>故事发生在曼纳庄园里。这天晚上，庄园的主人琼斯先生说是已经锁好了鸡棚， 由于他喝得醉意十足，竟把里面的那些小门都忘了关上。他提着马灯踉踉跄跄地穿过院子，马灯光也跟着一直不停地晃来晃去，到了后门，他把靴子一脚一只踢了出去，又从洗碗间的酒桶里舀起最后一杯啤酒，一饮而尽，然后才上床休息。此时，床上的琼斯夫人已是鼾声如雷了。<br>当天完成的工作内容<br>1.update 合并数据的自动化脚本。<br>2.firestone的爬虫增加了特殊字符的处理，又获得了27015条车型数据。<br>当天的收获<br>1.问题： 不记录日志带来的麻烦<br>2.反思： firestone和edmunds的爬虫，在爬取的时候有数据调试，但是没有日志记录。这样在之后对数据进行验证的时候，没有信息可以参考。同时对于爬虫运行的状态无法确定。<br>3.方法： 对于自动化的脚本，要搭配日志使用。 在Settings模块里，配置Logger，爬取数据时将爬取结果写入日志中。在爬取结束后，核对日志，确保数据的完整性。<br>明天的计划<br>1.用日志确认Edmunds和Firestone的爬虫功能是否完善。<br>提出疑问或寻求帮助<br>无。<br>今日翻译<br>Notice that the weight of the position to the left of the units position is 8. This is 8 times 1. Then notice that the weight of the next position is 64, or 8 times 8. If another position existed, it would be 64 times 8, or 51 2. To find the weight of the next higher-order position, multiply the weight of the current position by the number base (or 8, in this example). To calculate the weights of position to the right of the radix point, divide by the number base. In the octal system, the position immediately to the fight of the octal point is 1/8, or .125. The next position is .125/8, or .015625, which can also be written as 1/64.<br>我的翻译<br>注意到个位的左边值是8。这是8的一次方。注意到下一个位置的值是64，或8的8次方。如果另一个位置存在，它将是64的8次方，或者512。为了找到下个高位的值，乘当前位置的基数（在这个例子中是8）为了计算出正确的指数位的值，除以基数。在八进制的中，八进制点的位置直接用1/8找到，或者.125。下一个位置是.125/8，或者.015625，也可以被写成1/64。<br>当天完成的工作内容<br>1.看avatar爬虫部分的源码。<br>当天的收获<br>1.当问题拆分后，如何思考解决方案？<br>总结： 问题要彼此不重合的独立拆开，同样，设想的解决方案也应该彼此不重合，只解决其对应的问题。解决方案只对应其当前问题，可以使逻辑保持清晰，做到更加专注的解决；降低方案的复杂性。<br>明天的计划<br>1.优化一下edmunds和firestone的爬虫，使其支持断点续爬。<br>提出疑问或寻求帮助<br>无。<br>今日翻译<br>The position to the left of the units position is always the number base raised to the first power; in a decimal system, this is l01, or l0. In a binary system, it is 21, or 2; and in an octal system it is 81, or 8. Therefore, an 11 decimal has a different value from an 11 binary. The 1l decimal is composed of 1 ten plus 1 unit and has a value of 11 units; while the binary number 11 is composed of 1 two plus 1 unit, for a value of 3 decimal units. The 11 octal has a value of 9 units.<br>我的翻译<br>在个位左边的位置总是数字的1次幂，在十进制中，101，或10。在二进制中21，或2。在八进制中为81，或8。因此，一个十进制的11不同于二进制的11的值。十进制中的11，由一个十位加1个单位，表示值11.然而二进制中的11，由一个二加1个单位，表示十进制中的3.八进制中11的值为9。<br>正确翻译<br>个位左边的位总是基数的1次幂，在十进制系统中是101，或10；在二进制中是21，或2；而在八进制中是81，或8。因此，十进制的11与二进制的11具有不同的数值。十进制11表示—个10加上一个1，其值为11；二进制11表示—个2加上—个1，其值为3；八进制11的值为9。<br>函数式编程<br>不依赖于外部的数据，而且也不改变外部数据的值，而是返回一个新的值给你<br>1）代码更简单了。<br>2）数据集，操作，返回值都放到了一起。<br>3）你在读代码的时候，没有了循环体，于是就可以少了些临时变量，以及变量倒来倒去逻辑。<br>4）你的代码变成了在描述你要干什么，而不是怎么去干<br>今晚耽误了很久，今天的总结并不好。<br>当天完成的工作内容<br>1.继续合并firestone和edmunds的数据库。<br>当天的收获<br>1.反馈：昨天总结的是有效解决问题中的拆分问题。今天在工作的时候，按照方法，把目标拆分成了十多个小节。这样逐个模块得解决，思路比以前清晰很多。<br>2.问题： 尽管思路清晰了一些，但是晚上重看思维导图的时候发现在拆分问题上，仍然存在问题。问题拆分的混乱，层级关系有些存在错误。<br>3.反思： 对于名称的合并上，有几类都是同一个问题下的子问题，但是在当时划分的时候我把它们划分到不同的类别中。 –&gt;  能够用统一的手段解决，变成了每个小问题都单独解决一次。 –&gt; 为什么当时问题没有归类正确？ ——&gt; 因为只带着目标去思考问题，没有在分析问题时，考虑它的对立/相似等其他情况。 –&gt; 忽略了这些思考，导致即使碰到了对立/相似的问题也会遗忘这类问题已经在某个地方被列出来过了。 ——&gt; 所以将它们放到了一个不是最匹配的类目下。<br>4.方法： 对于问题的拆分，带着目标的同时，也要将其能考虑到的对立/相似问题罗列出来 –&gt; 避免时间间隔久了，再碰到相似问题会重新定义。 –&gt; 罗列出来不必急着写解决方案，等遇到了在考虑，所以就算没有遇到也不会有时间浪费。<br>明天的计划<br>1.完成三张数据表完整的合并。<br>提出疑问或寻求帮助<br>无。</p>
 ]]></content>
@@ -734,16 +676,16 @@
     </summary>
     
     
-      <category term="daily report" scheme="http://miks.top/tags/daily-report/"/>
+      <category term="daily report" scheme="http://www.ganbinwen.com/tags/daily-report/"/>
     
   </entry>
   
   <entry>
     <title>2017-08-16 Report</title>
-    <link href="http://miks.top/2017/08/16/2017-08-16/"/>
-    <id>http://miks.top/2017/08/16/2017-08-16/</id>
+    <link href="http://www.ganbinwen.com/2017/08/16/2017-08-16/"/>
+    <id>http://www.ganbinwen.com/2017/08/16/2017-08-16/</id>
     <published>2017-08-16T07:27:45.000Z</published>
-    <updated>2018-01-11T04:32:20.000Z</updated>
+    <updated>2017-11-04T09:19:17.000Z</updated>
     
     <content type="html"><![CDATA[<p>当天完成的工作内容<br>1.update 合并数据的自动化脚本。<br>2.firestone的爬虫增加了特殊字符的处理，又获得了27015条车型数据。<br>当天的收获<br>1.问题： 不记录日志带来的麻烦<br>2.反思： firestone和edmunds的爬虫，在爬取的时候有数据调试，但是没有日志记录。这样在之后对数据进行验证的时候，没有信息可以参考。同时对于爬虫运行的状态无法确定。<br>3.方法： 对于自动化的脚本，要搭配日志使用。 在Settings模块里，配置Logger，爬取数据时将爬取结果写入日志中。在爬取结束后，核对日志，确保数据的完整性。<br>明天的计划<br>1.用日志确认Edmunds和Firestone的爬虫功能是否完善。<br>提出疑问或寻求帮助<br>无。<br>今日翻译<br>Notice that the weight of the position to the left of the units position is 8. This is 8 times 1. Then notice that the weight of the next position is 64, or 8 times 8. If another position existed, it would be 64 times 8, or 51 2. To find the weight of the next higher-order position, multiply the weight of the current position by the number base (or 8, in this example). To calculate the weights of position to the right of the radix point, divide by the number base. In the octal system, the position immediately to the fight of the octal point is 1/8, or .125. The next position is .125/8, or .015625, which can also be written as 1/64.<br>我的翻译<br>注意到个位的左边值是8。这是8的一次方。注意到下一个位置的值是64，或8的8次方。如果另一个位置存在，它将是64的8次方，或者512。为了找到下个高位的值，乘当前位置的基数（在这个例子中是8）为了计算出正确的指数位的值，除以基数。在八进制的中，八进制点的位置直接用1/8找到，或者.125。下一个位置是.125/8，或者.015625，也可以被写成1/64。</p>
 ]]></content>
@@ -755,16 +697,16 @@
     </summary>
     
     
-      <category term="daily report" scheme="http://miks.top/tags/daily-report/"/>
+      <category term="daily report" scheme="http://www.ganbinwen.com/tags/daily-report/"/>
     
   </entry>
   
   <entry>
     <title>2017-08-14 Report</title>
-    <link href="http://miks.top/2017/08/14/2017-08-14/"/>
-    <id>http://miks.top/2017/08/14/2017-08-14/</id>
+    <link href="http://www.ganbinwen.com/2017/08/14/2017-08-14/"/>
+    <id>http://www.ganbinwen.com/2017/08/14/2017-08-14/</id>
     <published>2017-08-14T07:27:45.000Z</published>
-    <updated>2018-01-11T04:32:20.000Z</updated>
+    <updated>2017-11-04T09:19:17.000Z</updated>
     
     <content type="html"><![CDATA[<p>当天完成的工作内容<br>1.看avatar爬虫部分的源码。<br>当天的收获<br>1.当问题拆分后，如何思考解决方案？<br>总结： 问题要彼此不重合的独立拆开，同样，设想的解决方案也应该彼此不重合，只解决其对应的问题。解决方案只对应其当前问题，可以使逻辑保持清晰，做到更加专注的解决；降低方案的复杂性。<br>明天的计划<br>1.优化一下edmunds和firestone的爬虫，使其支持断点续爬。<br>提出疑问或寻求帮助<br>无。<br>今日翻译<br>The position to the left of the units position is always the number base raised to the first power; in a decimal system, this is l01, or l0. In a binary system, it is 21, or 2; and in an octal system it is 81, or 8. Therefore, an 11 decimal has a different value from an 11 binary. The 1l decimal is composed of 1 ten plus 1 unit and has a value of 11 units; while the binary number 11 is composed of 1 two plus 1 unit, for a value of 3 decimal units. The 11 octal has a value of 9 units.<br>我的翻译<br>在个位左边的位置总是数字的1次幂，在十进制中，101，或10。在二进制中21，或2。在八进制中为81，或8。因此，一个十进制的11不同于二进制的11的值。十进制中的11，由一个十位加1个单位，表示值11.然而二进制中的11，由一个二加1个单位，表示十进制中的3.八进制中11的值为9。<br>正确翻译<br>个位左边的位总是基数的1次幂，在十进制系统中是101，或10；在二进制中是21，或2；而在八进制中是81，或8。因此，十进制的11与二进制的11具有不同的数值。十进制11表示—个10加上一个1，其值为11；二进制11表示—个2加上—个1，其值为3；八进制11的值为9。</p>
 ]]></content>
@@ -776,16 +718,16 @@
     </summary>
     
     
-      <category term="daily report" scheme="http://miks.top/tags/daily-report/"/>
+      <category term="daily report" scheme="http://www.ganbinwen.com/tags/daily-report/"/>
     
   </entry>
   
   <entry>
     <title>2017-08-10 Report</title>
-    <link href="http://miks.top/2017/08/10/2017-08-10/"/>
-    <id>http://miks.top/2017/08/10/2017-08-10/</id>
+    <link href="http://www.ganbinwen.com/2017/08/10/2017-08-10/"/>
+    <id>http://www.ganbinwen.com/2017/08/10/2017-08-10/</id>
     <published>2017-08-10T07:27:45.000Z</published>
-    <updated>2018-01-11T04:32:20.000Z</updated>
+    <updated>2017-11-04T09:19:17.000Z</updated>
     
     <content type="html"><![CDATA[<p>今晚耽误了很久，今天的总结并不好。<br>当天完成的工作内容<br>1.继续合并firestone和edmunds的数据库。<br>当天的收获<br>1.反馈：昨天总结的是有效解决问题中的拆分问题。今天在工作的时候，按照方法，把目标拆分成了十多个小节。这样逐个模块得解决，思路比以前清晰很多。<br>2.问题： 尽管思路清晰了一些，但是晚上重看思维导图的时候发现在拆分问题上，仍然存在问题。问题拆分的混乱，层级关系有些存在错误。<br>3.反思： 对于名称的合并上，有几类都是同一个问题下的子问题，但是在当时划分的时候我把它们划分到不同的类别中。 –&gt;  能够用统一的手段解决，变成了每个小问题都单独解决一次。 –&gt; 为什么当时问题没有归类正确？ ——&gt; 因为只带着目标去思考问题，没有在分析问题时，考虑它的对立/相似等其他情况。 –&gt; 忽略了这些思考，导致即使碰到了对立/相似的问题也会遗忘这类问题已经在某个地方被列出来过了。 ——&gt; 所以将它们放到了一个不是最匹配的类目下。<br>4.方法： 对于问题的拆分，带着目标的同时，也要将其能考虑到的对立/相似问题罗列出来 –&gt; 避免时间间隔久了，再碰到相似问题会重新定义。 –&gt; 罗列出来不必急着写解决方案，等遇到了在考虑，所以就算没有遇到也不会有时间浪费。<br>明天的计划<br>1.完成三张数据表完整的合并。<br>提出疑问或寻求帮助<br>无。</p>
 ]]></content>
@@ -797,16 +739,16 @@
     </summary>
     
     
-      <category term="daily report" scheme="http://miks.top/tags/daily-report/"/>
+      <category term="daily report" scheme="http://www.ganbinwen.com/tags/daily-report/"/>
     
   </entry>
   
   <entry>
     <title>2017-08-09 Report</title>
-    <link href="http://miks.top/2017/08/09/2017-08-09/"/>
-    <id>http://miks.top/2017/08/09/2017-08-09/</id>
+    <link href="http://www.ganbinwen.com/2017/08/09/2017-08-09/"/>
+    <id>http://www.ganbinwen.com/2017/08/09/2017-08-09/</id>
     <published>2017-08-09T07:27:45.000Z</published>
-    <updated>2018-01-11T04:32:20.000Z</updated>
+    <updated>2017-11-04T09:19:17.000Z</updated>
     
     <content type="html"><![CDATA[<p>当天完成的工作内容<br>1.爬取了firestone上的胎压数据。<br>2.合并了部分胎压数据到 edmunds的车型数据库中。<br>当天的收获<br>1.问题：如何快速有效的解决问题？（今日总结如何拆分问题）<br>2.陈述：这个问题在之前的daily report中也有过总结，但是从实践来看，效果并不好。之前总结的是先拆分–&gt;思考方案–&gt;验证方案–&gt;反馈–&gt;确认结果–&gt;问题解决。<br>3.目标： 我要做到快速有效的解决问题，而不是仅仅是解决问题。<br>4.反思： 之前总结的方案，从流程上来说解决问题确实是这些步骤，但是为什么效果不好呢？ ——&gt; 因为这些流程中每个步骤的细节没有总结 –&gt; 不总结到明确每个步骤做什么，那么总结的可行性会大大降低。 –&gt; 把这个流程中的步骤，都单独总结。 –&gt; 今天总结如何拆分问题。<br>5.总结： 面对问题时，比如今天的任务是合并两个部分兼容的车型数据库。 ——&gt; 先从目标考虑，目标是合并数据库。 ——&gt; 那么现在是否可以直接合并？如果是，那么直接合并了；如果不能合并，要怎么做才可以合并呢？ –&gt; 从目标上，把问题做了一次拆分。现在进入的是不可以直接合并模块 –&gt; 既然不可以合并，那是所有的数据都不可以合并，还是部分不可以合并？ –&gt; 是部分不可以直接合并，那么对于直接可以合并的数据也不要着急合并，继续进入部分数据不可以直接合并的思考 –&gt; 是什么导致了这部分的数据不可以直接合并呢？ ——&gt; 因为二者都有一部分数据是互不包含的，只有部分数据是二者的交集。 –&gt; 那么不包含意味着不能直接合并，那么交集中数据是不是已经可以直接合并了？ ——&gt; 交集中因为两个车型数据库的车型匹配规则不同，所以有部分数据虽然在交集内，但是仍然不能直接合并 –&gt; 规则相同或者不受规则影响的那部分是可以直接合并的，那么受到规则影响的数据是不是全部不可以直接合并？ –&gt; 思考到这一步的时候，需要开始实践才可以继续往下，此时才算把问题拆分到自己能考虑到的全部。<br>5.简述：总结的方法是对如何拆分问题做的实践，这个过程中，每一次的拆分都要先问此时能不能达到目标了，如果可以就开始思考方案和实践方案，如果仍然不能解决那么继续拆分并且之前的过程。<br>明天的计划<br>1.将firestone和edmunds二者可以合并的数据，合并完整。<br>提出疑问或寻求帮助<br>无。<br>今日翻译<br>The exponential powers of the positions are critical for understanding numbers in other numbering systems. The position to the left of the radix (number base) point, called a decimal point only in the decimal system, is always the units position in any number system. For example, the position to the left of the binary point is always 20 or 1; the position to the left of the octal point is 80 or 1. In any case, any number raised to its zero power is always 1, or the units position.<br>我的翻译<br>指数的位置幂可以被理解其他数值系统中的数字所借鉴。基数左边的位置的点被称为十进制点，只在十进制系统中有。个位总是在任何数值系统中。举个例子，二进制左边的位置总是20或者1，八进制左边的位置是80或者1。在任何地方，任意数字上方有0都表示1，或者个位位置。<br>正确翻译<br>位的指数幂在理解其他计数制中的数时是个关键。基数小数点，在十进制中称为十进制小数点，其左边的位在任何数制中都是个位。例如，二进制小数点左边的位是20或1。而八进制小数点左边的位是80或1。在任何情况下，任何数的零次幂总是1，或1个单位。</p>
 ]]></content>
@@ -818,16 +760,16 @@
     </summary>
     
     
-      <category term="daily report" scheme="http://miks.top/tags/daily-report/"/>
+      <category term="daily report" scheme="http://www.ganbinwen.com/tags/daily-report/"/>
     
   </entry>
   
   <entry>
     <title>2017-08-08 Report</title>
-    <link href="http://miks.top/2017/08/08/2017-08-08/"/>
-    <id>http://miks.top/2017/08/08/2017-08-08/</id>
+    <link href="http://www.ganbinwen.com/2017/08/08/2017-08-08/"/>
+    <id>http://www.ganbinwen.com/2017/08/08/2017-08-08/</id>
     <published>2017-08-08T07:27:45.000Z</published>
-    <updated>2018-01-11T04:32:20.000Z</updated>
+    <updated>2017-11-04T09:19:17.000Z</updated>
     
     <content type="html"><![CDATA[<p>当天完成的工作内容<br>1.解析了firestonecompleteautocare这个网站的爬取规则，完成了车型的spider脚本。计划将其数据全部爬下来后再合并到已有的车型数据中。<br>当天的收获<br>1.问题： 业余时间的规划不清晰，无端的焦虑，效率也很低下。<br>2.反思： 每天总是想看的太多，比如想看python数据相关的包，又想看一些数据结构的教程，每天又有Github新的star，又把当天工作中遇到的代码问题弄懂…. –&gt; 总是觉得这些方方面面都挺重要，但是又不能兼顾。这些想的太多，不仅看不全而且还很焦虑。导致每天晚上每个部分只弄了一点，然后第二天起来又忘了，这样更加焦虑。最近心里越来越烦，越来越焦虑。 –&gt; 我也花了时间，但是效率非常低。 –&gt; 对学习计划，规划不清晰 –&gt; 把目标定的太长远了，没有规划好每天的计划。 –&gt; 应该用天来规划，而不是用周或者是月，因为工作期间的时间太碎片了，如果还按照学校那样一周一个安排，那这一周基本上什么也做不出来。 –&gt; 要把计划迭代的周期缩短，同时把想做的事情按照重要性来排序。<br>3.方法： 先把想做的事情按重要性做个排序。权衡了一番。<br>解决与思考工作上遇到的问题 &gt;&gt;  看scrapy的源码（每天只看一章） &gt;&gt; 看github里的star，技术博客等。 –&gt; 每天晚上就做这些简单清晰的事情，想做的太多反而焦虑。 –&gt; 任何没有反馈的学习是不可靠的 –&gt; fork scrapy，每天在看完的代码里面写注释即可。<br>明天的计划<br>1.把firestonecompleteautocare中的车型数据爬取下来。<br>2.对应firestonecompleteautocare的车型数据，爬取其对应的胎压数据。<br>提出疑问或寻求帮助<br>无。<br>今日翻译<br>Once the digits of a number system are understood, larger numbers are constructed by using positional notation. In grade school, we learned that the position to the left of the units position was the tens position, the position to the left of the tens position was the hundreds position, and so forth. (An example is the decimal number 132: This number has 1 hundred, 3 tens, and 2 units.) What probably was not learned was the exponential value of each position: The units position has a weight of 100 or 1; the tens position has weight of 101, or 10; and the hundreds position has a weight of 102, or 100.<br>我的翻译<br>一旦明白了数字的计数系统，就可以通过位置表示构造出更大的数字。在高中，我们学过个位的左边是十位，十位的左边是百位，以此类推。（举个十进制的132的例子，这个数字有1个百位，3个十位，2个个位）。可能没有学过指数的每个位置：个位的有一个重量10的0次方为1，十位有一个重量10的1一次方为10，百位的有一个重量10的2次方为100。<br>正确翻译<br>一旦我们理解了计数制的数字后，就可用位计数法构造更大的数值。在小学时我们都学过个位的左边一位是十位，十位左边一位是百位，以此类推(例如十进制数132,这个数字有—个百，三个十和两个一)。或许我们没有学过每个位的指数值：个位的权为l00，即1；十位的权为101或10；而百位的权为102或100。</p>
 ]]></content>
@@ -839,16 +781,16 @@
     </summary>
     
     
-      <category term="daily report" scheme="http://miks.top/tags/daily-report/"/>
+      <category term="daily report" scheme="http://www.ganbinwen.com/tags/daily-report/"/>
     
   </entry>
   
   <entry>
     <title>2017-08-07 Report</title>
-    <link href="http://miks.top/2017/08/07/2017-08-07/"/>
-    <id>http://miks.top/2017/08/07/2017-08-07/</id>
+    <link href="http://www.ganbinwen.com/2017/08/07/2017-08-07/"/>
+    <id>http://www.ganbinwen.com/2017/08/07/2017-08-07/</id>
     <published>2017-08-07T07:27:45.000Z</published>
-    <updated>2018-01-11T04:32:20.000Z</updated>
+    <updated>2017-11-04T09:19:17.000Z</updated>
     
     <content type="html"><![CDATA[<p>当天完成的工作内容<br>1.get features of car from edmunds<br>当天的收获<br>1.问题： 今天写代理池的时候，遇到了一个打开文件的路径问题。<br>2.反思： B是A文件的子目录，爬虫需要打开的代理文件和爬虫文件都在B中。 ——&gt; 在A中开始爬取就会有no find的问题，但是在B中爬取文件就没有问题。 –&gt; 那么既然运行的文件和目标文件都在同一个文件夹里，怎么会有这样的问题呢？ ——&gt; 用os.getcwd()做个测试，发现在A中运行B中的文件和B中直接运行得到的路径是不一样的 –&gt; 所以路径取决于运行文件的位置而不是文件所在的位置。<br>3.方法： 遇到no find file or directory的问题 ——&gt; 先检查一遍文件名的反斜杠，避免转义的问题。 –&gt; 文件名，如果使用相对路径，那么检查运行文件的位置时候是跟文件所处的路径相同。 –&gt; 如果路径不同，那么要修改文件名为运行的路径位置，或者使用绝对路径。<br>总结： 如果程序运行的路径，不能保证与.py文件是相同的，最好在里面open的时候使用绝对路径。<br>明天的计划<br>1.get tire pressure data。<br>提出疑问或寻求帮助<br>无。<br>今日翻译<br>If the base of a number exceeds 10, the additional digits use the letters of the alphabet, beginning with an A, For example, a base 12 number contains 12 digits: 0 through 9, followed by A for 10 and B for 11, Note that a base 10 number does not contain a 10 digit, just as a base 8 number does not contain an 8 digit. The most common numbering systems used with computers are decimal, binary, and hexadecimal (base 16). (Many years ago octal numbers were popular.) Each system is described and used in this section of the chapter.</p>
 <p>我的翻译<br>如果基数超过10，那么10之后的数字使用字母，从A开始。举个例子，12进制包含12个数字，0到9，之后是A表示10，B表示11。注意10进制不包括10这个数字，就好像8进制没有8。最常使用的数字系统是十进制和十六进制（许多年以前流行八进制）。每一个系统被这个部分的章节使用和描述。<br>正确翻译<br>如果基数大于10，其余数字用从A开始的字母表示，例如，以12为基的数包含12个数字，0到9，之后用A代表10，B代表11。注意，以10为基的数不包含数字10，如同以8为基的数不包括数字8一样。计算机中最通用的计数制是十进制、二进制、八进制和十六进制(基为16)。每种计数制都将在本节中进行说明和应用。</p>
@@ -861,7 +803,49 @@
     </summary>
     
     
-      <category term="daily report" scheme="http://miks.top/tags/daily-report/"/>
+      <category term="daily report" scheme="http://www.ganbinwen.com/tags/daily-report/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>2017-08-06 Report</title>
+    <link href="http://www.ganbinwen.com/2017/08/06/2017-08-06/"/>
+    <id>http://www.ganbinwen.com/2017/08/06/2017-08-06/</id>
+    <published>2017-08-06T07:27:45.000Z</published>
+    <updated>2017-11-04T09:51:39.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>当天完成的工作内容<br>1.写了xxx api<br>2.在xxx中修改了xx方法。<br>当天的收获<br>1.今天在fix Bug的时候，被卡住了很久。这个bug是之前xxxx代码中xxxx部分隐含的，今天在扩展功能的时候暴露了出来。刚开始碰到这个问题的时候，首先我在文本里梳理了一遍解决问题的过程，完成了整个流程后我得到了一些关键性的数据，可是之后一直卡在了这个地方（有了关键数据，但是不知道怎么开始解决问题），想不到解决的办法后我把这个问题反馈给了伟哥。伟哥在对bug调试了一会后，跟我得到了相同的信息（截止到这一步，方法没有出现偏差），但是伟哥根据这些数据在纸上画出了整个问题中解决的流程，我看到了流程后感觉将之前所有的思路都理了一遍，并且之后我在重新绘图的过程中，突然想明白了Bug发生的原因（当时我跟伟哥说这是灵感乍现，但是回头想想为什么一开始不乍现而是等到绘图之后才有呢，所以这应该算是整个逻辑理顺后推出来的结果）。现在回头去看当时被卡住的情况，不是由于数据或者关键信息的缺失，而是没有把逻辑整理好，归纳出一个清晰的执行计划而导致的。<br>可见确保每一个目标都有清晰的执行计划和实践步骤是非常关键的<br>，遇到问题后先要用MECE分析一遍，再开始执行。<br>明天的计划<br>1.继续熟悉xxxxxx的架构。<br>提出疑问或寻求帮助<br>无。<br>当天完成的工作内容<br>1.写了一个xxxxxapi。<br>当天的收获<br>1.今天伟哥给我review的时候，跟我解释了在公司工作的目标和自己利用空余时间进行自我提升的协调。以及如何该使二者达到平衡，在公司要重视效率完成work，回去后把work中的原理去深究，每一次深究都是对自我的提升，只有用时间去钻研后才能做到消耗一次的时间解决相同的问题，避免在工作中每次碰到相同的问题都需要去重新思考一遍。<br>2.在伟哥的指点下，学习了MECE分析法，这个方法真的非常抑制我的坏习惯（行动快于思考），但是光理解不够，要将这个方法运用到实践中。明天将解决的问题的思路都在纸上用MECE过一遍。<br>明天的计划<br>1.继续熟悉avatar的架构。<br>提出疑问或寻求帮助<br>无。<br>今天感觉好疲惫，daily report没有用心写了QAQ</p>
+<p>当天完成的工作内容<br>1.修复了xxxx前端和后端的几个小bug。<br>当天的收获<br>1.今天修复了几个关于前端的bug，其实对于前端的知识，我了解得很少。一开始听到伟哥给我的任务，完全没有思路，不过公司跟学校是完全不一样的，我不需要了解任务背后的原理，我只需要完成目标就好（不限制方法）。所以在解决问题上，我把解决的逻辑想明白后，代码具体操作的部分，去跟超哥请教，得以顺利的修复了Bug。<br>明天的计划<br>1.继续熟悉avatar数据处理部分的逻辑。<br>提出疑问或寻求帮助<br>无。</p>
+<p>title: 《教父》摘录</p>
+<p>date: 2017-06-10 00:11:12</p>
+<p>tags:书中的一些笔记</p>
+<p>他已经学会从不出言威胁，唐教会了他这一点，但卡洛完全明白了他的意思：他离死只差半步。 </p>
+<p>就在这时，唐· 柯里昂发表了将被长久纪念的演说，巩固了他在众人中最具远见的领袖地位，演说充满逻辑常理，发自肺腑，切中要害。他在演说中创造了一个短语，日后像丘吉尔的“ 铁幕” 一样变得人尽皆知，但到十年后才进入公众视线。他第一次起身对委员会说话。他个子不高，因为“ 病况” 有点消瘦，六十岁的年龄终究显出了几分老态，但无疑已经恢复了过去的全部力量，仍旧拥有过去的所有智慧。“我们如果失去理性，那算是什么样的人啊，” 他说，“ 没有理性，我们和丛林野兽还有什么分别？但是，我们毕竟有理性，能够彼此说理，能够和自己说理。重新挑起所有争端，诉诸暴力和混战，能够满足我的什么目标呢？我的儿子死了，这是不幸，我必须承受，不能让我周围的世界随我一同受苦。因此，我今天说，我以名誉发誓，我不会寻求复仇，不会追查往事的前因后果。我将胸怀坦荡离开这里。“有一点我想说的是，我们必须看顾自己的利益。我们这些人都拒绝当傻瓜，拒绝当傀儡，被高处的人扯着线蹦蹦跳跳。我们在这个国家运气不错。我们的大部分子女已经过上了更好的生活。你们有些人的儿子是教授、科学家、音乐家—— 真是走运。你们的孙子也许会成为新的首领。我们谁都不希望见到儿孙走上我们的老路，那样过日子太艰难了。他们可以和其他人一样，我们的勇气赢来了他们的地位和安稳。我已经有了孙子，希望他们的孩子有朝一日能成为—— 谁知道呢？—— 州长？总统？在美国一切皆有可能。可是，我们必须跟着时代向前走。刀枪刺杀的年月已经过去。我们要像商人一样狡猾，从商的钱更多，对我们的儿孙更好。“至于我们的行为，我们不需要对那些炮筒子、那些首领负责，他们擅自决定我们该怎么处理我们的生命，他们宣战，希望我们用血肉保护他们的战果。我们凭什么为了保护他人的利益而伤害自己？而我们看顾我们自己的利益，他们凭什么插手？这是我们的事业12。” 唐· 柯里昂说，“ 这是我们自己的事业。我们管理自己的世界，因为这就是我们的世界，我们的事业。我们必须紧密团结，抵抗外来的干涉。否则他们就会给我们套上鼻环，就像他们已经给美国的另外几百万那不勒斯人和意大利人套上了鼻环一样。“为了这个原因，我愿意为儿子报仇，这是为了大家的利益。我现在发誓，只要我还负责指挥家族的行动，若是没有正当理由和遇到最激烈的挑衅，就连一个指头也不会举起来反对在座各位。我愿意为了共同利益牺牲我的商业利益。我发誓保证，以名誉保证，你们都清楚我从没有违背过誓言和名誉。“不过，我也有个自私的目的。因为受到索洛佐和那位警长的凶杀指控，我最小的儿子不得不逃跑。我必须安排他安全回国，洗清污名。这是我个人的事情，我会自己做些安排。也许我必须找到真凶，或者向政府证明他的无辜，也许证人和线人会撤回他们的谎言。可是，我还是要说，这是我个人的事情，我相信我能把我的儿子带回家。“但是，有句话我得说在前头。我是个迷信的人，这个毛病多么可笑，但我不得不说，要是什么倒霉的变故落在我的小儿子头上，要是某个警察不小心开枪打死他，要是他在牢房里上吊自杀，要是什么新证人冒出来证明他有罪，那迷信就会让我觉得这是因为在座有人还对我心怀恶意。再进一步说，假如我的儿子被雷劈了，我都会怪罪在座的某些人。要是他乘的飞机坠海，乘的船只沉入滚滚波涛，他得上致命的热病，汽车被火车撞了，迷信同样会让我归咎于在座某些人的恶意。各位先生，这种恶意，这种厄运，我可永远不会原谅。但除此之外，我愿意拿我孙子辈的灵魂起誓，我绝对不会打破我们缔结的和平。说到底，我们毕竟比那些双手沾满无数人类鲜血的领袖要好，不是吗？” 说完这些，唐· 柯里昂从他的位置顺着会议桌走向唐· 塔塔利亚的座位。塔塔利亚起身迎接他，两人拥抱，彼此亲吻面颊。房间里的其他唐鼓掌，见到谁都使劲握手，祝贺唐· 柯里昂和唐· 塔塔利亚新建立的友谊。这恐怕不是全世界最美好的友谊，他们不会互送圣诞礼物，但他们也不会彼此仇杀。在他们的世界里，这样的友谊就足够了，需要的也只是这样的友谊。</p>
+<p>唉，老天应该允许每个人一辈子犯一次傻。</p>
+<p>女人和孩子能够承担粗心大意的后果，男人却不行。</p>
+<p>他的手底下是个活生生的器官，活生生的器官需要另外一个活生生的器官。</p>
+<p>他第一次理解了意大利男人那闻名遐迩的嫉妒。此时此刻，要是有谁敢碰一下这女孩，妄图宣称拥有她，从他手里夺走她，他就会毫不犹豫杀死对方。他想占有她，就像吝啬鬼想占有金币那样疯狂，就像小佃农想拥有一片土地那样饥渴，想把她锁在房间里，囚禁她，只有他一个人能碰。</p>
+<p>让朋友低估你的优点，让敌人高估你的缺点。</p>
+<p>履行职责的人能获得恰当的奖赏。</p>
+<p>你对你所爱的人不能随便说‘不’字，也不能常常说，这就是诀窍。当你说‘不’字时，你得把‘不’字说得听上去就像‘是’字一样悦耳。另一个办法就是你得设法让他们说‘不’字。你得耐心，还得不怕麻烦。不过，我是个老朽，你是新的时髦的一代，你不必听我这老一套。” 这就是说话的艺术，如同上面，你要跟他讲道理，让他无法拒绝，我想我的生命中缺少这个勇气，我不是很愿意违背朋友的愿望，但是有时却还是受到了伤害，我一直在学习如何说不，人善被人欺，所以我一直也在不断学，学会说，学会做人，我希望能把身边所谓我认为应该学的品质学会，那么那时，我也可以大声说不，这也是小说最能打动我的话，但我很早之前以前明白了他的道理，只是，我没在履行。</p>
+<p>伟大的人不是生下来就伟大的，而是在成长过程中显示其伟大的。</p>
+<p>今天做了什么</p>
+<p>写了一个调用amazon’s api的脚本，根据输入的Searchindex的BrowseNodeId，得到当前SearchIndex的叶子节点。</p>
+<p>今天学到了什么</p>
+<p>今天下班的时候，脚本功能仍然没有实现，伟哥给我检查代码后，发现问题出在xpath的书写上，因为我<br>想当然<br>的认为数据是按照我所写的xpath提取出来的，所以问题迟迟没有解决。之后用命令空间对每个tag进行精确的定位后，问题得到了解决。这个问题是由于我的想当然导致的，同样没有对代码进行<br>Double check<br>也使得问题迟迟没有被发现。所以，以后写代码<br>不能想当然<br>，只有<br>通过Double check<br>的逻辑，才是可以开始实现的逻辑。</p>
+<p>mac系统操作的简洁与高效比windows更适合开发，尽快的熟悉mac系统的操作，提高自己的工作效率。</p>
+<p>同样的错误不要犯两次。</p>
+<p>明天的计划<br>1.继续找车型数据库。<br>2.利用休息时间把mac上工作环境配置完善。<br>3.尽力完成好mentor的每一个要求。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;当天完成的工作内容&lt;br&gt;1.写了xxx api&lt;br&gt;2.在xxx中修改了xx方法。&lt;br&gt;当天的收获&lt;br&gt;1.今天在fix Bug的时候，被卡住了很久。这个bug是之前xxxx代码中xxxx部分隐含的，今天在扩展功能的时候暴露了出来。刚开始碰到这个问题的时候，首先我在
+    
+    </summary>
+    
+    
+      <category term="daily report" scheme="http://www.ganbinwen.com/tags/daily-report/"/>
     
   </entry>
   
