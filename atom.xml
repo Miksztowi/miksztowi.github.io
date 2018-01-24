@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.ganbinwen.com/"/>
-  <updated>2018-01-24T15:36:24.000Z</updated>
+  <updated>2018-01-24T16:05:14.000Z</updated>
   <id>http://www.ganbinwen.com/</id>
   
   <author>
@@ -16,11 +16,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>系统级I/O及Linux I/O模式解释</title>
-    <link href="http://www.ganbinwen.com/2018/01/24/%E7%B3%BB%E7%BB%9F%E7%BA%A7I-O%E5%8F%8ALinux-I-O%E6%A8%A1%E5%BC%8F%E8%A7%A3%E9%87%8A/"/>
-    <id>http://www.ganbinwen.com/2018/01/24/系统级I-O及Linux-I-O模式解释/</id>
-    <published>2018-01-24T15:34:47.000Z</published>
-    <updated>2018-01-24T15:36:24.000Z</updated>
+    <title>系统级I/O及Linux-I/O模式解释</title>
+    <link href="http://www.ganbinwen.com/2018/01/25/%E7%B3%BB%E7%BB%9F%E7%BA%A7I-O%E5%8F%8ALinux-I-O%E6%A8%A1%E5%BC%8F%E8%A7%A3%E9%87%8A/"/>
+    <id>http://www.ganbinwen.com/2018/01/25/系统级I-O及Linux-I-O模式解释/</id>
+    <published>2018-01-24T16:03:41.000Z</published>
+    <updated>2018-01-24T16:05:14.000Z</updated>
     
     <content type="html"><![CDATA[<p><code>*注：本文是对众多资料的学习和总结，可能存在理解错误。请带着怀疑的眼光，同时如果有错误希望能指出，谢谢您。*</code></p>
 <h2 id="UNIX-I-O"><a href="#UNIX-I-O" class="headerlink" title="UNIX I/O"></a>UNIX I/O</h2><p>Linux中，所有的输入和输出都被当作对相应的文件的读和写来执行。这种将设备映射为文件的方式，允许Linux内核引出一个简单、低级的应用接口，称为Unix I/O：</p>
@@ -78,7 +78,7 @@
     <link href="http://www.ganbinwen.com/2017/12/19/Python-asyncio%E6%A8%A1%E5%9D%97%E4%BB%8B%E7%BB%8D/"/>
     <id>http://www.ganbinwen.com/2017/12/19/Python-asyncio模块介绍/</id>
     <published>2017-12-19T15:00:51.000Z</published>
-    <updated>2018-01-11T04:32:20.000Z</updated>
+    <updated>2018-01-24T15:59:00.000Z</updated>
     
     <content type="html"><![CDATA[<h2 id="Preface"><a href="#Preface" class="headerlink" title="Preface"></a>Preface</h2><p>本文介绍asyncio模块，这个模块使用事件轮询来驱动的coroutine对并发任务进行操作。</p>
 <p>注意：本文的思路来自于Fluent Python，这也是我对书中asyncio章节的总结。</p>
@@ -580,27 +580,6 @@
   </entry>
   
   <entry>
-    <title>函数式编程 Report</title>
-    <link href="http://www.ganbinwen.com/2017/11/04/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/"/>
-    <id>http://www.ganbinwen.com/2017/11/04/函数式编程/</id>
-    <published>2017-11-04T07:27:45.000Z</published>
-    <updated>2018-01-11T04:32:20.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>函数式编程<br>不依赖于外部的数据，而且也不改变外部数据的值，而是返回一个新的值给你<br>1）代码更简单了。<br>2）数据集，操作，返回值都放到了一起。<br>3）你在读代码的时候，没有了循环体，于是就可以少了些临时变量，以及变量倒来倒去逻辑。<br>4）你的代码变成了在描述你要干什么，而不是怎么去干</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;函数式编程&lt;br&gt;不依赖于外部的数据，而且也不改变外部数据的值，而是返回一个新的值给你&lt;br&gt;1）代码更简单了。&lt;br&gt;2）数据集，操作，返回值都放到了一起。&lt;br&gt;3）你在读代码的时候，没有了循环体，于是就可以少了些临时变量，以及变量倒来倒去逻辑。&lt;br&gt;4）你的代码变成
-    
-    </summary>
-    
-    
-      <category term="函数式" scheme="http://www.ganbinwen.com/tags/%E5%87%BD%E6%95%B0%E5%BC%8F/"/>
-    
-  </entry>
-  
-  <entry>
     <title>检查清单 Report</title>
     <link href="http://www.ganbinwen.com/2017/11/04/%E6%A3%80%E6%9F%A5%E6%B8%85%E5%8D%95/"/>
     <id>http://www.ganbinwen.com/2017/11/04/检查清单/</id>
@@ -653,6 +632,27 @@
     
     
       <category term="清单" scheme="http://www.ganbinwen.com/tags/%E6%B8%85%E5%8D%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>函数式编程 Report</title>
+    <link href="http://www.ganbinwen.com/2017/11/04/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/"/>
+    <id>http://www.ganbinwen.com/2017/11/04/函数式编程/</id>
+    <published>2017-11-04T07:27:45.000Z</published>
+    <updated>2018-01-11T04:32:20.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>函数式编程<br>不依赖于外部的数据，而且也不改变外部数据的值，而是返回一个新的值给你<br>1）代码更简单了。<br>2）数据集，操作，返回值都放到了一起。<br>3）你在读代码的时候，没有了循环体，于是就可以少了些临时变量，以及变量倒来倒去逻辑。<br>4）你的代码变成了在描述你要干什么，而不是怎么去干</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;函数式编程&lt;br&gt;不依赖于外部的数据，而且也不改变外部数据的值，而是返回一个新的值给你&lt;br&gt;1）代码更简单了。&lt;br&gt;2）数据集，操作，返回值都放到了一起。&lt;br&gt;3）你在读代码的时候，没有了循环体，于是就可以少了些临时变量，以及变量倒来倒去逻辑。&lt;br&gt;4）你的代码变成
+    
+    </summary>
+    
+    
+      <category term="函数式" scheme="http://www.ganbinwen.com/tags/%E5%87%BD%E6%95%B0%E5%BC%8F/"/>
     
   </entry>
   
