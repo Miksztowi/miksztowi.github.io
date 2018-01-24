@@ -4,8 +4,25 @@
 
     
   <url>
-    <loc>http://www.ganbinwen.com/2017/12/19/Python-asyncio%E6%A8%A1%E5%9D%97%E4%BB%8B%E7%BB%8D/</loc>
-    <lastmod>2017-12-19T15:08:41.000Z</lastmod>
+    <loc>http://miks.top/2018/01/25/%E7%B3%BB%E7%BB%9F%E7%BA%A7I-O%E5%8F%8ALinux-I-O%E6%A8%A1%E5%BC%8F%E8%A7%A3%E9%87%8A/</loc>
+    <lastmod>2018-01-24T16:05:14.000Z</lastmod>
+    <data>
+        <display>
+        <title>系统级I/O及Linux-I/O模式解释</title>
+        <pubTime>2018-01-24T16:03:41.000Z</pubTime>
+        
+        <tag>计算机系统、并发</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://miks.top/2017/12/19/Python-asyncio%E6%A8%A1%E5%9D%97%E4%BB%8B%E7%BB%8D/</loc>
+    <lastmod>2018-01-24T15:59:00.000Z</lastmod>
     <data>
         <display>
         <title>Python asyncio模块介绍</title>
@@ -21,146 +38,8 @@
 
     
   <url>
-    <loc>http://www.ganbinwen.com/2017/12/13/Python-concurrency-with-futures/</loc>
-    <lastmod>2017-12-13T04:04:57.000Z</lastmod>
-    <data>
-        <display>
-        <title>Python concurrency with futures</title>
-        <pubTime>2017-12-13T03:42:48.000Z</pubTime>
-        
-        <tag>Python</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://www.ganbinwen.com/2017/12/11/Python-Coroutine%E4%BB%8B%E7%BB%8D/</loc>
-    <lastmod>2017-12-11T07:00:56.000Z</lastmod>
-    <data>
-        <display>
-        <title>Python Coroutine介绍</title>
-        <pubTime>2017-12-11T06:58:15.000Z</pubTime>
-        
-        <tag>Python</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://www.ganbinwen.com/2017/12/02/Python-generator-%E4%BB%8B%E7%BB%8D/</loc>
-    <lastmod>2017-12-02T09:13:05.000Z</lastmod>
-    <data>
-        <display>
-        <title>Python generator 介绍</title>
-        <pubTime>2017-12-02T09:12:38.000Z</pubTime>
-        
-        <tag>Python</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://www.ganbinwen.com/2017/12/02/Python-Iterators-and-Iterables%E4%BB%8B%E7%BB%8D/</loc>
-    <lastmod>2017-12-02T07:04:16.000Z</lastmod>
-    <data>
-        <display>
-        <title>Python Iterators and Iterables介绍</title>
-        <pubTime>2017-12-02T07:02:24.000Z</pubTime>
-        
-        <tag>Python</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://www.ganbinwen.com/2017/11/29/Python-Function-Decorators-and-Closures%E4%BB%8B%E7%BB%8D/</loc>
-    <lastmod>2017-11-29T08:22:50.000Z</lastmod>
-    <data>
-        <display>
-        <title>Python Function Decorators and Closures介绍</title>
-        <pubTime>2017-11-29T08:17:13.000Z</pubTime>
-        
-        <tag>Python</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://www.ganbinwen.com/2017/11/06/%E8%81%94%E5%90%88-%E6%9F%A5%E6%89%BE%E7%AE%97%E6%B3%95/</loc>
-    <lastmod>2017-11-29T04:37:24.000Z</lastmod>
-    <data>
-        <display>
-        <title>联合-查找算法</title>
-        <pubTime>2017-11-06T05:26:47.000Z</pubTime>
-        
-        <tag>算法</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://www.ganbinwen.com/2017/11/20/Python%E5%86%85%E7%BD%AE%E6%A8%A1%E5%9D%97bisect%E4%BB%8B%E7%BB%8D/</loc>
-    <lastmod>2017-11-20T06:34:29.000Z</lastmod>
-    <data>
-        <display>
-        <title>Python内置模块bisect介绍</title>
-        <pubTime>2017-11-20T06:33:07.000Z</pubTime>
-        
-        <tag>Python</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-    
-    
-  <url>
-    <loc>http://www.ganbinwen.com/2017/08/04/2017-08-04/</loc>
-    <lastmod>2017-11-04T09:51:51.000Z</lastmod>
-    <data>
-        <display>
-        <title>2017-08-04 Report</title>
-        <pubTime>2017-08-04T07:27:45.000Z</pubTime>
-        
-        <tag>daily report</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://www.ganbinwen.com/2017/08/06/2017-08-06/</loc>
-    <lastmod>2017-11-04T09:51:39.000Z</lastmod>
+    <loc>http://miks.top/2017/08/06/2017-08-06/</loc>
+    <lastmod>2018-01-11T04:32:20.000Z</lastmod>
     <data>
         <display>
         <title>2017-08-06 Report</title>
@@ -176,433 +55,8 @@
 
     
   <url>
-    <loc>http://www.ganbinwen.com/2017/08/05/2017-08-05/</loc>
-    <lastmod>2017-11-04T09:51:26.000Z</lastmod>
-    <data>
-        <display>
-        <title>2017-08-05 Report</title>
-        <pubTime>2017-08-05T07:27:45.000Z</pubTime>
-        
-        <tag>daily report</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://www.ganbinwen.com/2017/07/03/2017-07-03/</loc>
-    <lastmod>2017-11-04T09:51:00.000Z</lastmod>
-    <data>
-        <display>
-        <title>2017-07-03 Report</title>
-        <pubTime>2017-07-03T07:27:45.000Z</pubTime>
-        
-        <tag>daily report</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://www.ganbinwen.com/2017/06/01/python%E5%AE%9E%E7%8E%B0%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9Crip%E5%8D%8F%E8%AE%AE/</loc>
-    <lastmod>2017-11-04T09:32:33.000Z</lastmod>
-    <data>
-        <display>
-        <title>python实现计算机网络rip协议 Report</title>
-        <pubTime>2017-06-01T07:27:45.000Z</pubTime>
-        
-        <tag>daily report</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://www.ganbinwen.com/2017/06/16/python%E6%9A%91%E6%9C%9F%E5%AE%9E%E4%B9%A0%E9%9D%A2%E8%AF%95/</loc>
-    <lastmod>2017-11-04T09:32:22.000Z</lastmod>
-    <data>
-        <display>
-        <title>python暑期实习面试 Report</title>
-        <pubTime>2017-06-16T07:27:45.000Z</pubTime>
-        
-        <tag>实习面试</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://www.ganbinwen.com/2017/11/04/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/</loc>
-    <lastmod>2017-11-04T09:32:09.000Z</lastmod>
-    <data>
-        <display>
-        <title>函数式编程 Report</title>
-        <pubTime>2017-11-04T07:27:45.000Z</pubTime>
-        
-        <tag>函数式</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://www.ganbinwen.com/2017/11/04/%E9%97%AE%E9%A2%98%E6%B8%85%E5%8D%95/</loc>
-    <lastmod>2017-11-04T09:31:59.000Z</lastmod>
-    <data>
-        <display>
-        <title>问题清单 Report</title>
-        <pubTime>2017-11-04T07:27:45.000Z</pubTime>
-        
-        <tag>清单</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://www.ganbinwen.com/2017/11/04/%E6%A3%80%E6%9F%A5%E6%B8%85%E5%8D%95/</loc>
-    <lastmod>2017-11-04T09:31:45.000Z</lastmod>
-    <data>
-        <display>
-        <title>检查清单 Report</title>
-        <pubTime>2017-11-04T07:27:45.000Z</pubTime>
-        
-        <tag>清单</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://www.ganbinwen.com/2017/06/06/%E3%80%8A%E6%95%99%E7%88%B6%E3%80%8B%E6%91%98%E5%BD%95/</loc>
-    <lastmod>2017-11-04T09:30:49.000Z</lastmod>
-    <data>
-        <display>
-        <title>《教父》摘录 Report</title>
-        <pubTime>2017-06-06T07:27:45.000Z</pubTime>
-        
-        <tag>读书笔记</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://www.ganbinwen.com/2017/08/14/2017-08-14/</loc>
-    <lastmod>2017-11-04T09:19:17.000Z</lastmod>
-    <data>
-        <display>
-        <title>2017-08-14 Report</title>
-        <pubTime>2017-08-14T07:27:45.000Z</pubTime>
-        
-        <tag>daily report</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://www.ganbinwen.com/2017/08/02/2017-08-02/</loc>
-    <lastmod>2017-11-04T09:19:17.000Z</lastmod>
-    <data>
-        <display>
-        <title>2017-08-02 Report</title>
-        <pubTime>2017-08-02T07:27:45.000Z</pubTime>
-        
-        <tag>daily report</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://www.ganbinwen.com/2017/08/03/2017-08-03/</loc>
-    <lastmod>2017-11-04T09:19:17.000Z</lastmod>
-    <data>
-        <display>
-        <title>2017-08-03 Report</title>
-        <pubTime>2017-08-03T07:27:45.000Z</pubTime>
-        
-        <tag>daily report</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://www.ganbinwen.com/2017/08/07/2017-08-07/</loc>
-    <lastmod>2017-11-04T09:19:17.000Z</lastmod>
-    <data>
-        <display>
-        <title>2017-08-07 Report</title>
-        <pubTime>2017-08-07T07:27:45.000Z</pubTime>
-        
-        <tag>daily report</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://www.ganbinwen.com/2017/07/19/2017-07-19/</loc>
-    <lastmod>2017-11-04T09:19:17.000Z</lastmod>
-    <data>
-        <display>
-        <title>2017-07-19 Report</title>
-        <pubTime>2017-07-19T07:27:45.000Z</pubTime>
-        
-        <tag>daily report</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://www.ganbinwen.com/2017/07/04/2017-07-04/</loc>
-    <lastmod>2017-11-04T09:19:17.000Z</lastmod>
-    <data>
-        <display>
-        <title>2017-07-04 Report</title>
-        <pubTime>2017-07-04T07:27:45.000Z</pubTime>
-        
-        <tag>daily report</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://www.ganbinwen.com/2017/08/10/2017-08-10/</loc>
-    <lastmod>2017-11-04T09:19:17.000Z</lastmod>
-    <data>
-        <display>
-        <title>2017-08-10 Report</title>
-        <pubTime>2017-08-10T07:27:45.000Z</pubTime>
-        
-        <tag>daily report</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://www.ganbinwen.com/2017/08/08/2017-08-08/</loc>
-    <lastmod>2017-11-04T09:19:17.000Z</lastmod>
-    <data>
-        <display>
-        <title>2017-08-08 Report</title>
-        <pubTime>2017-08-08T07:27:45.000Z</pubTime>
-        
-        <tag>daily report</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://www.ganbinwen.com/2017/08/16/2017-08-16/</loc>
-    <lastmod>2017-11-04T09:19:17.000Z</lastmod>
-    <data>
-        <display>
-        <title>2017-08-16 Report</title>
-        <pubTime>2017-08-16T07:27:45.000Z</pubTime>
-        
-        <tag>daily report</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://www.ganbinwen.com/2017/07/17/2017-07-17/</loc>
-    <lastmod>2017-11-04T09:19:17.000Z</lastmod>
-    <data>
-        <display>
-        <title>2017-07-17 Report</title>
-        <pubTime>2017-07-17T07:27:45.000Z</pubTime>
-        
-        <tag>daily report</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://www.ganbinwen.com/2017/08/20/2017-08-20/</loc>
-    <lastmod>2017-11-04T09:19:17.000Z</lastmod>
-    <data>
-        <display>
-        <title>2017-08-20 Report</title>
-        <pubTime>2017-08-20T07:27:45.000Z</pubTime>
-        
-        <tag>daily report</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://www.ganbinwen.com/2017/07/13/2017-07-13/</loc>
-    <lastmod>2017-11-04T09:19:17.000Z</lastmod>
-    <data>
-        <display>
-        <title>2017-07-13 Report</title>
-        <pubTime>2017-07-13T07:27:45.000Z</pubTime>
-        
-        <tag>daily report</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://www.ganbinwen.com/2017/07/24/2017-07-24/</loc>
-    <lastmod>2017-11-04T09:19:17.000Z</lastmod>
-    <data>
-        <display>
-        <title>2017-07-24 Report</title>
-        <pubTime>2017-07-24T07:27:45.000Z</pubTime>
-        
-        <tag>daily report</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://www.ganbinwen.com/2017/08/18/2017-08-18/</loc>
-    <lastmod>2017-11-04T09:19:17.000Z</lastmod>
-    <data>
-        <display>
-        <title>2017-08-18 Report</title>
-        <pubTime>2017-08-18T07:27:45.000Z</pubTime>
-        
-        <tag>daily report</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://www.ganbinwen.com/2017/07/20/2017-07-20/</loc>
-    <lastmod>2017-11-04T09:19:17.000Z</lastmod>
-    <data>
-        <display>
-        <title>2017-07-20 Report</title>
-        <pubTime>2017-07-20T07:27:45.000Z</pubTime>
-        
-        <tag>daily report</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://www.ganbinwen.com/2017/07/10/2017-07-10/</loc>
-    <lastmod>2017-11-04T09:19:17.000Z</lastmod>
-    <data>
-        <display>
-        <title>2017-07-10 Report</title>
-        <pubTime>2017-07-10T07:27:45.000Z</pubTime>
-        
-        <tag>daily report</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://www.ganbinwen.com/2017/07/18/2017-07-18/</loc>
-    <lastmod>2017-11-04T09:19:17.000Z</lastmod>
-    <data>
-        <display>
-        <title>2017-07-18 Report</title>
-        <pubTime>2017-07-18T07:27:45.000Z</pubTime>
-        
-        <tag>daily report</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://www.ganbinwen.com/2017/07/06/2017-07-06/</loc>
-    <lastmod>2017-11-04T09:19:17.000Z</lastmod>
+    <loc>http://miks.top/2017/07/06/2017-07-06/</loc>
+    <lastmod>2018-01-11T04:32:20.000Z</lastmod>
     <data>
         <display>
         <title>2017-07-06 Report</title>
@@ -618,25 +72,8 @@
 
     
   <url>
-    <loc>http://www.ganbinwen.com/2017/07/14/2017-07-14/</loc>
-    <lastmod>2017-11-04T09:19:17.000Z</lastmod>
-    <data>
-        <display>
-        <title>2017-07-14 Report</title>
-        <pubTime>2017-07-14T07:27:45.000Z</pubTime>
-        
-        <tag>daily report</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://www.ganbinwen.com/2017/07/07/2017-07-07/</loc>
-    <lastmod>2017-11-04T09:19:17.000Z</lastmod>
+    <loc>http://miks.top/2017/07/07/2017-07-07/</loc>
+    <lastmod>2018-01-11T04:32:20.000Z</lastmod>
     <data>
         <display>
         <title>2017-07-07 Report</title>
@@ -652,12 +89,12 @@
 
     
   <url>
-    <loc>http://www.ganbinwen.com/2017/07/12/2017-07-12/</loc>
-    <lastmod>2017-11-04T09:19:17.000Z</lastmod>
+    <loc>http://miks.top/2017/07/10/2017-07-10/</loc>
+    <lastmod>2018-01-11T04:32:20.000Z</lastmod>
     <data>
         <display>
-        <title>2017-07-12 Report</title>
-        <pubTime>2017-07-12T07:27:45.000Z</pubTime>
+        <title>2017-07-10 Report</title>
+        <pubTime>2017-07-10T07:27:45.000Z</pubTime>
         
         <tag>daily report</tag>
          
@@ -669,93 +106,8 @@
 
     
   <url>
-    <loc>http://www.ganbinwen.com/2017/07/21/2017-07-21/</loc>
-    <lastmod>2017-11-04T09:19:17.000Z</lastmod>
-    <data>
-        <display>
-        <title>2017-07-21 Report</title>
-        <pubTime>2017-07-21T07:27:45.000Z</pubTime>
-        
-        <tag>daily report</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://www.ganbinwen.com/2017/07/26/2017-07-26/</loc>
-    <lastmod>2017-11-04T09:19:17.000Z</lastmod>
-    <data>
-        <display>
-        <title>2017-07-26 Report</title>
-        <pubTime>2017-07-26T07:27:45.000Z</pubTime>
-        
-        <tag>daily report</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://www.ganbinwen.com/2017/07/25/2017-07-25/</loc>
-    <lastmod>2017-11-04T09:19:17.000Z</lastmod>
-    <data>
-        <display>
-        <title>2017-07-25 Report</title>
-        <pubTime>2017-07-25T07:27:45.000Z</pubTime>
-        
-        <tag>daily report</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://www.ganbinwen.com/2017/07/28/2017-07-28/</loc>
-    <lastmod>2017-11-04T09:19:17.000Z</lastmod>
-    <data>
-        <display>
-        <title>2017-07-28 Report</title>
-        <pubTime>2017-07-28T07:27:45.000Z</pubTime>
-        
-        <tag>daily report</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://www.ganbinwen.com/2017/07/31/2017-07-31/</loc>
-    <lastmod>2017-11-04T09:19:17.000Z</lastmod>
-    <data>
-        <display>
-        <title>2017-07-31 Report</title>
-        <pubTime>2017-07-31T07:27:45.000Z</pubTime>
-        
-        <tag>daily report</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://www.ganbinwen.com/2017/07/11/2017-07-11/</loc>
-    <lastmod>2017-11-04T09:19:17.000Z</lastmod>
+    <loc>http://miks.top/2017/07/11/2017-07-11/</loc>
+    <lastmod>2018-01-11T04:32:20.000Z</lastmod>
     <data>
         <display>
         <title>2017-07-11 Report</title>
@@ -771,8 +123,229 @@
 
     
   <url>
-    <loc>http://www.ganbinwen.com/2017/08/01/2017-08-01/</loc>
-    <lastmod>2017-11-04T09:19:17.000Z</lastmod>
+    <loc>http://miks.top/2017/07/12/2017-07-12/</loc>
+    <lastmod>2018-01-11T04:32:20.000Z</lastmod>
+    <data>
+        <display>
+        <title>2017-07-12 Report</title>
+        <pubTime>2017-07-12T07:27:45.000Z</pubTime>
+        
+        <tag>daily report</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://miks.top/2017/07/14/2017-07-14/</loc>
+    <lastmod>2018-01-11T04:32:20.000Z</lastmod>
+    <data>
+        <display>
+        <title>2017-07-14 Report</title>
+        <pubTime>2017-07-14T07:27:45.000Z</pubTime>
+        
+        <tag>daily report</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://miks.top/2017/07/13/2017-07-13/</loc>
+    <lastmod>2018-01-11T04:32:20.000Z</lastmod>
+    <data>
+        <display>
+        <title>2017-07-13 Report</title>
+        <pubTime>2017-07-13T07:27:45.000Z</pubTime>
+        
+        <tag>daily report</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://miks.top/2017/07/18/2017-07-18/</loc>
+    <lastmod>2018-01-11T04:32:20.000Z</lastmod>
+    <data>
+        <display>
+        <title>2017-07-18 Report</title>
+        <pubTime>2017-07-18T07:27:45.000Z</pubTime>
+        
+        <tag>daily report</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://miks.top/2017/07/17/2017-07-17/</loc>
+    <lastmod>2018-01-11T04:32:20.000Z</lastmod>
+    <data>
+        <display>
+        <title>2017-07-17 Report</title>
+        <pubTime>2017-07-17T07:27:45.000Z</pubTime>
+        
+        <tag>daily report</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://miks.top/2017/07/19/2017-07-19/</loc>
+    <lastmod>2018-01-11T04:32:20.000Z</lastmod>
+    <data>
+        <display>
+        <title>2017-07-19 Report</title>
+        <pubTime>2017-07-19T07:27:45.000Z</pubTime>
+        
+        <tag>daily report</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://miks.top/2017/07/20/2017-07-20/</loc>
+    <lastmod>2018-01-11T04:32:20.000Z</lastmod>
+    <data>
+        <display>
+        <title>2017-07-20 Report</title>
+        <pubTime>2017-07-20T07:27:45.000Z</pubTime>
+        
+        <tag>daily report</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://miks.top/2017/07/21/2017-07-21/</loc>
+    <lastmod>2018-01-11T04:32:20.000Z</lastmod>
+    <data>
+        <display>
+        <title>2017-07-21 Report</title>
+        <pubTime>2017-07-21T07:27:45.000Z</pubTime>
+        
+        <tag>daily report</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://miks.top/2017/07/24/2017-07-24/</loc>
+    <lastmod>2018-01-11T04:32:20.000Z</lastmod>
+    <data>
+        <display>
+        <title>2017-07-24 Report</title>
+        <pubTime>2017-07-24T07:27:45.000Z</pubTime>
+        
+        <tag>daily report</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://miks.top/2017/07/25/2017-07-25/</loc>
+    <lastmod>2018-01-11T04:32:20.000Z</lastmod>
+    <data>
+        <display>
+        <title>2017-07-25 Report</title>
+        <pubTime>2017-07-25T07:27:45.000Z</pubTime>
+        
+        <tag>daily report</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://miks.top/2017/07/26/2017-07-26/</loc>
+    <lastmod>2018-01-11T04:32:20.000Z</lastmod>
+    <data>
+        <display>
+        <title>2017-07-26 Report</title>
+        <pubTime>2017-07-26T07:27:45.000Z</pubTime>
+        
+        <tag>daily report</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://miks.top/2017/07/28/2017-07-28/</loc>
+    <lastmod>2018-01-11T04:32:20.000Z</lastmod>
+    <data>
+        <display>
+        <title>2017-07-28 Report</title>
+        <pubTime>2017-07-28T07:27:45.000Z</pubTime>
+        
+        <tag>daily report</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://miks.top/2017/07/31/2017-07-31/</loc>
+    <lastmod>2018-01-11T04:32:20.000Z</lastmod>
+    <data>
+        <display>
+        <title>2017-07-31 Report</title>
+        <pubTime>2017-07-31T07:27:45.000Z</pubTime>
+        
+        <tag>daily report</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://miks.top/2017/08/01/2017-08-01/</loc>
+    <lastmod>2018-01-11T04:32:20.000Z</lastmod>
     <data>
         <display>
         <title>2017-08-01 Report</title>
@@ -788,8 +361,433 @@
 
     
   <url>
-    <loc>http://www.ganbinwen.com/2017/07/05/2017-07-05/</loc>
-    <lastmod>2017-11-04T09:19:17.000Z</lastmod>
+    <loc>http://miks.top/2017/08/02/2017-08-02/</loc>
+    <lastmod>2018-01-11T04:32:20.000Z</lastmod>
+    <data>
+        <display>
+        <title>2017-08-02 Report</title>
+        <pubTime>2017-08-02T07:27:45.000Z</pubTime>
+        
+        <tag>daily report</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://miks.top/2017/08/03/2017-08-03/</loc>
+    <lastmod>2018-01-11T04:32:20.000Z</lastmod>
+    <data>
+        <display>
+        <title>2017-08-03 Report</title>
+        <pubTime>2017-08-03T07:27:45.000Z</pubTime>
+        
+        <tag>daily report</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://miks.top/2017/08/04/2017-08-04/</loc>
+    <lastmod>2018-01-11T04:32:20.000Z</lastmod>
+    <data>
+        <display>
+        <title>2017-08-04 Report</title>
+        <pubTime>2017-08-04T07:27:45.000Z</pubTime>
+        
+        <tag>daily report</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://miks.top/2017/08/05/2017-08-05/</loc>
+    <lastmod>2018-01-11T04:32:20.000Z</lastmod>
+    <data>
+        <display>
+        <title>2017-08-05 Report</title>
+        <pubTime>2017-08-05T07:27:45.000Z</pubTime>
+        
+        <tag>daily report</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://miks.top/2017/07/04/2017-07-04/</loc>
+    <lastmod>2018-01-11T04:32:20.000Z</lastmod>
+    <data>
+        <display>
+        <title>2017-07-04 Report</title>
+        <pubTime>2017-07-04T07:27:45.000Z</pubTime>
+        
+        <tag>daily report</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://miks.top/2017/08/07/2017-08-07/</loc>
+    <lastmod>2018-01-11T04:32:20.000Z</lastmod>
+    <data>
+        <display>
+        <title>2017-08-07 Report</title>
+        <pubTime>2017-08-07T07:27:45.000Z</pubTime>
+        
+        <tag>daily report</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://miks.top/2017/08/08/2017-08-08/</loc>
+    <lastmod>2018-01-11T04:32:20.000Z</lastmod>
+    <data>
+        <display>
+        <title>2017-08-08 Report</title>
+        <pubTime>2017-08-08T07:27:45.000Z</pubTime>
+        
+        <tag>daily report</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://miks.top/2017/08/09/2017-08-09/</loc>
+    <lastmod>2018-01-11T04:32:20.000Z</lastmod>
+    <data>
+        <display>
+        <title>2017-08-09 Report</title>
+        <pubTime>2017-08-09T07:27:45.000Z</pubTime>
+        
+        <tag>daily report</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://miks.top/2017/08/10/2017-08-10/</loc>
+    <lastmod>2018-01-11T04:32:20.000Z</lastmod>
+    <data>
+        <display>
+        <title>2017-08-10 Report</title>
+        <pubTime>2017-08-10T07:27:45.000Z</pubTime>
+        
+        <tag>daily report</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://miks.top/2017/08/14/2017-08-14/</loc>
+    <lastmod>2018-01-11T04:32:20.000Z</lastmod>
+    <data>
+        <display>
+        <title>2017-08-14 Report</title>
+        <pubTime>2017-08-14T07:27:45.000Z</pubTime>
+        
+        <tag>daily report</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://miks.top/2017/08/16/2017-08-16/</loc>
+    <lastmod>2018-01-11T04:32:20.000Z</lastmod>
+    <data>
+        <display>
+        <title>2017-08-16 Report</title>
+        <pubTime>2017-08-16T07:27:45.000Z</pubTime>
+        
+        <tag>daily report</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://miks.top/2017/08/18/2017-08-18/</loc>
+    <lastmod>2018-01-11T04:32:20.000Z</lastmod>
+    <data>
+        <display>
+        <title>2017-08-18 Report</title>
+        <pubTime>2017-08-18T07:27:45.000Z</pubTime>
+        
+        <tag>daily report</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://miks.top/2017/08/20/2017-08-20/</loc>
+    <lastmod>2018-01-11T04:32:20.000Z</lastmod>
+    <data>
+        <display>
+        <title>2017-08-20 Report</title>
+        <pubTime>2017-08-20T07:27:45.000Z</pubTime>
+        
+        <tag>daily report</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://miks.top/2017/12/11/Python-Coroutine%E4%BB%8B%E7%BB%8D/</loc>
+    <lastmod>2018-01-11T04:32:20.000Z</lastmod>
+    <data>
+        <display>
+        <title>Python Coroutine介绍</title>
+        <pubTime>2017-12-11T06:58:15.000Z</pubTime>
+        
+        <tag>Python</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://miks.top/2017/11/29/Python-Function-Decorators-and-Closures%E4%BB%8B%E7%BB%8D/</loc>
+    <lastmod>2018-01-11T04:32:20.000Z</lastmod>
+    <data>
+        <display>
+        <title>Python Function Decorators and Closures介绍</title>
+        <pubTime>2017-11-29T08:17:13.000Z</pubTime>
+        
+        <tag>Python</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://miks.top/2017/12/02/Python-Iterators-and-Iterables%E4%BB%8B%E7%BB%8D/</loc>
+    <lastmod>2018-01-11T04:32:20.000Z</lastmod>
+    <data>
+        <display>
+        <title>Python Iterators and Iterables介绍</title>
+        <pubTime>2017-12-02T07:02:24.000Z</pubTime>
+        
+        <tag>Python</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://miks.top/2017/07/03/2017-07-03/</loc>
+    <lastmod>2018-01-11T04:32:20.000Z</lastmod>
+    <data>
+        <display>
+        <title>2017-07-03 Report</title>
+        <pubTime>2017-07-03T07:27:45.000Z</pubTime>
+        
+        <tag>daily report</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://miks.top/2017/12/13/Python-concurrency-with-futures/</loc>
+    <lastmod>2018-01-11T04:32:20.000Z</lastmod>
+    <data>
+        <display>
+        <title>Python concurrency with futures</title>
+        <pubTime>2017-12-13T03:42:48.000Z</pubTime>
+        
+        <tag>Python</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://miks.top/2017/11/20/Python%E5%86%85%E7%BD%AE%E6%A8%A1%E5%9D%97bisect%E4%BB%8B%E7%BB%8D/</loc>
+    <lastmod>2018-01-11T04:32:20.000Z</lastmod>
+    <data>
+        <display>
+        <title>Python内置模块bisect介绍</title>
+        <pubTime>2017-11-20T06:33:07.000Z</pubTime>
+        
+        <tag>Python</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://miks.top/2017/06/01/python%E5%AE%9E%E7%8E%B0%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9Crip%E5%8D%8F%E8%AE%AE/</loc>
+    <lastmod>2018-01-11T04:32:20.000Z</lastmod>
+    <data>
+        <display>
+        <title>python实现计算机网络rip协议 Report</title>
+        <pubTime>2017-06-01T07:27:45.000Z</pubTime>
+        
+        <tag>daily report</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://miks.top/2017/12/02/Python-generator-%E4%BB%8B%E7%BB%8D/</loc>
+    <lastmod>2018-01-11T04:32:20.000Z</lastmod>
+    <data>
+        <display>
+        <title>Python generator 介绍</title>
+        <pubTime>2017-12-02T09:12:38.000Z</pubTime>
+        
+        <tag>Python</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://miks.top/2017/06/16/python%E6%9A%91%E6%9C%9F%E5%AE%9E%E4%B9%A0%E9%9D%A2%E8%AF%95/</loc>
+    <lastmod>2018-01-11T04:32:20.000Z</lastmod>
+    <data>
+        <display>
+        <title>python暑期实习面试 Report</title>
+        <pubTime>2017-06-16T07:27:45.000Z</pubTime>
+        
+        <tag>实习面试</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://miks.top/2017/06/06/%E3%80%8A%E6%95%99%E7%88%B6%E3%80%8B%E6%91%98%E5%BD%95/</loc>
+    <lastmod>2018-01-11T04:32:20.000Z</lastmod>
+    <data>
+        <display>
+        <title>《教父》摘录 Report</title>
+        <pubTime>2017-06-06T07:27:45.000Z</pubTime>
+        
+        <tag>读书笔记</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://miks.top/2017/11/04/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/</loc>
+    <lastmod>2018-01-11T04:32:20.000Z</lastmod>
+    <data>
+        <display>
+        <title>函数式编程 Report</title>
+        <pubTime>2017-11-04T07:27:45.000Z</pubTime>
+        
+        <tag>函数式</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://miks.top/2017/11/04/%E6%A3%80%E6%9F%A5%E6%B8%85%E5%8D%95/</loc>
+    <lastmod>2018-01-11T04:32:20.000Z</lastmod>
+    <data>
+        <display>
+        <title>检查清单 Report</title>
+        <pubTime>2017-11-04T07:27:45.000Z</pubTime>
+        
+        <tag>清单</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://miks.top/2017/07/05/2017-07-05/</loc>
+    <lastmod>2018-01-11T04:32:20.000Z</lastmod>
     <data>
         <display>
         <title>2017-07-05 Report</title>
@@ -805,14 +803,14 @@
 
     
   <url>
-    <loc>http://www.ganbinwen.com/2017/08/09/2017-08-09/</loc>
-    <lastmod>2017-11-04T09:19:17.000Z</lastmod>
+    <loc>http://miks.top/2017/11/06/%E8%81%94%E5%90%88-%E6%9F%A5%E6%89%BE%E7%AE%97%E6%B3%95/</loc>
+    <lastmod>2018-01-11T04:32:20.000Z</lastmod>
     <data>
         <display>
-        <title>2017-08-09 Report</title>
-        <pubTime>2017-08-09T07:27:45.000Z</pubTime>
+        <title>联合-查找算法</title>
+        <pubTime>2017-11-06T05:26:47.000Z</pubTime>
         
-        <tag>daily report</tag>
+        <tag>算法</tag>
          
          
            
@@ -820,4 +818,23 @@
     </data>
     </url>
 
+    
+  <url>
+    <loc>http://miks.top/2017/11/04/%E9%97%AE%E9%A2%98%E6%B8%85%E5%8D%95/</loc>
+    <lastmod>2018-01-11T04:32:20.000Z</lastmod>
+    <data>
+        <display>
+        <title>问题清单 Report</title>
+        <pubTime>2017-11-04T07:27:45.000Z</pubTime>
+        
+        <tag>清单</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+    
 </urlset>
