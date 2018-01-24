@@ -14,7 +14,11 @@ timezone:
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
+<<<<<<< HEAD
 url: http://miks.top
+=======
+url: http://miks.top/
+>>>>>>> ce5d3157bc6368f3ac4839b3ce6ec2d4bdc7fdc2
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
