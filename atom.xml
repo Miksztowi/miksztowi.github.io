@@ -4,9 +4,9 @@
   <subtitle>Don‘t be a loser. Be a superloser.</subtitle>
   <link href="/atom.xml" rel="self"/>
   
-  <link href="http://www.ganbinwen.com/"/>
+  <link href="miks.top/"/>
   <updated>2017-12-19T15:08:41.000Z</updated>
-  <id>http://www.ganbinwen.com/</id>
+  <id>miks.top/</id>
   
   <author>
     <name>Miks</name>
@@ -17,8 +17,8 @@
   
   <entry>
     <title>Python asyncio模块介绍</title>
-    <link href="http://www.ganbinwen.com/2017/12/19/Python-asyncio%E6%A8%A1%E5%9D%97%E4%BB%8B%E7%BB%8D/"/>
-    <id>http://www.ganbinwen.com/2017/12/19/Python-asyncio模块介绍/</id>
+    <link href="miks.top/2017/12/19/Python-asyncio%E6%A8%A1%E5%9D%97%E4%BB%8B%E7%BB%8D/"/>
+    <id>miks.top/2017/12/19/Python-asyncio模块介绍/</id>
     <published>2017-12-19T15:00:51.000Z</published>
     <updated>2017-12-19T15:08:41.000Z</updated>
     
@@ -126,14 +126,14 @@
     </summary>
     
     
-      <category term="Python" scheme="http://www.ganbinwen.com/tags/Python/"/>
+      <category term="Python" scheme="miks.top/tags/Python/"/>
     
   </entry>
   
   <entry>
     <title>Python concurrency with futures</title>
-    <link href="http://www.ganbinwen.com/2017/12/13/Python-concurrency-with-futures/"/>
-    <id>http://www.ganbinwen.com/2017/12/13/Python-concurrency-with-futures/</id>
+    <link href="miks.top/2017/12/13/Python-concurrency-with-futures/"/>
+    <id>miks.top/2017/12/13/Python-concurrency-with-futures/</id>
     <published>2017-12-13T03:42:48.000Z</published>
     <updated>2017-12-13T04:04:57.000Z</updated>
     
@@ -181,14 +181,14 @@
     </summary>
     
     
-      <category term="Python" scheme="http://www.ganbinwen.com/tags/Python/"/>
+      <category term="Python" scheme="miks.top/tags/Python/"/>
     
   </entry>
   
   <entry>
     <title>Python Coroutine介绍</title>
-    <link href="http://www.ganbinwen.com/2017/12/11/Python-Coroutine%E4%BB%8B%E7%BB%8D/"/>
-    <id>http://www.ganbinwen.com/2017/12/11/Python-Coroutine介绍/</id>
+    <link href="miks.top/2017/12/11/Python-Coroutine%E4%BB%8B%E7%BB%8D/"/>
+    <id>miks.top/2017/12/11/Python-Coroutine介绍/</id>
     <published>2017-12-11T06:58:15.000Z</published>
     <updated>2017-12-11T07:00:56.000Z</updated>
     
@@ -278,14 +278,14 @@
     </summary>
     
     
-      <category term="Python" scheme="http://www.ganbinwen.com/tags/Python/"/>
+      <category term="Python" scheme="miks.top/tags/Python/"/>
     
   </entry>
   
   <entry>
     <title>Python generator 介绍</title>
-    <link href="http://www.ganbinwen.com/2017/12/02/Python-generator-%E4%BB%8B%E7%BB%8D/"/>
-    <id>http://www.ganbinwen.com/2017/12/02/Python-generator-介绍/</id>
+    <link href="miks.top/2017/12/02/Python-generator-%E4%BB%8B%E7%BB%8D/"/>
+    <id>miks.top/2017/12/02/Python-generator-介绍/</id>
     <published>2017-12-02T09:12:38.000Z</published>
     <updated>2017-12-02T09:13:05.000Z</updated>
     
@@ -320,14 +320,14 @@
     </summary>
     
     
-      <category term="Python" scheme="http://www.ganbinwen.com/tags/Python/"/>
+      <category term="Python" scheme="miks.top/tags/Python/"/>
     
   </entry>
   
   <entry>
     <title>Python Iterators and Iterables介绍</title>
-    <link href="http://www.ganbinwen.com/2017/12/02/Python-Iterators-and-Iterables%E4%BB%8B%E7%BB%8D/"/>
-    <id>http://www.ganbinwen.com/2017/12/02/Python-Iterators-and-Iterables介绍/</id>
+    <link href="miks.top/2017/12/02/Python-Iterators-and-Iterables%E4%BB%8B%E7%BB%8D/"/>
+    <id>miks.top/2017/12/02/Python-Iterators-and-Iterables介绍/</id>
     <published>2017-12-02T07:02:24.000Z</published>
     <updated>2017-12-02T07:04:16.000Z</updated>
     
@@ -381,14 +381,14 @@
     </summary>
     
     
-      <category term="Python" scheme="http://www.ganbinwen.com/tags/Python/"/>
+      <category term="Python" scheme="miks.top/tags/Python/"/>
     
   </entry>
   
   <entry>
     <title>Python Function Decorators and Closures介绍</title>
-    <link href="http://www.ganbinwen.com/2017/11/29/Python-Function-Decorators-and-Closures%E4%BB%8B%E7%BB%8D/"/>
-    <id>http://www.ganbinwen.com/2017/11/29/Python-Function-Decorators-and-Closures介绍/</id>
+    <link href="miks.top/2017/11/29/Python-Function-Decorators-and-Closures%E4%BB%8B%E7%BB%8D/"/>
+    <id>miks.top/2017/11/29/Python-Function-Decorators-and-Closures介绍/</id>
     <published>2017-11-29T08:17:13.000Z</published>
     <updated>2017-11-29T08:22:50.000Z</updated>
     
@@ -426,14 +426,14 @@
     </summary>
     
     
-      <category term="Python" scheme="http://www.ganbinwen.com/tags/Python/"/>
+      <category term="Python" scheme="miks.top/tags/Python/"/>
     
   </entry>
   
   <entry>
     <title>Python内置模块bisect介绍</title>
-    <link href="http://www.ganbinwen.com/2017/11/20/Python%E5%86%85%E7%BD%AE%E6%A8%A1%E5%9D%97bisect%E4%BB%8B%E7%BB%8D/"/>
-    <id>http://www.ganbinwen.com/2017/11/20/Python内置模块bisect介绍/</id>
+    <link href="miks.top/2017/11/20/Python%E5%86%85%E7%BD%AE%E6%A8%A1%E5%9D%97bisect%E4%BB%8B%E7%BB%8D/"/>
+    <id>miks.top/2017/11/20/Python内置模块bisect介绍/</id>
     <published>2017-11-20T06:33:07.000Z</published>
     <updated>2017-11-20T06:34:29.000Z</updated>
     
@@ -467,14 +467,14 @@
     </summary>
     
     
-      <category term="Python" scheme="http://www.ganbinwen.com/tags/Python/"/>
+      <category term="Python" scheme="miks.top/tags/Python/"/>
     
   </entry>
   
   <entry>
     <title>联合-查找算法</title>
-    <link href="http://www.ganbinwen.com/2017/11/06/%E8%81%94%E5%90%88-%E6%9F%A5%E6%89%BE%E7%AE%97%E6%B3%95/"/>
-    <id>http://www.ganbinwen.com/2017/11/06/联合-查找算法/</id>
+    <link href="miks.top/2017/11/06/%E8%81%94%E5%90%88-%E6%9F%A5%E6%89%BE%E7%AE%97%E6%B3%95/"/>
+    <id>miks.top/2017/11/06/联合-查找算法/</id>
     <published>2017-11-06T05:26:47.000Z</published>
     <updated>2017-11-29T04:37:24.000Z</updated>
     
@@ -517,14 +517,14 @@
     </summary>
     
     
-      <category term="算法" scheme="http://www.ganbinwen.com/tags/%E7%AE%97%E6%B3%95/"/>
+      <category term="算法" scheme="miks.top/tags/%E7%AE%97%E6%B3%95/"/>
     
   </entry>
   
   <entry>
     <title>检查清单 Report</title>
-    <link href="http://www.ganbinwen.com/2017/11/04/%E6%A3%80%E6%9F%A5%E6%B8%85%E5%8D%95/"/>
-    <id>http://www.ganbinwen.com/2017/11/04/检查清单/</id>
+    <link href="miks.top/2017/11/04/%E6%A3%80%E6%9F%A5%E6%B8%85%E5%8D%95/"/>
+    <id>miks.top/2017/11/04/检查清单/</id>
     <published>2017-11-04T07:27:45.000Z</published>
     <updated>2017-11-04T09:31:45.000Z</updated>
     
@@ -573,14 +573,14 @@
     </summary>
     
     
-      <category term="清单" scheme="http://www.ganbinwen.com/tags/%E6%B8%85%E5%8D%95/"/>
+      <category term="清单" scheme="miks.top/tags/%E6%B8%85%E5%8D%95/"/>
     
   </entry>
   
   <entry>
     <title>函数式编程 Report</title>
-    <link href="http://www.ganbinwen.com/2017/11/04/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/"/>
-    <id>http://www.ganbinwen.com/2017/11/04/函数式编程/</id>
+    <link href="miks.top/2017/11/04/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/"/>
+    <id>miks.top/2017/11/04/函数式编程/</id>
     <published>2017-11-04T07:27:45.000Z</published>
     <updated>2017-11-04T09:32:09.000Z</updated>
     
@@ -594,14 +594,14 @@
     </summary>
     
     
-      <category term="函数式" scheme="http://www.ganbinwen.com/tags/%E5%87%BD%E6%95%B0%E5%BC%8F/"/>
+      <category term="函数式" scheme="miks.top/tags/%E5%87%BD%E6%95%B0%E5%BC%8F/"/>
     
   </entry>
   
   <entry>
     <title>问题清单 Report</title>
-    <link href="http://www.ganbinwen.com/2017/11/04/%E9%97%AE%E9%A2%98%E6%B8%85%E5%8D%95/"/>
-    <id>http://www.ganbinwen.com/2017/11/04/问题清单/</id>
+    <link href="miks.top/2017/11/04/%E9%97%AE%E9%A2%98%E6%B8%85%E5%8D%95/"/>
+    <id>miks.top/2017/11/04/问题清单/</id>
     <published>2017-11-04T07:27:45.000Z</published>
     <updated>2017-11-04T09:31:59.000Z</updated>
     
@@ -634,14 +634,14 @@
     </summary>
     
     
-      <category term="清单" scheme="http://www.ganbinwen.com/tags/%E6%B8%85%E5%8D%95/"/>
+      <category term="清单" scheme="miks.top/tags/%E6%B8%85%E5%8D%95/"/>
     
   </entry>
   
   <entry>
     <title>2017-08-20 Report</title>
-    <link href="http://www.ganbinwen.com/2017/08/20/2017-08-20/"/>
-    <id>http://www.ganbinwen.com/2017/08/20/2017-08-20/</id>
+    <link href="miks.top/2017/08/20/2017-08-20/"/>
+    <id>miks.top/2017/08/20/2017-08-20/</id>
     <published>2017-08-20T07:27:45.000Z</published>
     <updated>2017-11-04T09:19:17.000Z</updated>
     
@@ -655,14 +655,14 @@
     </summary>
     
     
-      <category term="daily report" scheme="http://www.ganbinwen.com/tags/daily-report/"/>
+      <category term="daily report" scheme="miks.top/tags/daily-report/"/>
     
   </entry>
   
   <entry>
     <title>2017-08-18 Report</title>
-    <link href="http://www.ganbinwen.com/2017/08/18/2017-08-18/"/>
-    <id>http://www.ganbinwen.com/2017/08/18/2017-08-18/</id>
+    <link href="miks.top/2017/08/18/2017-08-18/"/>
+    <id>miks.top/2017/08/18/2017-08-18/</id>
     <published>2017-08-18T07:27:45.000Z</published>
     <updated>2017-11-04T09:19:17.000Z</updated>
     
@@ -676,14 +676,14 @@
     </summary>
     
     
-      <category term="daily report" scheme="http://www.ganbinwen.com/tags/daily-report/"/>
+      <category term="daily report" scheme="miks.top/tags/daily-report/"/>
     
   </entry>
   
   <entry>
     <title>2017-08-16 Report</title>
-    <link href="http://www.ganbinwen.com/2017/08/16/2017-08-16/"/>
-    <id>http://www.ganbinwen.com/2017/08/16/2017-08-16/</id>
+    <link href="miks.top/2017/08/16/2017-08-16/"/>
+    <id>miks.top/2017/08/16/2017-08-16/</id>
     <published>2017-08-16T07:27:45.000Z</published>
     <updated>2017-11-04T09:19:17.000Z</updated>
     
@@ -697,14 +697,14 @@
     </summary>
     
     
-      <category term="daily report" scheme="http://www.ganbinwen.com/tags/daily-report/"/>
+      <category term="daily report" scheme="miks.top/tags/daily-report/"/>
     
   </entry>
   
   <entry>
     <title>2017-08-14 Report</title>
-    <link href="http://www.ganbinwen.com/2017/08/14/2017-08-14/"/>
-    <id>http://www.ganbinwen.com/2017/08/14/2017-08-14/</id>
+    <link href="miks.top/2017/08/14/2017-08-14/"/>
+    <id>miks.top/2017/08/14/2017-08-14/</id>
     <published>2017-08-14T07:27:45.000Z</published>
     <updated>2017-11-04T09:19:17.000Z</updated>
     
@@ -718,14 +718,14 @@
     </summary>
     
     
-      <category term="daily report" scheme="http://www.ganbinwen.com/tags/daily-report/"/>
+      <category term="daily report" scheme="miks.top/tags/daily-report/"/>
     
   </entry>
   
   <entry>
     <title>2017-08-10 Report</title>
-    <link href="http://www.ganbinwen.com/2017/08/10/2017-08-10/"/>
-    <id>http://www.ganbinwen.com/2017/08/10/2017-08-10/</id>
+    <link href="miks.top/2017/08/10/2017-08-10/"/>
+    <id>miks.top/2017/08/10/2017-08-10/</id>
     <published>2017-08-10T07:27:45.000Z</published>
     <updated>2017-11-04T09:19:17.000Z</updated>
     
@@ -739,14 +739,14 @@
     </summary>
     
     
-      <category term="daily report" scheme="http://www.ganbinwen.com/tags/daily-report/"/>
+      <category term="daily report" scheme="miks.top/tags/daily-report/"/>
     
   </entry>
   
   <entry>
     <title>2017-08-09 Report</title>
-    <link href="http://www.ganbinwen.com/2017/08/09/2017-08-09/"/>
-    <id>http://www.ganbinwen.com/2017/08/09/2017-08-09/</id>
+    <link href="miks.top/2017/08/09/2017-08-09/"/>
+    <id>miks.top/2017/08/09/2017-08-09/</id>
     <published>2017-08-09T07:27:45.000Z</published>
     <updated>2017-11-04T09:19:17.000Z</updated>
     
@@ -760,14 +760,14 @@
     </summary>
     
     
-      <category term="daily report" scheme="http://www.ganbinwen.com/tags/daily-report/"/>
+      <category term="daily report" scheme="miks.top/tags/daily-report/"/>
     
   </entry>
   
   <entry>
     <title>2017-08-08 Report</title>
-    <link href="http://www.ganbinwen.com/2017/08/08/2017-08-08/"/>
-    <id>http://www.ganbinwen.com/2017/08/08/2017-08-08/</id>
+    <link href="miks.top/2017/08/08/2017-08-08/"/>
+    <id>miks.top/2017/08/08/2017-08-08/</id>
     <published>2017-08-08T07:27:45.000Z</published>
     <updated>2017-11-04T09:19:17.000Z</updated>
     
@@ -781,14 +781,14 @@
     </summary>
     
     
-      <category term="daily report" scheme="http://www.ganbinwen.com/tags/daily-report/"/>
+      <category term="daily report" scheme="miks.top/tags/daily-report/"/>
     
   </entry>
   
   <entry>
     <title>2017-08-07 Report</title>
-    <link href="http://www.ganbinwen.com/2017/08/07/2017-08-07/"/>
-    <id>http://www.ganbinwen.com/2017/08/07/2017-08-07/</id>
+    <link href="miks.top/2017/08/07/2017-08-07/"/>
+    <id>miks.top/2017/08/07/2017-08-07/</id>
     <published>2017-08-07T07:27:45.000Z</published>
     <updated>2017-11-04T09:19:17.000Z</updated>
     
@@ -803,14 +803,14 @@
     </summary>
     
     
-      <category term="daily report" scheme="http://www.ganbinwen.com/tags/daily-report/"/>
+      <category term="daily report" scheme="miks.top/tags/daily-report/"/>
     
   </entry>
   
   <entry>
     <title>2017-08-06 Report</title>
-    <link href="http://www.ganbinwen.com/2017/08/06/2017-08-06/"/>
-    <id>http://www.ganbinwen.com/2017/08/06/2017-08-06/</id>
+    <link href="miks.top/2017/08/06/2017-08-06/"/>
+    <id>miks.top/2017/08/06/2017-08-06/</id>
     <published>2017-08-06T07:27:45.000Z</published>
     <updated>2017-11-04T09:51:39.000Z</updated>
     
@@ -845,7 +845,7 @@
     </summary>
     
     
-      <category term="daily report" scheme="http://www.ganbinwen.com/tags/daily-report/"/>
+      <category term="daily report" scheme="miks.top/tags/daily-report/"/>
     
   </entry>
   
