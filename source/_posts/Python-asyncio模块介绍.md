@@ -116,11 +116,8 @@ def main():
 7. 在threads项目时，由于一个线程可能会在任一时刻被杀死，从而导致数据／系统状态变的不清晰。所以必须记得加锁去保护程序中重要的操作，避免在多个操作步骤中突然被终止的弊端；在coroutine中，避免意外的终止带来的弊端，所有的操作都被保护了。由于一个coroutine只有在被yield语句挂起时终止，所以我们可以在处理CancelledError异常时清理掉「不干净」的操作。
 
 ## How the asyncio.Future class differs from concurrent.futures.Future
-<<<<<<< HEAD
-=======
 
->>>>>>> ce5d3157bc6368f3ac4839b3ce6ec2d4bdc7fdc2
-如果你还不清楚future的概念，你可以参考我写的另一篇文章[Python concurrency with futures](http://www.ganbinwen.com/2017/12/13/Python-concurrency-with-futures/)，里面有相关介绍，或者可以自行参考官方文档/wiki。
+如果你还不清楚future的概念，你可以参考我写的另一篇文章[Python concurrency with futures](http://miks.top/2017/12/13/Python-concurrency-with-futures/)，里面有相关介绍，或者可以自行参考官方文档/wiki。
 
 请务必确认已经清楚了future的概念后再阅读下面内容 :)
 
@@ -250,10 +247,7 @@ asyncio.wait()不是一个阻塞函数，它会等到所有传递给它的corout
 
 ## How coroutines are a major improvement over callbacks for asynchronous programming
 
-<<<<<<< HEAD
-=======
 
->>>>>>> ce5d3157bc6368f3ac4839b3ce6ec2d4bdc7fdc2
 通过上面的demo及介绍，细心的你有没有发现所有的操作都是在同一个线程中完成的？如果都在同一个线程里完成操作，那么如何提高5x的运行速度？
 
 对于I/O操作有两种方法可以避免阻塞的方法去停止程序的整个进程：
@@ -264,12 +258,7 @@ asyncio.wait()不是一个阻塞函数，它会等到所有传递给它的corout
 
 使用coroutines时，generator提供了可选的方式去进行异步编程，用事件循环来回调或者使用.send()操作挂起的coroutine即可。每个挂起的coroutine都需要消耗内存资源，但开销远小于线程的开销。
 
-<<<<<<< HEAD
-```
-```
 
-=======
->>>>>>> ce5d3157bc6368f3ac4839b3ce6ec2d4bdc7fdc2
 
 ## How to avoid blocking the event loop by offloading blocking operations to a thread pool
 尽管我们已经可以处理网络I/O的延迟了，但是对于文件I/O操作的延迟，要如何处理呢？
@@ -407,10 +396,7 @@ Tips: 在上面的代码中，我们使用了高级的asyncio Streams API，它�
 
 接下来再看一下http版本的：
 
-<<<<<<< HEAD
-=======
 
->>>>>>> ce5d3157bc6368f3ac4839b3ce6ec2d4bdc7fdc2
 ```
 @asyncio.coroutine
 def init(loop, address, port):
@@ -455,10 +441,6 @@ def home(request):
     return web.Response(content_type=CONTENT_TYPE, text=html)
 ```
 
-<<<<<<< HEAD
-=======
-
->>>>>>> ce5d3157bc6368f3ac4839b3ce6ec2d4bdc7fdc2
 对于server的启动以及handler大致都与上面TCP版本的相同，我们这里从home()函数开始介绍。仔细观察的你，能发现home()是一个普通的函数，这意味着，从request的处理到可能会进行的database查询都是阻塞的，如果database查询数量很大的话，通常是秒级以上的，我们不能容忍这样的情况。不过有过web开发的小伙伴通常都会想到AJAX技术，这确实是一种好的处理方法。我们可以将查询限制在200rows,在前端界面用滚动条来控制这个间隔。
 
 

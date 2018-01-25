@@ -5,7 +5,7 @@ tags: Python
 
 ---
 ## Preface
-Generator是Python里相当有趣的trick.不过在阅读本文前，希望你对iterable和iterator的概念已经有了认识。如果没有的话建议先阅读本人的另一篇文章：[http://www.ganbinwen.com/2017/12/02/Python-Iterators-and-Iterables%E4%BB%8B%E7%BB%8D/](http://www.ganbinwen.com/2017/12/02/Python-Iterators-and-Iterables%E4%BB%8B%E7%BB%8D/)
+Generator是Python里相当有趣的trick.不过在阅读本文前，希望你对iterable和iterator的概念已经有了认识。如果没有的话建议先阅读本人的另一篇文章：[Python Iterators and Iterables介绍](http://miks.top/2017/12/02/Python-Iterators-and-Iterables%E4%BB%8B%E7%BB%8D/)
 
 
 
