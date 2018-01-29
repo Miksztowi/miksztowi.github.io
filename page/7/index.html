@@ -141,6 +141,80 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-2017-07-25" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/07/25/2017-07-25/">2017-07-25 Report</a>
+    </h1>
+  
+
+        
+        <a href="/2017/07/25/2017-07-25/" class="archive-article-date">
+  	<time datetime="2017-07-25T07:27:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-25</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>当天完成的工作内容<br>1.api/relation_tree<br>当天的收获<br>1.问题: 如何快速理解sql代码及写sql<br>2.目标: 逻辑清晰的逐步完成复杂的sql<br>3.反思：今天要在原有的SQL里再增加一层内连接，但是我一直不理解SQL的业务逻辑。 –&gt; 首先我没有把SQL格式化，SQL非常混乱难以阅读 –&gt; 用在线工具格式化后，SQL逻辑清晰 –&gt; 但是我仍然阅读存在问题，因为我读SQL是从前往后读 –&gt; 伟哥纠正我SQL要从内层向外层读 –&gt; 从内向外读后，逻辑清晰，很快可以明白SQL的意思，但是不理解业务逻辑的含义 –&gt;<br>因为业务逻辑不仅需要明白SQL的意思，还要对照表里，去明白每一次的连接后得到的数据。根据数据的对比去思考业务逻辑。<br>4.方法：遇到SQL代码 –&gt; formmater sql –&gt; 从内至外的逐层阅读代码 –&gt; 每一层阅读完，先核对数据的变化 –&gt; 从变化中，思考业务逻辑。<br>5.用总结的方法重新处理一遍今天遇到的问题：<br>原来的SQL:<br>select left(t2.published_at,7) month, count(<em>) as value from (select d.asin as parent_asin from (SELECT distinct coalesce(parent_asin_id, id) as parent_asin_id from amazon_review_insight.amazon_amazonasin WHERE %s ) c inner join amazon_review_insight.amazon_amazonasin d on c.parent_asin_id = d.id ) t1 inner join amazon_review_insight.amazon_amazonreview t2 on t1.parent_asin = t2.parent_asin where left(t2.published_at,7)&gt;=’2011-01’ group by left(t2.published_at,7)<br>Frommater后：<br>SELECT left(t2.published_at,7) MONTH,<br>                               count(</em>) AS value<br>FROM<br>  (SELECT d.asin AS parent_asin<br>   FROM<br>     (SELECT DISTINCT coalesce(parent_asin_id, id) AS parent_asin_id<br>      FROM amazon_review_insight.amazon_amazonasin<br>      WHERE %s ) c<br>   INNER JOIN amazon_review_insight.amazon_amazonasin d ON c.parent_asin_id = d.id) t1<br>INNER JOIN amazon_review_insight.amazon_amazonreview t2 ON t1.parent_asin = t2.parent_asin<br>WHERE left(t2.published_at,7)&gt;=’2011-01’<br>GROUP BY left(t2.published_at,7)<br>从内到外的阅读：<br>1.根据where的条件，得到parent_asin_id后同D表根据c.parent_asin_id = d.id做连接，select d.asin。此时对比一下得到的数据（parent_asin）和之前的数据（parent_asin_id），明白了这次的逻辑是为了取parent_asin。将得到的表命名t1，再次同amazon_amazonreview根据t1.parent_asin = t2.parent_asin做连接。再根据MONTH&gt;=’2011-01’的条件，对得到的数据按照月份分组后聚合。得到了月份和对应的value值。对比现在的数据（月份和对应的数量）和之前的数据（parent_asin），明白了业务逻辑是取parent_asin对应的月份和数量。<br>明天的计划<br>1.在SQL里面嵌套一层Category的连接。<br>2.帮公司同事完成OBD的数据爬取。<br>提出疑问或寻求帮助<br>无。<br>今日翻译<br>Most CPUs have a control input signal called READY (or something similar). Normally this input is high. When the CPU outputs the address of the I/O device and the correct control signals, enabling the tri-state buffers of the I/O device interface, the I/O device sets READY low. The CPU reads this signal and continues to output the same address and control signals, which cause the buffers to remain enabled. In the hard disk drive example, the drive rotates the disk and positions its read heads until it reads the desired data.<br>我的译文<br>大多数的CPU都有一个叫做READY（或者别的）的输入控制信号。通常这个输入是高，当CPU输出地址和正确的控制信号到I/O设备，I/O设备接口的三态缓冲使用的时候，I/O设备会设置READY为低。CPU读取这个信号然后继续去输出相同的地址和控制信号，这些会让缓冲保持能用。用硬盘驱动举例，驱动转动磁盘然后指向磁头的位置直到它可以读取应该被读取的数据。<br>正确译文<br>大多数CPU都有一个控制输入信号，叫做就绪信号（READY）（或其他意思相近的名称），通常它为高电平。当CPU输出某I/O设备的地址和正确的控制信号，促使I/O设备接口的三态缓冲器有效时，该I/O设备置READY信号为低电平。CPU读取这一信号，并且继续输出同样的地址信号和控制信号，使缓冲器保持有效。在硬盘驱动器的例子中，此时驱动器旋转磁头，并且定位读写头，直到读到想要要的数据为止。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">daily report</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/07/25/2017-07-25/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-2017-07-24" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -441,94 +515,6 @@
 
 
   
-    <article id="post-2017-07-18" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/18/2017-07-18/">2017-07-18 Report</a>
-    </h1>
-  
-
-        
-        <a href="/2017/07/18/2017-07-18/" class="archive-article-date">
-  	<time datetime="2017-07-18T07:27:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-18</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>对于2017<br> 07<br> 17的daily report赵赵的回复。<br>这个总结不合格。</p>
-<p>自己的问题，自己先问6次为什么（自己解答），然后再问别人。<br>你现在还是抓不住重点。</p>
-<p>我描述你的问题是：问问题的时候描述太多<br>反思的原因是：</p>
-<ol>
-<li>抓不住重点</li>
-<li>没有自己考虑周全</li>
-</ol>
-<p>那上面两个问题，分别的原因又是什么？ 自己回答之后，再问原因。<br>我上周已经告诉你了，先找到根本原因，在想action plan！<br>我告诉你N遍的方法，也带着你做过N遍了，你不照着实施，现在还要问我要方法？！</p>
-<p>当天完成的工作内容<br>1.写了xxx api<br>2.在xxxx的函数里增加了xxxx的逻辑<br>当天的收获<br>1.对7月17提出的【如何去问问题】重新总结。<br>问题<br>：问问题时描述太多，太啰嗦。<br>原因<br>：</p>
-<p>提问时抓不住问题的重点 –&gt; 提问之前，没有把问题的原因理解清楚 –&gt; 急于寻找答案，未能静下心思考 –&gt; 思维有惰性，希望答案可以不劳而获 –&gt; 依赖他人，独立解决问题的能力差</p>
-<p>对问题考虑不全面 –&gt;  对问题的解决方案有遗漏 –&gt; 假设问题发生的情况时有遗漏 –&gt; 解决问题的方法不当，即没有用正确的方法在分析问题时保证尽可能完整清晰。</p>
-<p>总结<br>：<br>因为原因2中包含了原因1，所以先对原因2总结action plan。</p>
-<p>遇到问题 –&gt; 立刻把问题写在纸上（不可只在脑中思考） –&gt;  把问题用画二叉树的方式，把可能导致的原因逐层开始画出来 –&gt; 对上一步中画完的二叉树，用逻辑推理一遍，确定问题发生的原因已经出现在某个叶子节点上 –&gt; 如果没有任何叶子节点可以推断为导致问题发生的原因，那么问题的考虑必定有遗漏，继续思考或者此时寻求他人建议，并且将完成的二叉树给回答者看，让回答者尽快明确被卡住的原因。 –&gt; 如果二叉树的叶子节点中已经存在问题发生的原因 –&gt; 针对原因，思考问题的解决方案 –&gt; 利用目前可用的所有工具（google，man，document）去找到对应的答案 –&gt; 直到所有答案都被尝试或者找到了正确解决问题的答案为止，否则记录每一个答案不正确的原因，留作之后寻问他人时提供【目前已知的信息】。 （<br>以上每一步的过程必须有记录，绝不可以只在脑中完成。<br>）</p>
-<p>如果1中的办法未能找到正确的答案 –&gt; 重复1并且每次结束后查阅记录信息 –&gt; 如果连续6次的记录信息都一样 –&gt; 表明一直被卡在了同一个地方 –&gt; 此时才可以寻问他人 –&gt; 如果重复1后每次的记录过程不一样，那么表明每次都有新的进展 –&gt; 应该继续静下心重复1直到问题解决或者6次的记录信息都相同，再寻问他人。</p>
-<p>明天的计划<br>1.熟悉xxxx中xxxxx部分的架构，xxxxx，增加反爬虫机制。<br>提出疑问或寻求帮助<br>无。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">daily report</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/07/18/2017-07-18/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/6/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/8/">Next &raquo;</a>
@@ -626,19 +612,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">实习面试</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">函数式</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">清单</a>
+                <a href="javascript:void(0)" class="js-tag color5">实习面试</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">计算机系统、并发</a>
+                <a href="javascript:void(0)" class="js-tag color3">清单</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -697,7 +679,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
     
     	<section class="tools-section tools-section-me" q-show="aboutme">
   	  	
-  	  		<div class="aboutme-wrap" id="js-aboutme">97年在校读书&lt;br&gt;喜欢小众&lt;br&gt;热爱分享&lt;br&gt;I see and i understand.&lt;br&gt;I do and I remember.&lt;br&gt;</div>
+  	  		<div class="aboutme-wrap" id="js-aboutme">97年在校读书&lt;br&gt;喜欢小众&lt;br&gt;热爱分享&lt;br&gt;I see and I understand.&lt;br&gt;I  do and I remember.&lt;br&gt;</div>
   	  	
     	</section>
     

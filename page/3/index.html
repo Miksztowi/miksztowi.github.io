@@ -306,6 +306,111 @@
 
 
   
+    <article id="post-检查清单" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/11/04/检查清单/">检查清单 Report</a>
+    </h1>
+  
+
+        
+        <a href="/2017/11/04/检查清单/" class="archive-article-date">
+  	<time datetime="2017-11-04T07:27:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-04</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>写代码前</p>
+<p>写代码的要思考到明确<br>做什么<br>，而不仅仅是<br>怎么做<br>。</p>
+<p>先Google,gitHub看看有没有已经成熟的思路，先找资源。</p>
+<p>把问题拆分到可以直接去思考做法的程度，画树，逐层写方法。</p>
+<p>如果要去学习新的工具，应该直接学习底层封装的API，这样再次学习类似工具时，可以降低学习成本。</p>
+<p>文件操作</p>
+<p>操作文件时候，写路径的时候要用os模块操作，千万要避免文件换了一个位置就会出错的问题。</p>
+<p>数据结构</p>
+<p>注意可变对象和不可变对象（list和dict），防止做参数时被污染。</p>
+<p>数据操作部分，先明确数据结构。能用Tuple解决的不用List，同时要注意Dict读数据是的时候是无序的。</p>
+<p>对数据集有操作，一定要用Set，并集|，交集&amp;，差集-，对称差集^（项在t或s中，但不会同时出现在二者中）</p>
+<p>检查需要</p>
+<p>先检查输入类型，用isinstance去限定所需要的数据类型。</p>
+<p>输入数据是Int，考虑变成float会怎么样。List,string,dict为空时都默认等于false。</p>
+<p>数据库的操作是否已经最少了，如果不是最少的话，尝试用Innerjoin 连接出数据，避免多次查询。</p>
+<p>用assert 来确定数据是可用的(assert A,B = if not A do B)</p>
+<p>节约资源的方法</p>
+<p>reduce，map，filter三个内置函数，返回的都是生成器。节约开销，能用时尽量用。</p>
+<p>数据库操作</p>
+<p>对数据库操作，不要再用mysql这个库，用sqlachemy，兼容2和3，同时可以用Orm来操作数据库。</p>
+<p>对数据库操作的函数，如果可以写缓存，尽量用Redis做缓存，避免Mysql的查询。</p>
+<p>尽量不要用Where这种隐形连接，用Inner Join这种显性连接。</p>
+<p>对数据库有操作，要用log记录下来，以便数据恢复使用。</p>
+<p>错误处理</p>
+<p>死循环，给第一行print，第二行continue。</p>
+<p>如果程序运行的路径，不能保证与.py文件是相同的，最好在里面open的时候使用绝对路径。 </p>
+<p>团队沟通</p>
+<p>换位思考，从对方的思路开始思考，先明白对方问题的原因。</p>
+<p>不仅要有自己的想法，还要对于想法有可行的方案。</p>
+<p>前端问题复杂的时候，后端要帮忙简化问题， 互相帮助！</p>
+<p>HTML操作</p>
+<p>w3lib.html.remove_tags()可以过滤Html标签。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">清单</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/11/04/检查清单/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-2017-08-20" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -454,80 +559,6 @@
 
 
   
-    <article id="post-2017-08-16" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/16/2017-08-16/">2017-08-16 Report</a>
-    </h1>
-  
-
-        
-        <a href="/2017/08/16/2017-08-16/" class="archive-article-date">
-  	<time datetime="2017-08-16T07:27:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-16</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>当天完成的工作内容<br>1.update 合并数据的自动化脚本。<br>2.firestone的爬虫增加了特殊字符的处理，又获得了27015条车型数据。<br>当天的收获<br>1.问题： 不记录日志带来的麻烦<br>2.反思： firestone和edmunds的爬虫，在爬取的时候有数据调试，但是没有日志记录。这样在之后对数据进行验证的时候，没有信息可以参考。同时对于爬虫运行的状态无法确定。<br>3.方法： 对于自动化的脚本，要搭配日志使用。 在Settings模块里，配置Logger，爬取数据时将爬取结果写入日志中。在爬取结束后，核对日志，确保数据的完整性。<br>明天的计划<br>1.用日志确认Edmunds和Firestone的爬虫功能是否完善。<br>提出疑问或寻求帮助<br>无。<br>今日翻译<br>Notice that the weight of the position to the left of the units position is 8. This is 8 times 1. Then notice that the weight of the next position is 64, or 8 times 8. If another position existed, it would be 64 times 8, or 51 2. To find the weight of the next higher-order position, multiply the weight of the current position by the number base (or 8, in this example). To calculate the weights of position to the right of the radix point, divide by the number base. In the octal system, the position immediately to the fight of the octal point is 1/8, or .125. The next position is .125/8, or .015625, which can also be written as 1/64.<br>我的翻译<br>注意到个位的左边值是8。这是8的一次方。注意到下一个位置的值是64，或8的8次方。如果另一个位置存在，它将是64的8次方，或者512。为了找到下个高位的值，乘当前位置的基数（在这个例子中是8）为了计算出正确的指数位的值，除以基数。在八进制的中，八进制点的位置直接用1/8找到，或者.125。下一个位置是.125/8，或者.015625，也可以被写成1/64。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">daily report</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/08/16/2017-08-16/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
@@ -625,19 +656,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">实习面试</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">函数式</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">清单</a>
+                <a href="javascript:void(0)" class="js-tag color5">实习面试</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">计算机系统、并发</a>
+                <a href="javascript:void(0)" class="js-tag color3">清单</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -696,7 +723,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
     
     	<section class="tools-section tools-section-me" q-show="aboutme">
   	  	
-  	  		<div class="aboutme-wrap" id="js-aboutme">97年在校读书&lt;br&gt;喜欢小众&lt;br&gt;热爱分享&lt;br&gt;I see and i understand.&lt;br&gt;I do and I remember.&lt;br&gt;</div>
+  	  		<div class="aboutme-wrap" id="js-aboutme">97年在校读书&lt;br&gt;喜欢小众&lt;br&gt;热爱分享&lt;br&gt;I see and I understand.&lt;br&gt;I  do and I remember.&lt;br&gt;</div>
   	  	
     	</section>
     

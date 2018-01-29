@@ -141,6 +141,80 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-2017-08-16" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/16/2017-08-16/">2017-08-16 Report</a>
+    </h1>
+  
+
+        
+        <a href="/2017/08/16/2017-08-16/" class="archive-article-date">
+  	<time datetime="2017-08-16T07:27:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-16</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>当天完成的工作内容<br>1.update 合并数据的自动化脚本。<br>2.firestone的爬虫增加了特殊字符的处理，又获得了27015条车型数据。<br>当天的收获<br>1.问题： 不记录日志带来的麻烦<br>2.反思： firestone和edmunds的爬虫，在爬取的时候有数据调试，但是没有日志记录。这样在之后对数据进行验证的时候，没有信息可以参考。同时对于爬虫运行的状态无法确定。<br>3.方法： 对于自动化的脚本，要搭配日志使用。 在Settings模块里，配置Logger，爬取数据时将爬取结果写入日志中。在爬取结束后，核对日志，确保数据的完整性。<br>明天的计划<br>1.用日志确认Edmunds和Firestone的爬虫功能是否完善。<br>提出疑问或寻求帮助<br>无。<br>今日翻译<br>Notice that the weight of the position to the left of the units position is 8. This is 8 times 1. Then notice that the weight of the next position is 64, or 8 times 8. If another position existed, it would be 64 times 8, or 51 2. To find the weight of the next higher-order position, multiply the weight of the current position by the number base (or 8, in this example). To calculate the weights of position to the right of the radix point, divide by the number base. In the octal system, the position immediately to the fight of the octal point is 1/8, or .125. The next position is .125/8, or .015625, which can also be written as 1/64.<br>我的翻译<br>注意到个位的左边值是8。这是8的一次方。注意到下一个位置的值是64，或8的8次方。如果另一个位置存在，它将是64的8次方，或者512。为了找到下个高位的值，乘当前位置的基数（在这个例子中是8）为了计算出正确的指数位的值，除以基数。在八进制的中，八进制点的位置直接用1/8找到，或者.125。下一个位置是.125/8，或者.015625，也可以被写成1/64。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">daily report</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/08/16/2017-08-16/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-2017-08-14" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -437,81 +511,6 @@
 
 
   
-    <article id="post-2017-08-07" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/07/2017-08-07/">2017-08-07 Report</a>
-    </h1>
-  
-
-        
-        <a href="/2017/08/07/2017-08-07/" class="archive-article-date">
-  	<time datetime="2017-08-07T07:27:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-07</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>当天完成的工作内容<br>1.get features of car from edmunds<br>当天的收获<br>1.问题： 今天写代理池的时候，遇到了一个打开文件的路径问题。<br>2.反思： B是A文件的子目录，爬虫需要打开的代理文件和爬虫文件都在B中。 ——&gt; 在A中开始爬取就会有no find的问题，但是在B中爬取文件就没有问题。 –&gt; 那么既然运行的文件和目标文件都在同一个文件夹里，怎么会有这样的问题呢？ ——&gt; 用os.getcwd()做个测试，发现在A中运行B中的文件和B中直接运行得到的路径是不一样的 –&gt; 所以路径取决于运行文件的位置而不是文件所在的位置。<br>3.方法： 遇到no find file or directory的问题 ——&gt; 先检查一遍文件名的反斜杠，避免转义的问题。 –&gt; 文件名，如果使用相对路径，那么检查运行文件的位置时候是跟文件所处的路径相同。 –&gt; 如果路径不同，那么要修改文件名为运行的路径位置，或者使用绝对路径。<br>总结： 如果程序运行的路径，不能保证与.py文件是相同的，最好在里面open的时候使用绝对路径。<br>明天的计划<br>1.get tire pressure data。<br>提出疑问或寻求帮助<br>无。<br>今日翻译<br>If the base of a number exceeds 10, the additional digits use the letters of the alphabet, beginning with an A, For example, a base 12 number contains 12 digits: 0 through 9, followed by A for 10 and B for 11, Note that a base 10 number does not contain a 10 digit, just as a base 8 number does not contain an 8 digit. The most common numbering systems used with computers are decimal, binary, and hexadecimal (base 16). (Many years ago octal numbers were popular.) Each system is described and used in this section of the chapter.</p>
-<p>我的翻译<br>如果基数超过10，那么10之后的数字使用字母，从A开始。举个例子，12进制包含12个数字，0到9，之后是A表示10，B表示11。注意10进制不包括10这个数字，就好像8进制没有8。最常使用的数字系统是十进制和十六进制（许多年以前流行八进制）。每一个系统被这个部分的章节使用和描述。<br>正确翻译<br>如果基数大于10，其余数字用从A开始的字母表示，例如，以12为基的数包含12个数字，0到9，之后用A代表10，B代表11。注意，以10为基的数不包含数字10，如同以8为基的数不包括数字8一样。计算机中最通用的计数制是十进制、二进制、八进制和十六进制(基为16)。每种计数制都将在本节中进行说明和应用。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">daily report</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/08/07/2017-08-07/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/5/">Next &raquo;</a>
@@ -609,19 +608,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">实习面试</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">函数式</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">清单</a>
+                <a href="javascript:void(0)" class="js-tag color5">实习面试</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">计算机系统、并发</a>
+                <a href="javascript:void(0)" class="js-tag color3">清单</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -680,7 +675,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
     
     	<section class="tools-section tools-section-me" q-show="aboutme">
   	  	
-  	  		<div class="aboutme-wrap" id="js-aboutme">97年在校读书&lt;br&gt;喜欢小众&lt;br&gt;热爱分享&lt;br&gt;I see and i understand.&lt;br&gt;I do and I remember.&lt;br&gt;</div>
+  	  		<div class="aboutme-wrap" id="js-aboutme">97年在校读书&lt;br&gt;喜欢小众&lt;br&gt;热爱分享&lt;br&gt;I see and I understand.&lt;br&gt;I  do and I remember.&lt;br&gt;</div>
   	  	
     	</section>
     

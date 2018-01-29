@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://miks.top/"/>
-  <updated>2018-01-25T13:42:09.000Z</updated>
+  <updated>2018-01-29T06:12:38.000Z</updated>
   <id>http://miks.top/</id>
   
   <author>
@@ -14,6 +14,71 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>%_and_format()案例解释</title>
+    <link href="http://miks.top/2018/01/29/python%E6%A0%BC%E5%BC%8F%E5%8C%96%E7%9A%84%E6%A1%88%E4%BE%8B%E8%A7%A3%E9%87%8A/"/>
+    <id>http://miks.top/2018/01/29/python格式化的案例解释/</id>
+    <published>2018-01-29T06:11:10.000Z</published>
+    <updated>2018-01-29T06:12:38.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="题记"><a href="#题记" class="headerlink" title="题记"></a>题记</h2><p>因为对python2x和python3x都有使用经历，所以常常对<strong>%</strong>和<strong>.format()</strong>记忆混乱，索性今天在网上参考了几篇案例较多的tutorial,把这两种格式化风格的使用案例做一个归档。</p>
+<p>为了后面叙述方便，我们将%定义为旧风格，.format()定义为新风格。</p>
+<h2 id="通用的格式化"><a href="#通用的格式化" class="headerlink" title="通用的格式化"></a>通用的格式化</h2><p>简单的位置格式化应该是最常用的，通常在参数顺序不变的情况下使用。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">print(&apos;%s %s&apos; % (one, two)) </div><div class="line">print(&apos;&#123;&#125; &#123;&#125;&apos;.format(one, two))</div><div class="line">input&gt;&gt;one two</div></pre></td></tr></table></figure>
+<p>但是对于.format()，可以使用占位符来显式定义参数顺序。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"># 这个操作对于%s的格式化操作来说是不可用的.</div><div class="line">print(&apos;&#123;1&#125; &#123;0&#125;&apos;.format(one, two))</div><div class="line">input&gt;&gt;two one</div></pre></td></tr></table></figure>
+<h2 id="值的转化"><a href="#值的转化" class="headerlink" title="值的转化"></a>值的转化</h2><p>.format()函数，调用的是对象的<strong>format</strong>()方法，如果你需要输出str(…)或者repr(…)，你可以使用!s或者!r来转化标记。 </p>
+<p>在旧风格中使用%s或者%r来转化。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">class Data:</div><div class="line">    def __str__(self):</div><div class="line">        return &apos;str&apos;</div><div class="line"></div><div class="line">    def __repr__(self):</div><div class="line">        return &apos;repr&apos;</div><div class="line"></div><div class="line"></div><div class="line">print(&apos;%s %r&apos; % (Data(), Data()))</div><div class="line">print(&apos;&#123;!s&#125; &#123;!r&#125;&apos;.format(Data(), Data()))</div><div class="line">input&gt;&gt;str repr</div></pre></td></tr></table></figure>
+<h2 id="填充以及校准字符串"><a href="#填充以及校准字符串" class="headerlink" title="填充以及校准字符串"></a>填充以及校准字符串</h2><p>默认的格式化值是用给予的值来填充的，然而有时候也需要格式化值达到一个确定的长度。</p>
+<p>关于这点，两种风格就显得截然不同了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">print(&apos;%10s&apos; % one)</div><div class="line">print(&apos;&#123;:&gt;10&#125;&apos;.format(one))</div><div class="line"></div><div class="line"># 左校准</div><div class="line">print(&apos;%-10s&apos; % one)</div><div class="line">print(&apos;&#123;:10&#125;&apos;.format(one))</div><div class="line"></div><div class="line">input&gt;&gt;       one</div><div class="line">inupt&gt;&gt;one</div></pre></td></tr></table></figure>
+<p>而新风格，还提供了自定义填充字符。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"># 自定义填充字符，下列操作在旧风格中均不可行。</div><div class="line">print(&apos;&#123;:_&lt;10&#125;&apos;.format(one))</div><div class="line">print(&apos;&#123;:^10&#125;&apos;.format(one))  # 居中</div><div class="line">print(&apos;&#123;:^6&#125;&apos;.format(&apos;zip&apos;))  # 居中操作中，遇到奇数分割的时候，会将多出来的填充位放在右边。</div><div class="line">input&gt;&gt;one_______</div><div class="line">input&gt;&gt;   one    </div><div class="line">input&gt;&gt; zip</div></pre></td></tr></table></figure>
+<h2 id="截断长字符串"><a href="#截断长字符串" class="headerlink" title="截断长字符串"></a>截断长字符串</h2><p>相对于填充字符串达到固定长度来说，我们也可以截断字符串来达到固定长度。在格式化字符串中.后的数字是表明截断的长度。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">str_ = &apos;hello world.&apos;</div><div class="line">print(&apos;%.5s&apos; %(str_))</div><div class="line">print(&apos;&#123;:.5&#125;&apos;.format(str_))</div><div class="line">input&gt;&gt;hello</div></pre></td></tr></table></figure>
+<h2 id="填充与截断的结合使用"><a href="#填充与截断的结合使用" class="headerlink" title="填充与截断的结合使用"></a>填充与截断的结合使用</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">str_ = &apos;hello world.&apos;</div><div class="line">print(&apos;%10.5s&apos; % str_)</div><div class="line">print(&apos;&#123;:&gt;10.5&#125;&apos;.format(str_))</div><div class="line">input&gt;&gt;     hello</div></pre></td></tr></table></figure>
+<h2 id="数字"><a href="#数字" class="headerlink" title="数字"></a>数字</h2><p>格式化数字也是常见的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">number_integer = 42</div><div class="line">print(&apos;%d&apos; % (number_integer))</div><div class="line">print(&apos;&#123;:d&#125;&apos;.format(number_integer))</div><div class="line">input&gt;&gt;42</div><div class="line"></div><div class="line">number_float = 3.141592653589793</div><div class="line">print(&apos;%f&apos; % number_float)</div><div class="line">print(&apos;&#123;:f&#125;&apos;.format(number_float))</div><div class="line">input&gt;&gt;3.141593</div></pre></td></tr></table></figure>
+<h2 id="填充数字"><a href="#填充数字" class="headerlink" title="填充数字"></a>填充数字</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">number_integer = 42</div><div class="line">print(&apos;%4d&apos; % number_integer)</div><div class="line">print(&apos;&#123;:4d&#125;&apos;.format(number_integer))</div><div class="line">input&gt;&gt;  42</div></pre></td></tr></table></figure>
+<p>对于浮点数，填充值表示完整的长度。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">number_float = 3.141592653589793</div><div class="line">print(&apos;%06.2f&apos; % number_float)</div><div class="line">print(&apos;&#123;:06.2f&#125;&apos;.format(number_float))</div><div class="line">input&gt;&gt;003.14</div></pre></td></tr></table></figure>
+<h2 id="有符号的整数"><a href="#有符号的整数" class="headerlink" title="有符号的整数"></a>有符号的整数</h2><p>默认来说，只有负数会有符号。当然，我们可以显式给正数也加上。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">number_integer = 42</div><div class="line">print(&apos;%+d&apos; % number_integer)</div><div class="line">print(&apos;&#123;:+d&#125;&apos;.format(number_integer))</div><div class="line">input&gt;&gt;+42</div></pre></td></tr></table></figure>
+<p>使用空格字符表示负数应该以负号作为前缀，而正数应该使用前导空格。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">print(&apos;% d&apos; % (- 23))</div><div class="line">print(&apos;&#123;: d&#125;&apos;.format(- 23))</div><div class="line">input&gt;&gt;-23</div></pre></td></tr></table></figure>
+<p>新风格也能给负整数填充。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">print(&apos;&#123;:=-5d&#125;&apos;.format(- 23))</div><div class="line">print(&apos;&#123;:=+5d&#125;&apos;.format(23))</div><div class="line">input&gt;&gt;-  23</div><div class="line">input&gt;&gt;+  23</div></pre></td></tr></table></figure>
+<h2 id="名称占位符"><a href="#名称占位符" class="headerlink" title="名称占位符"></a>名称占位符</h2><p>介绍完了对于数字的操作，接下来介绍一些关于占位符的案例。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">data = &#123;&apos;first&apos;: &apos;Hodor&apos;, &apos;last&apos;: &apos;Hodor!&apos;&#125;</div><div class="line">print(&apos;%(first)s %(last)s&apos; % data)</div><div class="line">print(&apos;&#123;first&#125; &#123;last&#125;&apos;.format(**data))</div><div class="line">print(&apos;&#123;first&#125; &#123;last&#125;&apos;.format(first=&apos;Hodor&apos;, last=&apos;Hodor!&apos;))  # only available with new style formatting.</div><div class="line">input&gt;&gt;Hodor Hodor!</div></pre></td></tr></table></figure>
+<h2 id="Getitem和Getattr"><a href="#Getitem和Getattr" class="headerlink" title="Getitem和Getattr"></a>Getitem和Getattr</h2><p>新风格允许对数据结构进行更灵活的操作。<br>它可以操作拥有<strong>getitem</strong>方法的对象。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">person = &#123;&apos;first&apos;: &apos;Jean-Luc&apos;, &apos;last&apos;: &apos;Picard&apos;&#125;</div><div class="line">print(&apos;&#123;p[first]&#125; &#123;p[last]&#125;&apos;.format(p=person))</div><div class="line">input&gt;&gt;Jean-Luc Picard</div><div class="line">data = [4, 8, 15, 16, 23, 42]</div><div class="line">print(&apos;&#123;d[4]&#125; &#123;d[5]&#125;&apos;.format(d=data))</div><div class="line">input&gt;&gt;23 42</div></pre></td></tr></table></figure>
+<p>它也支持操作拥有getattr()属性的对象。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">class Plant(object):</div><div class="line">    type = &apos;tree&apos;</div><div class="line">print(&apos;&#123;p.type&#125;&apos;.format(p=Plant()))</div><div class="line">input&gt;&gt;tree</div></pre></td></tr></table></figure>
+<p>它也支持二者的同时操作。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">class Plant(object):</div><div class="line">    type = &apos;tree&apos;</div><div class="line">    kinds = [&#123;&apos;name&apos;: &apos;oak&apos;&#125;, &#123;&apos;name&apos;: &apos;maple&apos;&#125;]</div><div class="line">print(&apos;&#123;p.type&#125;: &#123;p.kinds[0][name]&#125;&apos;.format(p=Plant()))</div><div class="line">input&gt;&gt;tree: oak</div></pre></td></tr></table></figure>
+<h2 id="时间"><a href="#时间" class="headerlink" title="时间"></a>时间</h2><p>新风格也允许日期时间对象内联格式化。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">from datetime import datetime</div><div class="line">print(&apos;&#123;:%Y-%m-%d %H:%M:%S&#125;&apos;.format(datetime.now()))</div><div class="line">input&gt;&gt;2018-01-29 13:38:40</div></pre></td></tr></table></figure>
+<h2 id="参数格式化"><a href="#参数格式化" class="headerlink" title="参数格式化"></a>参数格式化</h2><p>新风格格式化允许使用参数来动态指定。参数化格式是大括号中的嵌套表达式，可以在冒号后的父级格式的任何地方出现。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">print(&apos;&#123;:&#123;align&#125;&#123;width&#125;&#125;&apos;.format(&apos;test&apos;, align=&apos;&gt;&apos;, width=&apos;10&apos;))</div><div class="line">input&gt;&gt;      test</div><div class="line">print(&apos;&#123;:.&#123;prec&#125;&#125; = &#123;:.&#123;prec&#125;f&#125;&apos;.format(&apos;Gibberish&apos;, 2.7182, prec=3))</div><div class="line">input&gt;&gt;Gib = 2.718</div><div class="line">print(&apos;&#123;:&#123;width&#125;.&#123;prec&#125;f&#125;&apos;.format(2.7182, width=5, prec=2))</div><div class="line">input&gt;&gt; 2.72</div><div class="line">print(&apos;&#123;:&#123;prec&#125;&#125; = &#123;:&#123;prec&#125;&#125;&apos;.format(&apos;Gibberish&apos;, 2.7182, prec=&apos;.3&apos;))</div><div class="line">input&gt;&gt;Gib = 2.72</div><div class="line">from datetime import datetime</div><div class="line">dt = datetime.now()</div><div class="line">print(&apos;&#123;:&#123;dfmt&#125; &#123;tfmt&#125;&#125;&apos;.format(dt, dfmt=&apos;%Y-%m-%d&apos;, tfmt=&apos;%H:%M&apos;))</div><div class="line">input&gt;&gt;2018-01-29 13:59</div></pre></td></tr></table></figure>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://pyformat.info/" target="_blank" rel="external">https://pyformat.info/</a></p>
+<p><a href="https://github.com/ulope/pyformat.info" target="_blank" rel="external">https://github.com/ulope/pyformat.info</a></p>
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>本文代码连接： <a href="https://github.com/Miksztowi/CorePython/blob/master/format_and_%25_/demo.py" target="_blank" rel="external">% and .format()</a></p>
+<p>如有纰漏之处，还请您不吝赐教。 </p>
+<p>Have fun :)</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;题记&quot;&gt;&lt;a href=&quot;#题记&quot; class=&quot;headerlink&quot; title=&quot;题记&quot;&gt;&lt;/a&gt;题记&lt;/h2&gt;&lt;p&gt;因为对python2x和python3x都有使用经历，所以常常对&lt;strong&gt;%&lt;/strong&gt;和&lt;strong&gt;.format()&lt;/
+    
+    </summary>
+    
+    
+      <category term="Python" scheme="http://miks.top/tags/Python/"/>
+    
+  </entry>
   
   <entry>
     <title>系统级I/O及Linux-I/O模式解释</title>
@@ -580,62 +645,6 @@
   </entry>
   
   <entry>
-    <title>检查清单 Report</title>
-    <link href="http://miks.top/2017/11/04/%E6%A3%80%E6%9F%A5%E6%B8%85%E5%8D%95/"/>
-    <id>http://miks.top/2017/11/04/检查清单/</id>
-    <published>2017-11-04T07:27:45.000Z</published>
-    <updated>2018-01-24T16:51:00.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>写代码前</p>
-<p>写代码的要思考到明确<br>做什么<br>，而不仅仅是<br>怎么做<br>。</p>
-<p>先Google,gitHub看看有没有已经成熟的思路，先找资源。</p>
-<p>把问题拆分到可以直接去思考做法的程度，画树，逐层写方法。</p>
-<p>如果要去学习新的工具，应该直接学习底层封装的API，这样再次学习类似工具时，可以降低学习成本。</p>
-<p>文件操作</p>
-<p>操作文件时候，写路径的时候要用os模块操作，千万要避免文件换了一个位置就会出错的问题。</p>
-<p>数据结构</p>
-<p>注意可变对象和不可变对象（list和dict），防止做参数时被污染。</p>
-<p>数据操作部分，先明确数据结构。能用Tuple解决的不用List，同时要注意Dict读数据是的时候是无序的。</p>
-<p>对数据集有操作，一定要用Set，并集|，交集&amp;，差集-，对称差集^（项在t或s中，但不会同时出现在二者中）</p>
-<p>检查需要</p>
-<p>先检查输入类型，用isinstance去限定所需要的数据类型。</p>
-<p>输入数据是Int，考虑变成float会怎么样。List,string,dict为空时都默认等于false。</p>
-<p>数据库的操作是否已经最少了，如果不是最少的话，尝试用Innerjoin 连接出数据，避免多次查询。</p>
-<p>用assert 来确定数据是可用的(assert A,B = if not A do B)</p>
-<p>节约资源的方法</p>
-<p>reduce，map，filter三个内置函数，返回的都是生成器。节约开销，能用时尽量用。</p>
-<p>数据库操作</p>
-<p>对数据库操作，不要再用mysql这个库，用sqlachemy，兼容2和3，同时可以用Orm来操作数据库。</p>
-<p>对数据库操作的函数，如果可以写缓存，尽量用Redis做缓存，避免Mysql的查询。</p>
-<p>尽量不要用Where这种隐形连接，用Inner Join这种显性连接。</p>
-<p>对数据库有操作，要用log记录下来，以便数据恢复使用。</p>
-<p>错误处理</p>
-<p>死循环，给第一行print，第二行continue。</p>
-<p>如果程序运行的路径，不能保证与.py文件是相同的，最好在里面open的时候使用绝对路径。 </p>
-<p>团队沟通</p>
-<p>换位思考，从对方的思路开始思考，先明白对方问题的原因。</p>
-<p>不仅要有自己的想法，还要对于想法有可行的方案。</p>
-<p>前端问题复杂的时候，后端要帮忙简化问题， 互相帮助！</p>
-<p>HTML操作</p>
-<p>w3lib.html.remove_tags()可以过滤Html标签。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;写代码前&lt;/p&gt;
-&lt;p&gt;写代码的要思考到明确&lt;br&gt;做什么&lt;br&gt;，而不仅仅是&lt;br&gt;怎么做&lt;br&gt;。&lt;/p&gt;
-&lt;p&gt;先Google,gitHub看看有没有已经成熟的思路，先找资源。&lt;/p&gt;
-&lt;p&gt;把问题拆分到可以直接去思考做法的程度，画树，逐层写方法。&lt;/p&gt;
-&lt;p&gt;如果
-    
-    </summary>
-    
-    
-      <category term="清单" scheme="http://miks.top/tags/%E6%B8%85%E5%8D%95/"/>
-    
-  </entry>
-  
-  <entry>
     <title>函数式编程 Report</title>
     <link href="http://miks.top/2017/11/04/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/"/>
     <id>http://miks.top/2017/11/04/函数式编程/</id>
@@ -688,6 +697,62 @@
       &lt;p&gt;整理一下Git分支的知识&lt;/p&gt;
 &lt;p&gt;from sqlalchemy import Column, Integer, String&lt;/p&gt;
 &lt;p&gt;class User(Base):&lt;br&gt;…&lt;br&gt;tablename&lt;br&gt; = ‘users’&lt;br&gt;…&lt;br&gt;…    
+    
+    </summary>
+    
+    
+      <category term="清单" scheme="http://miks.top/tags/%E6%B8%85%E5%8D%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>检查清单 Report</title>
+    <link href="http://miks.top/2017/11/04/%E6%A3%80%E6%9F%A5%E6%B8%85%E5%8D%95/"/>
+    <id>http://miks.top/2017/11/04/检查清单/</id>
+    <published>2017-11-04T07:27:45.000Z</published>
+    <updated>2018-01-24T16:51:00.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>写代码前</p>
+<p>写代码的要思考到明确<br>做什么<br>，而不仅仅是<br>怎么做<br>。</p>
+<p>先Google,gitHub看看有没有已经成熟的思路，先找资源。</p>
+<p>把问题拆分到可以直接去思考做法的程度，画树，逐层写方法。</p>
+<p>如果要去学习新的工具，应该直接学习底层封装的API，这样再次学习类似工具时，可以降低学习成本。</p>
+<p>文件操作</p>
+<p>操作文件时候，写路径的时候要用os模块操作，千万要避免文件换了一个位置就会出错的问题。</p>
+<p>数据结构</p>
+<p>注意可变对象和不可变对象（list和dict），防止做参数时被污染。</p>
+<p>数据操作部分，先明确数据结构。能用Tuple解决的不用List，同时要注意Dict读数据是的时候是无序的。</p>
+<p>对数据集有操作，一定要用Set，并集|，交集&amp;，差集-，对称差集^（项在t或s中，但不会同时出现在二者中）</p>
+<p>检查需要</p>
+<p>先检查输入类型，用isinstance去限定所需要的数据类型。</p>
+<p>输入数据是Int，考虑变成float会怎么样。List,string,dict为空时都默认等于false。</p>
+<p>数据库的操作是否已经最少了，如果不是最少的话，尝试用Innerjoin 连接出数据，避免多次查询。</p>
+<p>用assert 来确定数据是可用的(assert A,B = if not A do B)</p>
+<p>节约资源的方法</p>
+<p>reduce，map，filter三个内置函数，返回的都是生成器。节约开销，能用时尽量用。</p>
+<p>数据库操作</p>
+<p>对数据库操作，不要再用mysql这个库，用sqlachemy，兼容2和3，同时可以用Orm来操作数据库。</p>
+<p>对数据库操作的函数，如果可以写缓存，尽量用Redis做缓存，避免Mysql的查询。</p>
+<p>尽量不要用Where这种隐形连接，用Inner Join这种显性连接。</p>
+<p>对数据库有操作，要用log记录下来，以便数据恢复使用。</p>
+<p>错误处理</p>
+<p>死循环，给第一行print，第二行continue。</p>
+<p>如果程序运行的路径，不能保证与.py文件是相同的，最好在里面open的时候使用绝对路径。 </p>
+<p>团队沟通</p>
+<p>换位思考，从对方的思路开始思考，先明白对方问题的原因。</p>
+<p>不仅要有自己的想法，还要对于想法有可行的方案。</p>
+<p>前端问题复杂的时候，后端要帮忙简化问题， 互相帮助！</p>
+<p>HTML操作</p>
+<p>w3lib.html.remove_tags()可以过滤Html标签。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;写代码前&lt;/p&gt;
+&lt;p&gt;写代码的要思考到明确&lt;br&gt;做什么&lt;br&gt;，而不仅仅是&lt;br&gt;怎么做&lt;br&gt;。&lt;/p&gt;
+&lt;p&gt;先Google,gitHub看看有没有已经成熟的思路，先找资源。&lt;/p&gt;
+&lt;p&gt;把问题拆分到可以直接去思考做法的程度，画树，逐层写方法。&lt;/p&gt;
+&lt;p&gt;如果
     
     </summary>
     
@@ -835,28 +900,6 @@
     <summary type="html">
     
       &lt;p&gt;当天完成的工作内容&lt;br&gt;1.解析了firestonecompleteautocare这个网站的爬取规则，完成了车型的spider脚本。计划将其数据全部爬下来后再合并到已有的车型数据中。&lt;br&gt;当天的收获&lt;br&gt;1.问题： 业余时间的规划不清晰，无端的焦虑，效率也很低下。&lt;
-    
-    </summary>
-    
-    
-      <category term="daily report" scheme="http://miks.top/tags/daily-report/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>2017-08-07 Report</title>
-    <link href="http://miks.top/2017/08/07/2017-08-07/"/>
-    <id>http://miks.top/2017/08/07/2017-08-07/</id>
-    <published>2017-08-07T07:27:45.000Z</published>
-    <updated>2018-01-24T16:51:00.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>当天完成的工作内容<br>1.get features of car from edmunds<br>当天的收获<br>1.问题： 今天写代理池的时候，遇到了一个打开文件的路径问题。<br>2.反思： B是A文件的子目录，爬虫需要打开的代理文件和爬虫文件都在B中。 ——&gt; 在A中开始爬取就会有no find的问题，但是在B中爬取文件就没有问题。 –&gt; 那么既然运行的文件和目标文件都在同一个文件夹里，怎么会有这样的问题呢？ ——&gt; 用os.getcwd()做个测试，发现在A中运行B中的文件和B中直接运行得到的路径是不一样的 –&gt; 所以路径取决于运行文件的位置而不是文件所在的位置。<br>3.方法： 遇到no find file or directory的问题 ——&gt; 先检查一遍文件名的反斜杠，避免转义的问题。 –&gt; 文件名，如果使用相对路径，那么检查运行文件的位置时候是跟文件所处的路径相同。 –&gt; 如果路径不同，那么要修改文件名为运行的路径位置，或者使用绝对路径。<br>总结： 如果程序运行的路径，不能保证与.py文件是相同的，最好在里面open的时候使用绝对路径。<br>明天的计划<br>1.get tire pressure data。<br>提出疑问或寻求帮助<br>无。<br>今日翻译<br>If the base of a number exceeds 10, the additional digits use the letters of the alphabet, beginning with an A, For example, a base 12 number contains 12 digits: 0 through 9, followed by A for 10 and B for 11, Note that a base 10 number does not contain a 10 digit, just as a base 8 number does not contain an 8 digit. The most common numbering systems used with computers are decimal, binary, and hexadecimal (base 16). (Many years ago octal numbers were popular.) Each system is described and used in this section of the chapter.</p>
-<p>我的翻译<br>如果基数超过10，那么10之后的数字使用字母，从A开始。举个例子，12进制包含12个数字，0到9，之后是A表示10，B表示11。注意10进制不包括10这个数字，就好像8进制没有8。最常使用的数字系统是十进制和十六进制（许多年以前流行八进制）。每一个系统被这个部分的章节使用和描述。<br>正确翻译<br>如果基数大于10，其余数字用从A开始的字母表示，例如，以12为基的数包含12个数字，0到9，之后用A代表10，B代表11。注意，以10为基的数不包含数字10，如同以8为基的数不包括数字8一样。计算机中最通用的计数制是十进制、二进制、八进制和十六进制(基为16)。每种计数制都将在本节中进行说明和应用。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;当天完成的工作内容&lt;br&gt;1.get features of car from edmunds&lt;br&gt;当天的收获&lt;br&gt;1.问题： 今天写代理池的时候，遇到了一个打开文件的路径问题。&lt;br&gt;2.反思： B是A文件的子目录，爬虫需要打开的代理文件和爬虫文件都在B中。 ——&amp;g
     
     </summary>
     
