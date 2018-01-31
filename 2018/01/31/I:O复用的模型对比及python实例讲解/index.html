@@ -6,18 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://miks.top">
-  <title>Miks</title>
+  <title>I／O复用的模型对比及python实例讲解 | Miks</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="干斌文 电话 ： 15797687994 微信 ： binwen1997 Email： binwengan@gmail.com 博客  ： miks.top github：https://github.com/Miksztowi  开发技术 编程语言： Python(熟练),C(掌握) 编程基础： 数据结构,算法,计算机系统,HTTP,TCP/IP 后端框架： Django,Scrapy 数据库">
+  <meta name="description" content="什么是I/O复用？关于这个问题的答案，请参考我的另一篇博客系统级I/O及Linux-I/O模式解释。 I/O复用也是系统级并发的一种手段。 kqueue(), epoll(), select()对比首先它们能支持的系统并不相同。 比如在Python封装的接口中，epoll()支持Linux2.5+, kqueue()只支持大多数的BSD系统。对于Windows系统，它只支持socket。 sele">
+<meta name="keywords" content="Python,计算机网络">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Miks">
-<meta property="og:url" content="http://miks.top/2018/01/30/干斌文简历/index.html">
+<meta property="og:title" content="I／O复用的模型对比及python实例讲解">
+<meta property="og:url" content="http://miks.top/2018/01/31/I:O复用的模型对比及python实例讲解/index.html">
 <meta property="og:site_name" content="Miks">
-<meta property="og:description" content="干斌文 电话 ： 15797687994 微信 ： binwen1997 Email： binwengan@gmail.com 博客  ： miks.top github：https://github.com/Miksztowi  开发技术 编程语言： Python(熟练),C(掌握) 编程基础： 数据结构,算法,计算机系统,HTTP,TCP/IP 后端框架： Django,Scrapy 数据库">
-<meta property="og:updated_time" content="2018-01-30T09:07:43.000Z">
+<meta property="og:description" content="什么是I/O复用？关于这个问题的答案，请参考我的另一篇博客系统级I/O及Linux-I/O模式解释。 I/O复用也是系统级并发的一种手段。 kqueue(), epoll(), select()对比首先它们能支持的系统并不相同。 比如在Python封装的接口中，epoll()支持Linux2.5+, kqueue()只支持大多数的BSD系统。对于Windows系统，它只支持socket。 sele">
+<meta property="og:updated_time" content="2018-01-31T14:40:29.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Miks">
-<meta name="twitter:description" content="干斌文 电话 ： 15797687994 微信 ： binwen1997 Email： binwengan@gmail.com 博客  ： miks.top github：https://github.com/Miksztowi  开发技术 编程语言： Python(熟练),C(掌握) 编程基础： 数据结构,算法,计算机系统,HTTP,TCP/IP 后端框架： Django,Scrapy 数据库">
+<meta name="twitter:title" content="I／O复用的模型对比及python实例讲解">
+<meta name="twitter:description" content="什么是I/O复用？关于这个问题的答案，请参考我的另一篇博客系统级I/O及Linux-I/O模式解释。 I/O复用也是系统级并发的一种手段。 kqueue(), epoll(), select()对比首先它们能支持的系统并不相同。 比如在Python封装的接口中，epoll()支持Linux2.5+, kqueue()只支持大多数的BSD系统。对于Windows系统，它只支持socket。 sele">
   
     <link rel="alternative" href="/atom.xml" title="Miks" type="application/atom+xml">
   
@@ -143,55 +144,94 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-干斌文简历" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-I:O复用的模型对比及python实例讲解" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      I／O复用的模型对比及python实例讲解
+    </h1>
+  
+
+        
+        <a href="/2018/01/31/I:O复用的模型对比及python实例讲解/" class="archive-article-date">
+  	<time datetime="2018-01-31T14:38:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-01-31</time>
+</a>
+        
+      </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="干斌文"><a href="#干斌文" class="headerlink" title="干斌文"></a>干斌文</h1><ul>
-<li>电话 ： 15797687994</li>
-<li>微信 ： binwen1997</li>
-<li>Email： binwengan@gmail.com</li>
-<li>博客  ： <a href="http://miks.top/">miks.top</a></li>
-<li>github：<a href="https://github.com/Miksztowi" target="_blank" rel="external">https://github.com/Miksztowi</a></li>
+        <h2 id="什么是I-O复用？"><a href="#什么是I-O复用？" class="headerlink" title="什么是I/O复用？"></a>什么是I/O复用？</h2><p>关于这个问题的答案，请参考我的另一篇博客<a href="http://miks.top/2018/01/25/%E7%B3%BB%E7%BB%9F%E7%BA%A7I-O%E5%8F%8ALinux-I-O%E6%A8%A1%E5%BC%8F%E8%A7%A3%E9%87%8A/">系统级I/O及Linux-I/O模式解释</a>。</p>
+<p>I/O复用也是系统级并发的一种手段。</p>
+<h2 id="kqueue-epoll-select-对比"><a href="#kqueue-epoll-select-对比" class="headerlink" title="kqueue(), epoll(), select()对比"></a>kqueue(), epoll(), select()对比</h2><p>首先它们能支持的系统并不相同。</p>
+<p>比如在Python封装的接口中，epoll()支持Linux2.5+, kqueue()只支持大多数的BSD系统。对于Windows系统，它只支持socket。</p>
+<p>select()相比于epoll()：</p>
+<ul>
+<li>select()的句柄受限，而epoll()没有，它的限制是最大的打开文件句柄数目。</li>
+<li>epoll()不会随着fd的数目增长而降低效率，在select()中需要用轮询来找到就绪的fd，所以会随着fd的增加而增加查找耗时。</li>
+<li>epoll()有两个工作模式：ET(Edge Triggered)仅当状态发生变化时才会通知，epoll_wait返回。换句话，就是对于一个事件,只通知一次，且只支持非阻塞的socket。 LT(Level Triggered)类似select/poll,只要还有没有处理的事情就会一直通知，以LT方式调用epoll接口的时候，它就相当于一个速度比较poll。支持阻塞和不阻塞的socket。</li>
 </ul>
-<h3 id="开发技术"><a href="#开发技术" class="headerlink" title="开发技术"></a>开发技术</h3><ul>
-<li>编程语言： Python(熟练),C(掌握)</li>
-<li>编程基础： 数据结构,算法,计算机系统,HTTP,TCP/IP</li>
-<li>后端框架： Django,Scrapy</li>
-<li>数据库  ： Mysql,Redis,Mongodb</li>
-<li>日常工具：Git,Docker,Postman</li>
-<li>外语: 英语（流利阅读英文文档）</li>
+<p>epoll()相比于kqueue():</p>
+<ul>
+<li>性能方面，epoll设计有一个弱点，它不支持在单个系统中设置多个事件，当有100个文件描述符来注册事件时，需要进行一百次的epoll.register().相对于kqueue()来说，可以在单个kevent中注册多个事件。</li>
+<li>非文件的支持，epoll()的使用范围有限。它旨在提高select()/poll()的性能，但是除此之外，epoll只能用于文件描述符。我们时常说“在Unix中，一切都是文件”，这是真实的，但并非总是如此，例如，定时器不是文件，信号不是文件，进程不是文件，网络设备不是文件，此时不能用select()/poll()来对这些事物进行I/O复用。典型的网络服务器除了套接字外，还管理各种类型的资源。你可能想用一个统一的界面监视它们，但是你不能。为了解决这个问题，Linux支持很多补充的系统调用，比如signalfd()，eventfd()和timerfd<em> create(), 它们将非文件资源转换为文件描述符，以便将它们与epoll()复用。而在kqueue()中，通用的kevent支持各种非文件类型描述符。例如，你的应用程序可以在子进程退出时获取通知(filter = EVFILT</em> PROC，ident = pid和fflags = NOTE_ EXIT）。即使当前内核版本不支持某些资源或事件类型，这些资源或事件类型也会在未来的内核版本中进行扩展，而不会对API进行任何更改。</li>
 </ul>
-<h3 id="实习及工作经验"><a href="#实习及工作经验" class="headerlink" title="实习及工作经验"></a>实习及工作经验</h3><ul>
-<li><strong>上海能塔智能科技有限公司</strong>(Python后端实习)       <strong>2017年7月-2017年9月</strong><ul>
-<li>基于<strong>Django</strong>开发的Amazon Review Insight系统<ul>
-<li>用TextRank算法处理从Amazon上抓取下来的评论数据，生成该商品的关键字标签。</li>
-<li>根据Amazon提供的API，开发了特定目录下所有子商品的详细数据抓取功能，将数据处理后，通过Echarts进行可视化展示。</li>
+<h2 id="Python演示"><a href="#Python演示" class="headerlink" title="Python演示"></a>Python演示</h2><p>  基本思路生成socket，绑定IP端口，listen后使用select或者kqueue管理链接是否可以读写操作。获得链接后，等待客户端输入，将从客户端收到的数据原样返回给客户端。实现基本的回显操作。  </p>
+<h4 id="select-函数：select-select-rlist-wlist-xlist-timeout"><a href="#select-函数：select-select-rlist-wlist-xlist-timeout" class="headerlink" title="select()函数：select.select(rlist, wlist, xlist[, timeout])"></a>select()函数：select.select(rlist, wlist, xlist[, timeout])</h4><ul>
+<li>rlist: 等待准备好的可读fds, wlist: 等待准备好可写的fds, xlist: 异常的fds。</li>
+<li>如果没有设置timeout参数，那么函数会一直阻塞到至少有一个准备就绪的fd。如果timeout设置且为0，则表明不会进行阻塞。</li>
+<li>返回的值是一个三元列表，里面存放的是已经就绪的fd，但是如果当timeout超时后，会返回空列表。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line">def select_mode():</div><div class="line">    server = socket_server.server_start()</div><div class="line">    BUFFER_SIZE = 1024</div><div class="line">    inputs = [server, sys.stdin]</div><div class="line">    running = True</div><div class="line">    while running:</div><div class="line">        try:</div><div class="line">            readable, writeable, exceptional = select.select(inputs, [], [])  # 等待至少一个准备就绪的fd.</div><div class="line">        except select.error as e:</div><div class="line">            break</div><div class="line"></div><div class="line">        for each in readable:</div><div class="line">            # 如果是server，则accept创建链接，并将链接的描述符放入到inputs进行select监听</div><div class="line">            if each == server:</div><div class="line">                conn, addr = server.accept()</div><div class="line">                inputs.append(conn)</div><div class="line">            # 如果是系统输入，则获取系统输入，停止程序</div><div class="line">            elif each == sys.stdin:</div><div class="line">                junk = sys.stdin.readline()</div><div class="line">                running = False</div><div class="line">            # 如果是其它的，则为socket链接，读取链接数据，并返回读取到的数据。</div><div class="line">            else:</div><div class="line">                try:</div><div class="line">                    data = each.recv(BUFFER_SIZE)</div><div class="line">                    if data:</div><div class="line">                        each.send(data)</div><div class="line">                        print(data)</div><div class="line">                        if str(data).endswith(&apos;\r\n\r\n&apos;):</div><div class="line">                            inputs.remove(each)</div><div class="line">                            each.close()</div><div class="line">                    else:</div><div class="line">                        inputs.remove(each)</div><div class="line">                        each.close()</div><div class="line">                except socket.error as e:</div><div class="line">                    inputs.remove(each)</div><div class="line">    server.close()</div></pre></td></tr></table></figure>
+<h4 id="epoll-函数：-select-epoll-sizehint-1-flags-0"><a href="#epoll-函数：-select-epoll-sizehint-1-flags-0" class="headerlink" title="epoll()函数： select.epoll(sizehint=-1, flags=0)"></a>epoll()函数： select.epoll(sizehint=-1, flags=0)</h4><ul>
+<li>epoll()支持用with来进行上下文的管理。</li>
+<li>仅支持Linux2.5.44之后的版本。</li>
+<li>返回轮询对象，供后续边缘触发模式(ET)或者水平触发模式(LT)使用。</li>
+<li>epoll.close() 关闭epoll控制的fd。</li>
+<li>epoll.closed 当epoll关闭后，为True。</li>
+<li>epoll.fileno() 返回控制的fds数量。</li>
+<li>epoll.fromfd(fd) 从给予的fd，创建一个epoll对象。</li>
+<li>epoll.register(fd[, eventmask]) 给epoll对象注册一个fd。</li>
+<li>epoll.modify(fd, eventmask) 修改epoll对象已经注册的一个fd.</li>
+<li>epoll.unregister(fd) 将epoll对象中已经注册的某个fd移除。</li>
+<li>epoll.poll(timeout=-1, maxevents=-1) 在timeout时间内等待事件。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">def epoll_mode():</div><div class="line">    server = socket_server.server_start()</div><div class="line">    running = True</div><div class="line">    BUFFER_SIZE = 1024</div><div class="line">    epoll = select.epoll()</div><div class="line">    epoll.register(server.fileno(), select.EPOLLIN)</div><div class="line">    conn_list = &#123;&#125;</div><div class="line"></div><div class="line">    while True:</div><div class="line">        try:</div><div class="line">            events = epoll.poll(1)</div><div class="line">        except:</div><div class="line">            break</div><div class="line"></div><div class="line">        if events:</div><div class="line">            for fileno, event in events:</div><div class="line">                # 如果是新链接，则accept，并将新链接注册到epoll中</div><div class="line">                if fileno == server.fileno():</div><div class="line">                    conn, addr = server.accept()</div><div class="line">                    conn.setblocking(False)</div><div class="line">                    epoll.register(conn.fileno(), select.EPOLLIN)</div><div class="line">                    conn_list[conn.fileno()] = conn</div><div class="line">                # 如果是其他的可读链接，则获取到链接，recv数据，如果是\n， 则close，并从epoll中unregister掉这个文件描述符</div><div class="line">                elif event == select.EPOLLIN:</div><div class="line">                    data = conn_list[fileno].recv(BUFFER_SIZE)</div><div class="line">                    if data.startwith(&apos;\n&apos;):</div><div class="line">                        conn_list[fileno].close()</div><div class="line">                        epoll.unregister(fileno)</div><div class="line">                        del conn_list[fileno]</div><div class="line">                    else:</div><div class="line">                        conn_list[fileno].send(data)</div><div class="line"></div><div class="line">    server.close()</div></pre></td></tr></table></figure>
+<h4 id="kqueue-函数：-select-kqueue"><a href="#kqueue-函数：-select-kqueue" class="headerlink" title="kqueue()函数： select.kqueue()"></a>kqueue()函数： select.kqueue()</h4><ul>
+<li>仅支持BSD系统。</li>
+<li>返回kernel queue 对象。     </li>
+<li>kqueue.close(), kqueue.fileno(), kqueue.fromfd(fd), kqueue.closed都跟epoll()的相同，这里不再赘述。</li>
+<li>kqueue.control(changelist, max_events[, timeout=None]) → eventlist<ol>
+<li>changelist必须是由kevent组成的iterable对象或者是None。</li>
+<li>max_events必须为0，或者是一个正数值。</li>
+</ol>
+</li>
+<li>select.kevent(ident, filter=KQ_FILTER_READ, flags=KQ_EV_ADD, fflags=0, data=0, udata=0) 返回kernel kevent对象。<ul>
+<li>kevent.ident 值用来区别事件</li>
+<li>kevent.data 过滤特定的数据</li>
+<li>kevent.udata 用户指定的数据</li>
 </ul>
 </li>
 </ul>
-</li>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div></pre></td><td class="code"><pre><div class="line">def kqueue_mode():</div><div class="line">    running = True</div><div class="line">    BUFFER_SIZE = 1024</div><div class="line">    kq = select.kqueue()</div><div class="line">    conn_list = &#123;&#125;</div><div class="line">    index = 1</div><div class="line">    server = socket_server.server_start()</div><div class="line"></div><div class="line">    events = [</div><div class="line">        select.kevent(server.fileno(), select.KQ_FILTER_READ, select.KQ_EV_ADD)</div><div class="line">    ]</div><div class="line"></div><div class="line">    while running:</div><div class="line">        try:</div><div class="line">            # 开始kqueue，如果有可执行kevent，则返回对应的kevent列表</div><div class="line">            eventlist = kq.control(events, 1)</div><div class="line">        except select.error as e:</div><div class="line">            break</div><div class="line"></div><div class="line">        if eventlist:</div><div class="line">            for each in eventlist:</div><div class="line">                # 如果是socket链接，则accept，将conn创建kevent放入到events进行监听，将链接放入到conn_list进行保存，key为index。</div><div class="line">                if each.ident == server.fileno():</div><div class="line">                    conn, addr = server.accept()</div><div class="line">                    conn_list[index] = conn</div><div class="line">                    events.append(</div><div class="line">                        select.kevent(conn_list[index].fileno(), select.KQ_FILTER_READ, select.KQ_EV_ADD, udata=index)</div><div class="line">                    )</div><div class="line">                    index += 1</div><div class="line"></div><div class="line">                else:</div><div class="line">                    try:</div><div class="line">                        if each.udata &gt;= 1 and each.flags == select.KQ_EV_ADD and each.filter == select.KQ_FILTER_READ:</div><div class="line"></div><div class="line">                            conn = conn_list[each.udata]</div><div class="line">                            data = conn.recv(BUFFER_SIZE)</div><div class="line">                            if str(data).startswith(&apos;\n&apos;):</div><div class="line">                                conn.close()</div><div class="line">                                events.remove(select.kevent(conn_list[each.udata].fileno(), select.KQ_FILTER_READ,</div><div class="line">                                                            select.KQ_EV_ADD, udata=each.udata))</div><div class="line">                                del conn_list[each.udata]</div><div class="line">                            else:</div><div class="line">                                conn.send(data)</div><div class="line">                                print(data)</div><div class="line"></div><div class="line">                    except Exception as e:</div><div class="line">                        print(e)</div><div class="line"></div><div class="line">    server.close()</div></pre></td></tr></table></figure>
+<h2 id="I-O多路复用技术的优劣"><a href="#I-O多路复用技术的优劣" class="headerlink" title="I/O多路复用技术的优劣"></a>I/O多路复用技术的优劣</h2><p>正如我们所知道的，系统级并发的手段除了I/O复用以外，还有进程与线程。那么对I/O对比它们，又有什么优劣呢？</p>
+<p>优点：</p>
+<ul>
+<li>它比基于进程的设计给了程序员更多的对程序行为的控制。例如，我们可以设想编写一个事件驱动的并发服务器，为某些客户端提供它们需要的服务，而对于基于进程的并发服务器来说，是很困难的。</li>
+<li>基于I/O多路复用的事件驱动服务器是运行在单一进程上下文中的，因此每个逻辑流都能访问该进程的全部地址空间。这使得在流之间共享数据变得很容易。</li>
+<li>事件驱动设计常常比基于进程的设计要高效的多，因为它不需要进程上下文切换来调度新的流。</li>
 </ul>
-<h3 id="个人项目"><a href="#个人项目" class="headerlink" title="个人项目"></a>个人项目</h3><ul>
-<li>用<strong>Scrapy</strong>开发的电商网站数据抓取系统       <strong>2017年4月-2017年6月</strong>  <ul>
-<li>将商品url通过SHA1加密后的序列，存到redis中，作为系统的任务队列，实现了去重爬取。</li>
-<li>用Selenium+Phamtomjs来绕过某些特定的反爬页面。</li>
-<li>将爬虫服务器采集的商品数据以及评论数据，存放到mongodb中。</li>
+<p>缺点：</p>
+<ul>
+<li>编码复杂，并且随着并发粒度的减小，复杂性会继续上升。</li>
+<li>不能充分利用多核处理器。</li>
 </ul>
-</li>
-</ul>
-<h3 id="教育背景"><a href="#教育背景" class="headerlink" title="教育背景"></a>教育背景</h3><ul>
-<li><strong>工学学士</strong>：江西农业大学／软件学院／软件工程专业        <strong>2015年9月-2019年7月</strong><ul>
-<li><strong>专业排名</strong>: 5%</li>
-</ul>
-</li>
-<li>CET-4</li>
-</ul>
-<h3 id="职位期望"><a href="#职位期望" class="headerlink" title="职位期望"></a>职位期望</h3><ul>
-<li>期望地点：深圳／杭州／北京／上海</li>
-<li>期望职位：后端实习生／爬虫实习生</li>
-</ul>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://www.cnblogs.com/linganxiong/p/5583415.html" target="_blank" rel="external">IO模型及select、poll、epoll和kqueue的区别</a> </p>
+<p><a href="http://people.eecs.berkeley.edu/~sangjin/2012/12/21/epoll-vs-kqueue.html" target="_blank" rel="external">Scalable Event Multiplexing: epoll vs. kqueue</a></p>
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>希望你能带着批判的眼光思考本文，如有纰漏，请不吝赐教。</p>
 
       
 
@@ -200,6 +240,17 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Python,计算机网络</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -250,7 +301,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://miks.top/2018/01/30/干斌文简历/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://miks.top/2018/01/31/I:O复用的模型对比及python实例讲解/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -264,18 +315,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2018/01/31/I／O复用的模型对比及python实例讲解/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          I／O复用的模型对比及python实例讲解
-        
-      </div>
-    </a>
   
-  
-    <a href="/2018/01/30/什么是I-O复用？/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title"></div>
+    <a href="/2018/01/29/python格式化的案例解释/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">%_and_format()案例解释</div>
       <i class="icon-circle-right"></i>
     </a>
   
