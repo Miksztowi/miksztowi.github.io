@@ -141,6 +141,298 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Python-Function-Decorators-and-Closures介绍" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/11/29/Python-Function-Decorators-and-Closures介绍/">Python Function Decorators and Closures介绍</a>
+    </h1>
+  
+
+        
+        <a href="/2017/11/29/Python-Function-Decorators-and-Closures介绍/" class="archive-article-date">
+  	<time datetime="2017-11-29T08:17:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-29</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Preface"><a href="#Preface" class="headerlink" title="Preface"></a>Preface</h2><p>本文尽量用最简单，清晰的文字来介绍python的闭包与装饰器。希望你可以静下心来跟我一同思考这个tricky mechanism. <strong>注意</strong>本文只讲解了函数装饰器，如果你想了解类装饰器，请不要继续阅读。</p>
+<h2 id="How-Python-evaluates-decorator-syntax"><a href="#How-Python-evaluates-decorator-syntax" class="headerlink" title="How Python evaluates decorator syntax?"></a>How Python evaluates decorator syntax?</h2><p>Python对装饰器的使用了语法糖，如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">@decorate</div><div class="line">def target():</div><div class="line">    print(&apos;Running target()&apos;)</div><div class="line"></div><div class="line">def target():</div><div class="line">    print(&apos;Running target()&apos;)</div><div class="line">target = decorate(target)</div></pre></td></tr></table></figure>
+<p>二者的结果是相等的，但被装饰器注册后可以不必再引用原始的target对象，所以返回对象是由decorate(target)来决定的。</p>
+<h2 id="When-Python-executes-decorators"><a href="#When-Python-executes-decorators" class="headerlink" title="When Python executes decorators?"></a>When Python executes decorators?</h2><p>首先明确import time和run time这两个概念，前者是模块被导入的时刻，后者是指模块内程序运行的时刻。<br>装饰器是在import time被执行的，我们来看一个例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">registry = []</div><div class="line">def register(func):</div><div class="line">    print(&apos;running register(%s)&apos; % func)</div><div class="line">    registry.append(func)</div><div class="line">    return func</div><div class="line"></div><div class="line">@register</div><div class="line">def f1():</div><div class="line">    print(&apos;Running f1()&apos;)</div><div class="line"></div><div class="line">@register</div><div class="line">def f2():</div><div class="line">    print(&apos;Running f2()&apos;)</div><div class="line"></div><div class="line">def main():</div><div class="line">    print(&apos;running main&apos;)</div><div class="line">    print(&apos;registry -&gt;&apos;, registry)</div><div class="line">    f1()</div><div class="line">    f2()</div><div class="line">if __name__ == &apos;__main__&apos;:</div><div class="line">    main()</div><div class="line">------------------------------------------------------------------------    </div><div class="line">running register(&lt;function f1 at 0x100c70158&gt;)</div><div class="line">running register(&lt;function f2 at 0x100c701e0&gt;)</div><div class="line">running main</div><div class="line">registry -&gt; [&lt;function f1 at 0x100c70158&gt;, &lt;function f2 at 0x100c701e0&gt;]</div><div class="line">Running f1()</div><div class="line">Running f2()</div></pre></td></tr></table></figure>
+<p>通过打印我们可以看到，在main()调用之前，装饰器已经完成了注册。</p>
+<h2 id="How-Python-decides-whether-a-variable-is-local"><a href="#How-Python-decides-whether-a-variable-is-local" class="headerlink" title="How Python decides whether a variable is local?"></a>How Python decides whether a variable is local?</h2><p><strong>Variable scope rules</strong>这个概念非常重要，介绍这个概念前，我们先看两个非常有代表性的例子。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div></pre></td><td class="code"><pre><div class="line">def f1(a):</div><div class="line">    print(a)</div><div class="line">    print(b)</div><div class="line"></div><div class="line">f1(3)</div><div class="line">3</div><div class="line">NameError: name &apos;b&apos; is not defined</div><div class="line">b = 6</div><div class="line">f1(3)</div><div class="line">3</div><div class="line">6</div><div class="line"></div><div class="line">接下来的例子可能会让你很困惑，不过没关系，我会在后面解释清楚。</div><div class="line">def f2(a):</div><div class="line">    print(a)</div><div class="line">    print(b)</div><div class="line">    b = 9</div><div class="line">f2(3)</div><div class="line">3</div><div class="line">UnboundLocalError: local variable &apos;b&apos; referenced before assignment</div><div class="line">希望你可以先思考一下为什么没有打印出6。</div><div class="line">事实上Python在编译函数体时，因为有赋值操作，所以将b定义为local变量，而不是global变量，</div><div class="line">print()时发现b还未被赋值，所以抛出了错误。</div><div class="line">我们再通过字节码来确认一下是不是这样。</div><div class="line"></div><div class="line">print(dis.dis(f1))</div><div class="line">  5           0 LOAD_GLOBAL              0 (print)</div><div class="line">              3 LOAD_FAST                0 (a)</div><div class="line">              6 CALL_FUNCTION            1 (1 positional, 0 keyword pair)</div><div class="line">              9 POP_TOP</div><div class="line"></div><div class="line">  6          10 LOAD_GLOBAL              0 (print)</div><div class="line">             13 LOAD_GLOBAL              1 (b)</div><div class="line">             16 CALL_FUNCTION            1 (1 positional, 0 keyword pair)</div><div class="line">             19 POP_TOP</div><div class="line">             20 LOAD_CONST               0 (None)</div><div class="line">             23 RETURN_VALUE</div><div class="line"></div><div class="line">print(dis.dis(f2))</div><div class="line">  9           0 LOAD_GLOBAL              0 (print)</div><div class="line">              3 LOAD_FAST                0 (a)</div><div class="line">              6 CALL_FUNCTION            1 (1 positional, 0 keyword pair)</div><div class="line">              9 POP_TOP</div><div class="line"></div><div class="line"> 10          10 LOAD_GLOBAL              0 (print)</div><div class="line">             13 LOAD_FAST                1 (b)</div><div class="line">             16 CALL_FUNCTION            1 (1 positional, 0 keyword pair)</div><div class="line">             19 POP_TOP</div><div class="line"></div><div class="line"> 11          20 LOAD_CONST               1 (9)</div><div class="line">             23 STORE_FAST               1 (b)</div><div class="line">             26 LOAD_CONST               0 (None)</div><div class="line">对比一下。我们可以看到在f2里是LOAD_FAST，这也证明了我们的观点：b被当作了local变量。</div></pre></td></tr></table></figure>
+<p>如果你明白了作用域的规则，那么恭喜你，我们可以开始学习闭包的概念了；如果没有明白，我希望你能回头再理解一下，因为明白作用域的规则是非常重要的。</p>
+<h2 id="Why-closures-exist-and-how-they-work"><a href="#Why-closures-exist-and-how-they-work" class="headerlink" title="Why closures exist and how they work?"></a>Why closures exist and how they work?</h2><p><strong>闭包</strong>，老样子，我们还是先思考一个例子。<br>假设你现在需要一个函数去计算，某股票未来三天的均价，每天都会插入一个新的价格，同时我们也要保存之前的价格以便后续的计算。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">它的实现结果看起来应该是这样的</div><div class="line">avg(10)</div><div class="line">10.0</div><div class="line">avg(11)</div><div class="line">10.5</div><div class="line">avg(12)</div><div class="line">11.0</div><div class="line"></div><div class="line">如果你已经思考过怎么实现这个函数了，那么继续往下看吧。</div><div class="line"></div><div class="line">def make_averager():</div><div class="line">    series = []</div><div class="line"></div><div class="line">    def averager(new_value):</div><div class="line">        series.append(new_value)</div><div class="line">        total = sum(series)</div><div class="line">        return total / len(series)</div><div class="line"></div><div class="line">    return averager</div><div class="line"></div><div class="line">avg = make_averager()</div><div class="line">print(avg(10))</div><div class="line">print(avg(11))</div><div class="line">print(avg(12))</div></pre></td></tr></table></figure>
+<p>我们通过series这个变量来记录每一天的价格，并用它来计算均值。但是要注意series是<br>make_averager的本地变量，我们在创建avg = make _averager()已经初始化了series，<br>并且在后续的调用时make _averager的local作用域已经结束了。那么是python如何series的呢？</p>
+<p>python里有个概念是<strong>free variable</strong>，而avarager里的series就是<strong>free variable</strong>.我们可以打印出来看看是不是这样。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">    print(avg.__code__.co_varnames)</div><div class="line">    print(avg.__code__.co_freevars)</div><div class="line">    print(avg.__closure__[0].cell_contents)</div><div class="line">(&apos;new_value&apos;, &apos;total&apos;)</div><div class="line">(&apos;series&apos;,)</div><div class="line">[10, 11, 12]</div></pre></td></tr></table></figure>
+<p>可以看到，确实存在<strong>free variable</strong>这个属性，并且值是series.</p>
+<p><strong>总结一下</strong><br>闭包保存了函数在绑定时local作用域的对象，并将其保存为自由变量。所以尽管被绑定的函数local作用域不再可用，但是自由变量是仍然可以使用的。</p>
+<h2 id="What-problem-is-solved-by-nonlocal"><a href="#What-problem-is-solved-by-nonlocal" class="headerlink" title="What problem is solved by nonlocal?"></a>What problem is solved by nonlocal?</h2><p>爱思考的你，想必已经发现了，之前我们实现的averager其实并不高效，因为我们要耗费空间去保存每一天的价格，并且每次都要调用sum()去计算总价。ok，既然我们已经发现了问题所在，那么一起来优化一下averager吧。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">def make_averager():</div><div class="line">    count = 0</div><div class="line">    total = 0</div><div class="line">    def averager(new_value):</div><div class="line">        total += new_value</div><div class="line">        count += 1</div><div class="line">        return total / count</div><div class="line">    return averager</div><div class="line"></div><div class="line">if __name__ == &apos;__main__&apos;:</div><div class="line">    avg = make_averager()</div><div class="line">    avg(10)    </div><div class="line">&gt;&gt;&gt; UnboundLocalError: local variable &apos;total&apos; referenced before assignment</div><div class="line"></div><div class="line">因为 total += new_value 相当于 total = total + new_value, 执行了赋值操作，</div><div class="line">根据上面介绍的作用域规则，我们很快能想到，因为赋值操作导致了total变成了local变量</div><div class="line">而不再是自由变量了。而前一个版本的实现，由于我们没有对series进行赋值操作，所以series</div><div class="line">一直是avg的自由变量。</div></pre></td></tr></table></figure>
+<p>所有的不可变类型变量，对其操作都会将其作为local变量进行重新绑定。因此变量不能保存在闭包里，后续如果对其操作，就会导致错误的发生。而python3.x中增加了nonlocal操作，可以很好的解决这个问题。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">def make_averager():</div><div class="line">    count = 0</div><div class="line">    total = 0</div><div class="line">    def averager(new_value):</div><div class="line">        nonlocal total, count</div><div class="line">        total += new_value</div><div class="line">        count += 1</div><div class="line">        return total / count</div><div class="line">    return averager</div><div class="line">avg = make_averager()</div><div class="line">print(avg(10))</div><div class="line">print(avg(11))</div><div class="line">print(avg(12))</div><div class="line"></div><div class="line">10.0</div><div class="line">10.5</div><div class="line">11.0</div></pre></td></tr></table></figure>
+<h2 id="Implementing-a-simple-decorator"><a href="#Implementing-a-simple-decorator" class="headerlink" title="Implementing a simple decorator"></a>Implementing a simple decorator</h2><p>通过上面概念的学习，我们可以开始实现一个简单的函数装饰器了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div></pre></td><td class="code"><pre><div class="line">import time</div><div class="line"></div><div class="line">def clock(func):</div><div class="line">    series = []</div><div class="line">    def clocked(*args):</div><div class="line">        t0 = time.perf_counter()</div><div class="line">        series.append(func)</div><div class="line">        _result = func(*args)</div><div class="line">        elapsed = time.perf_counter() - t0</div><div class="line">        name = func.__name__</div><div class="line">        arg_str = &apos;,&apos;.join(repr(arg) for arg in args)</div><div class="line">        print(&apos;[%0.8fs] %s (%s) -&gt; %r &apos; % (elapsed, name, arg_str, _result))</div><div class="line">        return _result</div><div class="line">    return clocked</div><div class="line"></div><div class="line">@clock</div><div class="line">def snooze(seconds):</div><div class="line">    time.sleep(seconds)</div><div class="line"></div><div class="line">print(&apos;*&apos; * 40, &apos;Calling snooze(0.123)&apos;)</div><div class="line">snooze(.123)</div><div class="line"></div><div class="line">&gt;&gt;&gt;**************************************** Calling snooze(0.123)</div><div class="line">&gt;&gt;&gt;[0.12566963s] snooze (0.123) -&gt; None</div><div class="line"></div><div class="line">print(snooze.__name__)</div><div class="line">clocked</div><div class="line"></div><div class="line">如果你想要消除对__name__和__doc__的影响，可以使用@functools.wraps()</div><div class="line"></div><div class="line">def clock(func):</div><div class="line">    series = []</div><div class="line">    @functools.wraps(func)</div><div class="line">    def clocked(*args):</div><div class="line">        t0 = time.perf_counter()</div><div class="line">        series.append(func)</div><div class="line">        _result = func(*args)</div><div class="line">        elapsed = time.perf_counter() - t0</div><div class="line">        name = func.__name__</div><div class="line">        arg_str = &apos;,&apos;.join(repr(arg) for arg in args)</div><div class="line">        print(&apos;[%0.8fs] %s (%s) -&gt; %r &apos; % (elapsed, name, arg_str, _result))</div><div class="line">        return _result</div><div class="line"></div><div class="line">    return clocked</div><div class="line">像上面这样的使用，就能消除装饰器的影响了。</div></pre></td></tr></table></figure>
+<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p>感谢阅读，希望你能从这篇文章中有所收获。<br>如果想要进一步的阅读，可以去探索内置的lru_cache和singledispatch装饰器的内部实现。</p>
+<p>本文的代码链接：<a href="https://github.com/Miksztowi/CorePython/tree/master/Fluent_Python_demo/Function_decorators" target="_blank" rel="external">https://github.com/Miksztowi/CorePython/tree/master/Fluent_Python_demo/Function_decorators</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/11/29/Python-Function-Decorators-and-Closures介绍/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Python内置模块bisect介绍" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/11/20/Python内置模块bisect介绍/">Python内置模块bisect介绍</a>
+    </h1>
+  
+
+        
+        <a href="/2017/11/20/Python内置模块bisect介绍/" class="archive-article-date">
+  	<time datetime="2017-11-20T06:33:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-20</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在Leetcode Weekly Contest 59上有一道题，需要在插入时保持序列顺序，从而我去了解了Python内置的<strong>bisect</strong>模块.    </p>
+<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>对于bisect，官网的解释是：</p>
+<p>This module provides support for maintaining a list in sorted order without having to sort the list after each insertion. For long lists of items with expensive comparison operations, this can be an improvement over the more common approach. The module is called bisect because it uses a basic bisection algorithm to do its work. The source code may be most useful as a working example of the algorithm (the boundary conditions are already right!).</p>
+<p>大意是说：模块提供了对列表顺序的维护，无需每次插入后对列表排序。使用了基础的二分算法，对操作大数量的列表，可以显著的减少比较操作的次数。</p>
+<h2 id="模块内提供的函数"><a href="#模块内提供的函数" class="headerlink" title="模块内提供的函数"></a>模块内提供的函数</h2><h4 id="查找："><a href="#查找：" class="headerlink" title="查找："></a>查找：</h4><p><code>bisect.bisect_left(a, x, lo=0, hi=len(a))</code></p>
+<p>a是需要操作的对象，x是需要查找的目标，lo和hi会切割数组，使<code>all(val &lt; x for val in a[lo:i])</code> 在左侧， <code>all(val &gt;= x for val in a[i:hi])</code> 在右侧。返回值为可插入的第一个位置(有相同的item).</p>
+<p><code>bisect.bisect_right(a, x, lo=0, hi=len(a))</code></p>
+<p><code>bisect.bisect(a, x, lo=0, hi=len(a))</code></p>
+<p>这两个函数相同，且与bisect.bisect_left操作类似。区别在于，返回值为可插入的最后一个位置。即<code>all(val &lt;= x for val in a[lo:i])</code> 在左侧 <code>all(val &gt; x for val in a[i:hi])</code> 在右侧。</p>
+<h4 id="插入："><a href="#插入：" class="headerlink" title="插入："></a>插入：</h4><p><code>bisect.insort_left(a, x, lo=0, hi=len(a))</code></p>
+<p>函数相当于a.insert(bisect.bisect_left(a, x, lo=0, hi=len(a)), x). 其中list.insert()的时间复杂度为O(n),查找的时间复杂度为O(logn).</p>
+<p><code>bisect.insort_right(a, x, lo=0, hi=len(a))</code></p>
+<p><code>bisect.insort(a, x, lo=0, hi=len(a))</code></p>
+<h2 id="事例讲解"><a href="#事例讲解" class="headerlink" title="事例讲解"></a>事例讲解</h2><p>用一个排序后的lists查找案例来练习一下吧。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line">def index(a, x):</div><div class="line">    &apos;Locate the leftmost value exactly equal to x&apos;</div><div class="line">    i = bisect.bisect_left(a, x)</div><div class="line">    if i != len(a) and a[i] == x:</div><div class="line">        return i</div><div class="line">    raise ValueError</div><div class="line"></div><div class="line"></div><div class="line">def find_lt(a, x):</div><div class="line">    &apos;Find rightmost value less than x&apos;</div><div class="line">    i = bisect.bisect_left(a, x)</div><div class="line">    if i:</div><div class="line">        return a[i - 1]</div><div class="line">    raise ValueError</div><div class="line"></div><div class="line"></div><div class="line">def find_le(a, x):</div><div class="line">    &apos;Find rightmost value less than or equal to x&apos;</div><div class="line">    i = bisect.bisect_right(a, x)</div><div class="line">    if i:</div><div class="line">        return a[i - 1]</div><div class="line">    raise ValueError</div><div class="line"></div><div class="line"></div><div class="line">def find_gt(a, x):</div><div class="line">    &apos;Find leftmost value greater than x&apos;</div><div class="line">    i = bisect.bisect_right(a, x)</div><div class="line">    if i != len(a):</div><div class="line">        return a[i]</div><div class="line">    raise ValueError</div><div class="line"></div><div class="line"></div><div class="line">def find_ge(a, x):</div><div class="line">    &apos;Find leftmost item greater than or equal to x&apos;</div><div class="line">    i = bisect.bisect_left(a, x)</div><div class="line">    if i != len(a):</div><div class="line">        return a[i]</div><div class="line">    raise ValueError</div></pre></td></tr></table></figure>
+<h2 id="进入正题"><a href="#进入正题" class="headerlink" title="进入正题"></a>进入正题</h2><p>最后leetcode的题目是：</p>
+<p>Implement a MyCalendar class to store your events.<br>A new event can be added if adding the event will not cause a double booking.<br>Your class will have the method, book(int start, int end).<br>Formally, this represents a booking on the half open interval [start, end),<br>the range of real numbers x such that start &lt;= x &lt; end.<br>A double booking happens when two events have some non-empty intersection<br>(ie., there is some time that is common to both events.)<br>For each call to the method MyCalendar.book,<br>return true if the event can be added to the calendar successfully without causing a double booking. Otherwise,<br>return false and do not add the event to the calendar.<br>Your class will be called like this: MyCalendar cal = new MyCalendar(); MyCalendar.book(start, end)</p>
+<p>代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">import bisect</div><div class="line"></div><div class="line"></div><div class="line">class MyCalendar(object):</div><div class="line">    def __init__(self):</div><div class="line">        self.calendar = []</div><div class="line">        self._start_sorted = []</div><div class="line"></div><div class="line">    def book(self, start, end):</div><div class="line">        &quot;&quot;&quot;</div><div class="line">        :type start: int</div><div class="line">        :type end: int</div><div class="line">        :rtype: bool</div><div class="line">        &quot;&quot;&quot;</div><div class="line">        if not self.calendar:</div><div class="line">            self.calendar += (start, end),</div><div class="line">            self._start_sorted += start,</div><div class="line">            return True</div><div class="line">        floor_index = bisect.bisect_left(self._start_sorted, start)</div><div class="line">        if floor_index and self.calendar[floor_index - 1][1] &gt; start:</div><div class="line">                return False</div><div class="line"></div><div class="line">        ceiling_index = bisect.bisect_right(self._start_sorted, start)</div><div class="line">        if self.calendar[ceiling_index - 1][0] == start and self.calendar[ceiling_index - 1][0] &lt; end:</div><div class="line">                return False</div><div class="line">        elif ceiling_index != len(self.calendar) and self.calendar[ceiling_index][0] &lt; end:</div><div class="line">                return False</div><div class="line"></div><div class="line">        self.calendar.insert(floor_index, (start, end))</div><div class="line">        self._start_sorted.insert(floor_index, start)</div><div class="line">        return True</div></pre></td></tr></table></figure>
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>详细的代码和用例：<br><a href="https://github.com/Miksztowi/CorePython/blob/master/bisect_demo.py" target="_blank" rel="external">https://github.com/Miksztowi/CorePython/blob/master/bisect_demo.py</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/11/20/Python内置模块bisect介绍/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-联合-查找算法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/11/06/联合-查找算法/">联合-查找算法</a>
+    </h1>
+  
+
+        
+        <a href="/2017/11/06/联合-查找算法/" class="archive-article-date">
+  	<time datetime="2017-11-06T05:26:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-06</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>介绍这个算法前，先梳理一些相关词组的概念：</p>
+<p><strong>并查集</strong>： 并查集是一种树型的数据结构，用于处理一些不想交集合的合并以及查询问题.</p>
+<p><strong>Find(node)函数</strong>： 确定元素属于哪一个子集.它可以用来确定两个元素是否属于同一个子集.</p>
+<p><strong>Union(node_a, node_b)函数</strong>： 将两个子集合并成同一个集合.</p>
+<p><strong>并查集森林</strong>： 并查集森林中每个节点保存的都是其父节点的引用。</p>
+<p><strong>下面从基础版本分析，再到两种优化来讲解这个算法。</strong></p>
+<ul>
+<li>基础版本的联合-查找算法：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">def find(node):</div><div class="line">	if parent[node] == node:</div><div class="line">		return node</div><div class="line">	else:</div><div class="line">		return find(parent[node])</div><div class="line">		</div><div class="line">def union(node_a, node_b):</div><div class="line">	root_a = find(node_a)</div><div class="line">	root_b = find(nond_b)</div><div class="line">	parent[root_a] = roo_b</div></pre></td></tr></table></figure>
+<p>这是并查集森林的最基础的表示方法，这个方法不会比链表法好，这是因为创建的树可能会严重不平衡；然而，可以用两种办法优化。</p>
+<ul>
+<li>按秩合并</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">def union(node_a, node_b):</div><div class="line">    root_a = get_parent(node_a)</div><div class="line">    root_b = get_parent(node_b)</div><div class="line"></div><div class="line">    if rank[root_a] &gt; rank[root_b]:</div><div class="line">        parent[root_b] = root_a</div><div class="line">    elif rank[root_a] &lt; rank[root_b]:</div><div class="line">        parent[root_a] = root_b</div><div class="line">    else:</div><div class="line">    	  parent[root_a] = root_b</div><div class="line">        rank[root_b] += 1</div></pre></td></tr></table></figure>
+<p>这里的秩也可以理解树的深度，对于单元素的树，秩设为0。用变量rank去保存每个节点的深度，在合并的时候将更小深度树合并到较大深度的树上，且rank只有当两个树的深度相同时才会加一。因为影响时间效率的是树的深度，所以采用这种方法在最坏的情况，时间复杂度为O(logn).</p>
+<ul>
+<li>路径压缩</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">def get_parent(node):</div><div class="line">    if parent[node] == node:</div><div class="line">        return node</div><div class="line">    parent[node] = get_parent(parent[node])</div><div class="line">    return parent[node]</div></pre></td></tr></table></figure>
+<p>在执行查找函数的同时，扁平化当前树。关键在于路径上的每个节点可以直接连接到根节点上，为后续的引用节点操作加速。</p>
+<h3 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h3><p><strong>我们用一道题目来梳理一下这个算法。</strong></p>
+<p>Leet Code Weekly Contest 57 里有一道题目：</p>
+<p>Given a list accounts, each element accounts[i] is a list of strings, where the first element accounts[i][0] is a name, and the rest of the elements are emails representing emails of the account, in sorted order.</p>
+<p>Now, we would like to merge these accounts. Two accounts definitely belong to the same person if there is some email that is common to both accounts. Note that even if two accounts have the same name, they may belong to different people as people could have the same name. A person can have any number of accounts initially, but all of their accounts definitely have the same name.</p>
+<p>After merging the accounts, return the accounts in the format they were given: the first element of each account is the name, and the rest of the elements are emails in sorted order. The accounts themselves can be returned in any order.</p>
+<p>题目的<strong>大意</strong>是： 给定一组账号，每个账号里包含用户姓名和一组邮箱，根据邮箱来对账号进行合并。（名字重复也可能表示两个不同的用户，但是邮箱是唯一确定的）。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line">class Solution(object):</div><div class="line">    def accountsMerge(self, accounts):</div><div class="line">        &quot;&quot;&quot;</div><div class="line">        :type accounts: List[List[str]]</div><div class="line">        :rtype: List[List[str]]</div><div class="line">        &quot;&quot;&quot;</div><div class="line"></div><div class="line">        def get_parent(node):</div><div class="line">            if parent[node] == node:</div><div class="line">                return node</div><div class="line">            parent[node] = get_parent(parent[node])</div><div class="line">            return parent[node]</div><div class="line"></div><div class="line">        def union(node_a, node_b):</div><div class="line">            root_a = get_parent(node_a)</div><div class="line">            root_b = get_parent(node_b)</div><div class="line"></div><div class="line">            if rank[root_a] &lt; rank[root_b]:</div><div class="line">                parent[root_a] = root_b</div><div class="line">            else:</div><div class="line">                parent[root_b] = root_a</div><div class="line">                rank[root_a] += 1</div><div class="line"></div><div class="line">        rank = collections.defaultdict(int)</div><div class="line">        parent = &#123;&#125;</div><div class="line">        owner = &#123;&#125;</div><div class="line">        result = collections.defaultdict(list)</div><div class="line">        emails_set = set()</div><div class="line"></div><div class="line">        for i, account in enumerate(accounts):</div><div class="line">            name, emails = account[0], account[1:]</div><div class="line">            for email in emails:</div><div class="line">                emails_set.add(email)</div><div class="line">                owner[email] = name</div><div class="line">                if email not in parent:  # 生成并查集森林</div><div class="line">                    parent[email] = email</div><div class="line"></div><div class="line">            for email in emails[1:]:  </div><div class="line">                union(emails[0], email)</div><div class="line"></div><div class="line">        for email in emails_set:</div><div class="line">            result[get_parent(email)].append(email)</div><div class="line">        return [[owner[email]] + sorted(result[email]) for email in result]</div></pre></td></tr></table></figure>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/11/06/联合-查找算法/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-检查清单" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -417,7 +709,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">daily report</a>
+                <a href="javascript:void(0)" class="js-tag color3">Python,计算机网络</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -425,19 +717,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">函数式</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">实习面试</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">清单</a>
+                <a href="javascript:void(0)" class="js-tag color3">daily report</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">算法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">清单</a>
               </li>
              
               <li class="article-tag-list-item">
