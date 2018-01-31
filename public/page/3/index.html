@@ -141,6 +141,107 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-联合-查找算法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/11/06/联合-查找算法/">联合-查找算法</a>
+    </h1>
+  
+
+        
+        <a href="/2017/11/06/联合-查找算法/" class="archive-article-date">
+  	<time datetime="2017-11-06T05:26:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-06</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>介绍这个算法前，先梳理一些相关词组的概念：</p>
+<p><strong>并查集</strong>： 并查集是一种树型的数据结构，用于处理一些不想交集合的合并以及查询问题.</p>
+<p><strong>Find(node)函数</strong>： 确定元素属于哪一个子集.它可以用来确定两个元素是否属于同一个子集.</p>
+<p><strong>Union(node_a, node_b)函数</strong>： 将两个子集合并成同一个集合.</p>
+<p><strong>并查集森林</strong>： 并查集森林中每个节点保存的都是其父节点的引用。</p>
+<p><strong>下面从基础版本分析，再到两种优化来讲解这个算法。</strong></p>
+<ul>
+<li>基础版本的联合-查找算法：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">def find(node):</div><div class="line">	if parent[node] == node:</div><div class="line">		return node</div><div class="line">	else:</div><div class="line">		return find(parent[node])</div><div class="line">		</div><div class="line">def union(node_a, node_b):</div><div class="line">	root_a = find(node_a)</div><div class="line">	root_b = find(nond_b)</div><div class="line">	parent[root_a] = roo_b</div></pre></td></tr></table></figure>
+<p>这是并查集森林的最基础的表示方法，这个方法不会比链表法好，这是因为创建的树可能会严重不平衡；然而，可以用两种办法优化。</p>
+<ul>
+<li>按秩合并</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">def union(node_a, node_b):</div><div class="line">    root_a = get_parent(node_a)</div><div class="line">    root_b = get_parent(node_b)</div><div class="line"></div><div class="line">    if rank[root_a] &gt; rank[root_b]:</div><div class="line">        parent[root_b] = root_a</div><div class="line">    elif rank[root_a] &lt; rank[root_b]:</div><div class="line">        parent[root_a] = root_b</div><div class="line">    else:</div><div class="line">    	  parent[root_a] = root_b</div><div class="line">        rank[root_b] += 1</div></pre></td></tr></table></figure>
+<p>这里的秩也可以理解树的深度，对于单元素的树，秩设为0。用变量rank去保存每个节点的深度，在合并的时候将更小深度树合并到较大深度的树上，且rank只有当两个树的深度相同时才会加一。因为影响时间效率的是树的深度，所以采用这种方法在最坏的情况，时间复杂度为O(logn).</p>
+<ul>
+<li>路径压缩</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">def get_parent(node):</div><div class="line">    if parent[node] == node:</div><div class="line">        return node</div><div class="line">    parent[node] = get_parent(parent[node])</div><div class="line">    return parent[node]</div></pre></td></tr></table></figure>
+<p>在执行查找函数的同时，扁平化当前树。关键在于路径上的每个节点可以直接连接到根节点上，为后续的引用节点操作加速。</p>
+<h3 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h3><p><strong>我们用一道题目来梳理一下这个算法。</strong></p>
+<p>Leet Code Weekly Contest 57 里有一道题目：</p>
+<p>Given a list accounts, each element accounts[i] is a list of strings, where the first element accounts[i][0] is a name, and the rest of the elements are emails representing emails of the account, in sorted order.</p>
+<p>Now, we would like to merge these accounts. Two accounts definitely belong to the same person if there is some email that is common to both accounts. Note that even if two accounts have the same name, they may belong to different people as people could have the same name. A person can have any number of accounts initially, but all of their accounts definitely have the same name.</p>
+<p>After merging the accounts, return the accounts in the format they were given: the first element of each account is the name, and the rest of the elements are emails in sorted order. The accounts themselves can be returned in any order.</p>
+<p>题目的<strong>大意</strong>是： 给定一组账号，每个账号里包含用户姓名和一组邮箱，根据邮箱来对账号进行合并。（名字重复也可能表示两个不同的用户，但是邮箱是唯一确定的）。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line">class Solution(object):</div><div class="line">    def accountsMerge(self, accounts):</div><div class="line">        &quot;&quot;&quot;</div><div class="line">        :type accounts: List[List[str]]</div><div class="line">        :rtype: List[List[str]]</div><div class="line">        &quot;&quot;&quot;</div><div class="line"></div><div class="line">        def get_parent(node):</div><div class="line">            if parent[node] == node:</div><div class="line">                return node</div><div class="line">            parent[node] = get_parent(parent[node])</div><div class="line">            return parent[node]</div><div class="line"></div><div class="line">        def union(node_a, node_b):</div><div class="line">            root_a = get_parent(node_a)</div><div class="line">            root_b = get_parent(node_b)</div><div class="line"></div><div class="line">            if rank[root_a] &lt; rank[root_b]:</div><div class="line">                parent[root_a] = root_b</div><div class="line">            else:</div><div class="line">                parent[root_b] = root_a</div><div class="line">                rank[root_a] += 1</div><div class="line"></div><div class="line">        rank = collections.defaultdict(int)</div><div class="line">        parent = &#123;&#125;</div><div class="line">        owner = &#123;&#125;</div><div class="line">        result = collections.defaultdict(list)</div><div class="line">        emails_set = set()</div><div class="line"></div><div class="line">        for i, account in enumerate(accounts):</div><div class="line">            name, emails = account[0], account[1:]</div><div class="line">            for email in emails:</div><div class="line">                emails_set.add(email)</div><div class="line">                owner[email] = name</div><div class="line">                if email not in parent:  # 生成并查集森林</div><div class="line">                    parent[email] = email</div><div class="line"></div><div class="line">            for email in emails[1:]:  </div><div class="line">                union(emails[0], email)</div><div class="line"></div><div class="line">        for email in emails_set:</div><div class="line">            result[get_parent(email)].append(email)</div><div class="line">        return [[owner[email]] + sorted(result[email]) for email in result]</div></pre></td></tr></table></figure>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/11/06/联合-查找算法/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-检查清单" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -417,7 +518,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">daily report</a>
+                <a href="javascript:void(0)" class="js-tag color3">Python,计算机网络</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -425,19 +526,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">函数式</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">实习面试</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">清单</a>
+                <a href="javascript:void(0)" class="js-tag color3">daily report</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">算法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">清单</a>
               </li>
              
               <li class="article-tag-list-item">
